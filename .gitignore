@@ -256,8 +256,8 @@ paket-files/
 .cr/
 
 # PrimarySchool project
-src/ITI.PrimarySchool.WebApp/wwwroot/assets/
-src/ITI.PrimarySchool.WebApp/wwwroot/dist/
-src/ITI.PrimarySchool.DAL.Tests/appsettings.json
-src/ITI.PrimarySchool.WebApp/appsettings.json
-src/ITI.PrimarySchool.DB/appsettings.json
+src/AlarmClock.WebApp/wwwroot/assets/
+src/AlarmClock.WebApp/wwwroot/dist/
+src/AlarmClock.DAL.Tests/appsettings.json
+src/AlarmClock.WebApp/appsettings.json
+src/AlarmClock.DB/appsettings.json
