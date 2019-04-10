@@ -10,7 +10,7 @@ CREATE TABLE spi.tPresetDays
 
     CONSTRAINT FK_tPresetDays_tAlarmPreset
         FOREIGN KEY (PresetId)
-        REFERENCES spi.tAlarmPreset(AlarmPresetId),
+        REFERENCES spi.tAlarmPresets(AlarmPresetId),
     CONSTRAINT FK_tPresetDays_tDays
         FOREIGN KEY(DayId)
         REFERENCES spi.tDays(DayId)
