@@ -28,7 +28,7 @@ namespace AlarmClock.DB
 
         public static int Main( string[] args )
         {
-            string connectionString = Configuration["ConnectionStrings:PrimarySchoolDB"];
+            string connectionString = Configuration["ConnectionStrings:AlarmClock"];
 
             EnsureDatabase.For.SqlDatabase( connectionString );
 

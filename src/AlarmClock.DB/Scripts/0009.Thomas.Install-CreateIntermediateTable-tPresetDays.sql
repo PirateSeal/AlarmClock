@@ -1,7 +1,7 @@
 -- Create a new table called 'tPresetDays' in schema 'spi'
 CREATE TABLE spi.tPresetDays
 (
-    PresetDayId INT NOT NULL,
+    PresetDayId INT IDENTITY(0,1) NOT NULL,
     -- primary key column
     PresetId    INT NOT NULL,
     DayId       INT NOT NULL,

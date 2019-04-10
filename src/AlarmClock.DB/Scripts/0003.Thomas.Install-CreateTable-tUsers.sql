@@ -1,7 +1,7 @@
 -- Create a new table called 'tUsers' in schema 'spi'
 CREATE TABLE spi.tUsers
 (
-    UserId         INT           IDENTITY(0,1),
+    UserId         INT           IDENTITY(0,1) NOT NULL,
     -- primary key column
     Pseudo         NVARCHAR(255) COLLATE Latin1_General_CI_AI NOT NULL,
     Email          NVARCHAR(35)  NOT NULL,

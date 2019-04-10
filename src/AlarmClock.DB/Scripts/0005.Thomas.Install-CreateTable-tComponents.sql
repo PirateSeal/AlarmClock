@@ -1,7 +1,7 @@
 -- Create a new table called 'tComponents' in schema 'spi'
 CREATE TABLE spi.tComponents
 (
-    ComponentId INT           NOT NULL ,
+    ComponentId INT           IDENTITY(0,1) NOT NULL ,
     -- primary key column
     [Name]      NVARCHAR(255) NOT NULL,
 

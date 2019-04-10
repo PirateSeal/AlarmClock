@@ -1,7 +1,7 @@
 -- Create a new table called 'tDays' in schema 'spi'
 CREATE TABLE spi.tDays
 (
-    DayId  INT           NOT NULL,
+    DayId  INT           IDENTITY(0,1) NOT NULL,
     -- primary key column
     [Name] NVARCHAR(255) NOT NULL,
 
