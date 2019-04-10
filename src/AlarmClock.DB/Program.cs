@@ -11,20 +11,12 @@ namespace AlarmClock.DB
     {
         private static IConfiguration _configuration;
 
-        private static IConfiguration Configuration
-        {
-            get
-            {
-                if( _configuration == null )
-                    _configuration = new ConfigurationBuilder()
-                        .SetBasePath( Directory.GetCurrentDirectory() )
-                        .AddJsonFile( "appsettings.json", false )
-                        .AddEnvironmentVariables()
-                        .Build();
-
-                return _configuration;
-            }
-        }
+        private static IConfiguration Configuration =>
+            _configuration ?? (_configuration = new ConfigurationBuilder()
+                .SetBasePath( Directory.GetCurrentDirectory() )
+                .AddJsonFile( "appsettings.json", false )
+                .AddEnvironmentVariables()
+                .Build());
 
         public static int Main( string[] args )
         {
@@ -43,14 +35,16 @@ namespace AlarmClock.DB
 
             if( !result.Successful )
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine( result.Error );
                 Console.ResetColor();
 
                 return -1;
             }
 
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine( "Success!" );
             Console.ResetColor();
             return 0;
