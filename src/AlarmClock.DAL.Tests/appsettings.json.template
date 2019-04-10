@@ -1,5 +1,6 @@
-﻿{
-  "ConnectionStrings": {
-    "PrimarySchoolDB": "<connection string>"
-  }
+{
+    "ConnectionStrings": {
+        "AlarmClockDB": "Server=.;Database=;Trusted_Connection=True;"
+
+    }
 }
