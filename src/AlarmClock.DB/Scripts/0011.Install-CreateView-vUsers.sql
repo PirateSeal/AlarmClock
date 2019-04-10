@@ -10,5 +10,5 @@ AS
         [BirthDate] = u.BirthDate,
         [UserType] = u.UserType
     FROM spi.tUsers u
-    WHERE [ID] <> 0
+    WHERE u.UserId <> 0
 GO

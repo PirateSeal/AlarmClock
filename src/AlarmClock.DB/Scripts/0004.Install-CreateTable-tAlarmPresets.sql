@@ -7,19 +7,23 @@ CREATE TABLE spi.tAlarmPresets
     Song          NVARCHAR(255) NOT NULL,
     [Repeat]      BIT           NOT NULL,
     Challenge     INT           NOT NULL,
+    UserId        INT           NOT NULL,
 
     CONSTRAINT PK_AlarmPresetId PRIMARY KEY (AlarmPresetId),
 
+    CONSTRAINT FK_tAlarmPresets_tUsers
+        FOREIGN KEY (UserId)
+        REFERENCES spi.tUsers(UserId)
 );
 GO
 
 -- Insert rows into table 'spi.tAlarmPresets'
 INSERT INTO spi.tAlarmPresets
     ( -- columns to insert data into
-    WakingTime, Song, [Repeat],Challenge
+    WakingTime, Song, [Repeat],Challenge, UserId
     )
 VALUES
     (
-        '00010101', 'randomString', 1, 0
+        '00010101', 'randomString', 1, 0, 0
     )
 GO
