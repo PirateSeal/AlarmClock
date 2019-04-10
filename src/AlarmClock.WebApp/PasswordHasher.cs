@@ -183,7 +183,7 @@ namespace Alarmclock.WebApp
 
         private static bool VerifyHashedPasswordV3( byte[] hashedPassword, string password, out int iterCount )
         {
-            iterCount = default;
+            iterCount = default(int);
 
             try
             {

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ITI.PrimarySchool.DAL\AlarmClock.DAL.csproj" />
+    <ProjectReference Include="..\AlarmClock.DAL\AlarmClock.DAL.csproj" />
   </ItemGroup>
 
 </Project>

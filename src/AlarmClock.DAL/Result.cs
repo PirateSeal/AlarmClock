@@ -48,7 +48,7 @@ namespace AlarmClock.DAL
             if( string.IsNullOrEmpty( errorMessage ) )
                 throw new ArgumentException( "The error message must be not null nor whitespace.",
                     nameof(errorMessage) );
-            return new Result<T>( status, default, errorMessage );
+            return new Result<T>( status, default(T), errorMessage );
         }
 
         public static Result Success()

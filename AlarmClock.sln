@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DB", "src\ITI.PrimarySchool.DB\AlarmClock.DB.csproj", "{37C71081-0979-46D3-ABE8-CA8D33136B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DB", "src\AlarmClock.DB\AlarmClock.DB.csproj", "{37C71081-0979-46D3-ABE8-CA8D33136B51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A19BEF5-5AF4-4135-806A-DD7E8ACAE10D}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DAL", "src\ITI.PrimarySchool.DAL\AlarmClock.DAL.csproj", "{D4885BF2-54A1-473A-AAE1-22305FA50D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DAL", "src\AlarmClock.DAL\AlarmClock.DAL.csproj", "{D4885BF2-54A1-473A-AAE1-22305FA50D5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DAL.Tests", "src\ITI.PrimarySchool.DAL.Tests\AlarmClock.DAL.Tests.csproj", "{5B44E480-CB21-4DB7-9FE1-3C1455E4929E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlarmClock.DAL.Tests", "src\AlarmClock.DAL.Tests\AlarmClock.DAL.Tests.csproj", "{5B44E480-CB21-4DB7-9FE1-3C1455E4929E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alarmclock.WebApp", "src\ITI.PrimarySchool.WebApp\Alarmclock.WebApp.csproj", "{E3D525F3-EBC0-4E34-8E94-2E85893933A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alarmclock.WebApp", "src\AlarmClock.WebApp\Alarmclock.WebApp.csproj", "{E3D525F3-EBC0-4E34-8E94-2E85893933A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
