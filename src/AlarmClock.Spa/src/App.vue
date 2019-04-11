@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Nav />
+    <Nav/>
     <div class="content">
       <router-view class="child"></router-view>
     </div>
@@ -15,7 +15,7 @@ import { state } from "./state";
 import NavBar from "./components/NavBar";
 
 export default {
-  name: 'NavBar',
+  name: "NavBar",
   components: {
     Nav: NavBar
   },

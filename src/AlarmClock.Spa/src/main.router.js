@@ -9,11 +9,13 @@ import requireAuth from "./helpers/requireAuth";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
+import Profile from "./views/Profile.vue";
 
 const routes = [
     { path: "", component: Home },
     { path: "/login", component: Login },
     { path: "/logout", component: Logout, beforeEnter: requireAuth },
+    { path: "/Profile", component: Profile, beforeEnter: requireAuth }
 ];
 
 export default new VueRouter({
