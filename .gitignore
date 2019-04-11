@@ -267,3 +267,5 @@ src/AlarmClock\.DAL\.Tests/appsettings\.json
 src/AlarmClock\.DB/appsettings\.json
 
 src/AlarmClock\.WebApp/appsettings\.json
+
+src/AlarmClock\.Spa/eslint\.rc
