@@ -18,7 +18,7 @@ namespace Alarmclock.WebApp.Authentication
 
         protected abstract Task<TUserInfo> GetUserInfoFromContext( OAuthCreatingTicketContext ctx );
 
-        protected abstract Task CreateOrUpdateUser( TUserInfo userInfo );
+        protected abstract Task CreateOrUpdateUser( TUserInfo userInfo ) ;
 
         protected abstract Task<UserData> FindUser( TUserInfo userInfo );
 

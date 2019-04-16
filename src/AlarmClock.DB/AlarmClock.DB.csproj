@@ -22,4 +22,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json_1template__JSONSchema="http://json.schemastore.org/azure-iot-edge-deployment-1.0" /></VisualStudio></ProjectExtensions>
+
 </Project>
