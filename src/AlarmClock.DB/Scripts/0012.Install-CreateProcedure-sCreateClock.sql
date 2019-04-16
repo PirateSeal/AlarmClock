@@ -13,9 +13,9 @@ BEGIN
     BEGIN TRAN
 
     IF EXISTS (
-        -- Select rows from a Table or View 'tRegisteredClocks' in schema 'spi'
+        -- Select rows from a Table or View 'tClocks' in schema 'spi'
         SELECT *
-    FROM spi.tRegisteredClocks r
+    FROM spi.tClocks r
     WHERE r.GUID = @GUID	
     )
 
@@ -24,8 +24,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Insert rows into table 'spi.tRegisteredClocks'
-    INSERT INTO spi.tRegisteredClocks
+    -- Insert rows into table 'spi.tClocks'
+    INSERT INTO spi.tClocks
         ( [Name],[GUID],[UserId] )
     VALUES
         ( @Name, @GUID, @UserId )

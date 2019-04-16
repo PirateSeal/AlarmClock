@@ -9,13 +9,9 @@ CREATE TABLE spi.tUsers
     FirstName      NVARCHAR(255) COLLATE Latin1_General_CI_AI NOT NULL,
     LastName       NVARCHAR(255) COLLATE Latin1_General_CI_AI NOT NULL,
     BirthDate      DATETIME2     NOT NULL,
-    UserType       INT,
+    UserType       CHAR          NOT NULL DEFAULT 'U',
 
     CONSTRAINT PK_UserId PRIMARY KEY(UserId),
-
-    CONSTRAINT FK_tUsers_tUserTypes 
-        FOREIGN KEY(UserType) 
-        REFERENCES spi.tUserTypes(UserTypeId),
 
     CONSTRAINT UK_tUsers_Pseudo UNIQUE(Pseudo),
     CONSTRAINT UK_tUsers_Email UNIQUE(Email),
@@ -41,6 +37,6 @@ VALUES
         LEFT(CONVERT(NVARCHAR(36), newid()), 32),
         LEFT(CONVERT(NVARCHAR(36), newid()), 32),
         '00010101',
-        0
+        'U'
     );
 GO

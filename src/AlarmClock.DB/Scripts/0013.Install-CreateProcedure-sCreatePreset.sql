@@ -2,9 +2,9 @@
 CREATE PROCEDURE spi.sCreatePreset
     @WakingTime TIME,
     @Song NVARCHAR(255),
-    @Repeat BIT,
+    @ActivationFlag TINYINT,
     @Challenge INT,
-    @UserId INT
+    @ClockId INT
 AS
 BEGIN
     -- body of the stored procedure
@@ -16,7 +16,7 @@ BEGIN
         -- Select rows from a Table or View 'tAlarmPresets' in schema 'spi'
         SELECT *
     FROM spi.tAlarmPresets
-    WHERE WakingTime = @WakingTime AND UserId = @UserId
+    WHERE WakingTime = @WakingTime AND ClockId = @ClockId
     )
     
     BEGIN
@@ -26,9 +26,9 @@ BEGIN
 
     -- Insert rows into table 'spi.tAlarmPresets'
     INSERT INTO spi.tAlarmPresets
-        ( [WakingTime],[Song],[Repeat],[Challenge],[UserId] )
+        ( [WakingTime],[Song],[ActivationFlag],[Challenge],[ClockId] )
     VALUES
-        ( @WakingTime, @Song, @Repeat, @Challenge, @UserId )
+        ( @WakingTime, @Song, @ActivationFlag, @Challenge, @ClockId )
     COMMIT
     RETURN 0
 END
