@@ -263,3 +263,11 @@ src/ITI.PrimarySchool.WebApp/wwwroot/dist/
 src/ITI.PrimarySchool.DAL.Tests/appsettings.json
 src/ITI.PrimarySchool.WebApp/appsettings.json
 src/ITI.PrimarySchool.DB/appsettings.json
+
+src/AlarmClock\.DAL\.Tests/appsettings\.json
+
+src/AlarmClock\.DB/appsettings\.json
+
+src/AlarmClock\.WebApp/appsettings\.json
+
+src/AlarmClock\.Spa/eslint\.rc
