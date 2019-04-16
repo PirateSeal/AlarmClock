@@ -7,7 +7,7 @@ CREATE PROCEDURE spi.CreateUser
     @FirstName NVARCHAR(255),
     @LastName NVARCHAR(255),
     @BirthDate DATETIME2,
-    @UserType INT
+    @UserType CHAR = 'U'
 
 AS
 BEGIN
