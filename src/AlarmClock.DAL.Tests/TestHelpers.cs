@@ -9,7 +9,7 @@ namespace AlarmClock.DAL.Tests
         private static readonly Random Random = new Random();
         private static IConfiguration _configuration;
 
-        public static string ConnectionString => Configuration["ConnectionStrings:PrimarySchoolDB"];
+        public static string ConnectionString => Configuration["ConnectionStrings:AlarmClockDB"];
 
         private static IConfiguration Configuration
         {

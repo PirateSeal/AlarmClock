@@ -22,7 +22,7 @@ namespace AlarmClock.DAL
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 return await con.QueryAsync<string>(
-                    "select p.ProviderName from iti.vAuthenticationProvider p where p.UserId = @UserId",
+                    "select p.ProviderName from spi.vAuthenticationProvider p where p.UserId = @UserId",
                     new { UserId = userId } );
             }
         }
@@ -45,8 +45,6 @@ namespace AlarmClock.DAL
                 p.Add( "@LastName", LastName );
                 p.Add( "@BirthDate", BirthDate );
 
-
-
                p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
                 p.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
                 await con.ExecuteAsync( "spi.sCreateUser", p, commandType: CommandType.StoredProcedure );
@@ -65,7 +63,7 @@ namespace AlarmClock.DAL
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 return await con.QueryFirstOrDefaultAsync<UserData>(
-                    "select u.UserId, u.Email, u.[Password], u.GithubAccessToken, u.GoogleRefreshToken, u.GoogleId, u.GithubId from iti.vUser u where u.Email = @Email",
+                    "select u.[ID], u.Email, u.Pseudo, u.[HashedPassword], u.FirstName, u.LastName, u.BirthDate, u.UserType from spi.vUsers u where u.Email = @Email",
                     new { Email = email } );
             }
         }

@@ -22,7 +22,7 @@ namespace Alarmclock.WebApp.Services
         public async Task<UserData> FindUser( string email, string password )
         {
             UserData user = await _userGateway.FindByEmail( email );
-            if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) ==
+            if( user != null && _passwordHasher.VerifyHashedPassword( user.HashedPassword, password ) ==
                 PasswordVerificationResult.Success ) return user;
 
             return null;
