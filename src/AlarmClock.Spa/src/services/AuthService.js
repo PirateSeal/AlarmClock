@@ -55,7 +55,6 @@ class AuthService {
 
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
-
         var popup = window.open(provider.endpoint, "Connexion à AlarmClock", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
     }
 
