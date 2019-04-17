@@ -2,13 +2,13 @@
 CREATE PROCEDURE spi.sCreateUser
 
     @Pseudo NVARCHAR(255),
-    @HashedPassword NVARCHAR(255),
+    @HashedPassword VARBINARY(128) ,
     @Email NVARCHAR(255),
     @FirstName NVARCHAR = "tutu",
     @LastName NVARCHAR = "toto",
     @BirthDate DATETIME2,
-    @UserType CHAR = "U",
-    @UserId int OUT
+    @UserType CHAR = 'U',
+    @UserId INT OUT
 
 AS
 BEGIN
@@ -34,7 +34,7 @@ BEGIN
         (
             @Pseudo, @HashedPassword, @Email, @FirstName, @LastName, @BirthDate, @UserType
     )
-    set @UserId = SCOPE_IDENTITY();
+    SET @UserId = SCOPE_IDENTITY()
     COMMIT
     RETURN 0;
 END

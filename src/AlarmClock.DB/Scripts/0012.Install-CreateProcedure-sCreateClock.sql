@@ -3,7 +3,8 @@ CREATE PROCEDURE spi.sCreateClock
 
     @Name NVARCHAR(255),
     @GUID NVARCHAR(255),
-    @UserId INT
+    @UserId INT,
+    @ClockId INT out
 
 AS
 BEGIN
@@ -29,6 +30,7 @@ BEGIN
         ( [Name],[GUID],[UserId] )
     VALUES
         ( @Name, @GUID, @UserId )
+    SET @ClockId = SCOPE_IDENTITY();
     COMMIT
     RETURN 0
 END
