@@ -4,7 +4,9 @@ CREATE PROCEDURE spi.sCreatePreset
     @Song NVARCHAR(255),
     @ActivationFlag TINYINT,
     @Challenge INT,
-    @ClockId INT
+    @ClockId INT,
+    @AlarmPresetId INT OUT
+
 AS
 BEGIN
     -- body of the stored procedure
@@ -29,6 +31,7 @@ BEGIN
         ( [WakingTime],[Song],[ActivationFlag],[Challenge],[ClockId] )
     VALUES
         ( @WakingTime, @Song, @ActivationFlag, @Challenge, @ClockId )
+    SET @AlarmPresetId = SCOPE_IDENTITY();
     COMMIT
     RETURN 0
 END

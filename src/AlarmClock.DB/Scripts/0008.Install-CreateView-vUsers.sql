@@ -5,7 +5,7 @@ AS
         [ID] = u.UserId,
         [Email] = u.Email,
         [Pseudo] = u.Pseudo,
-        [HashedPassWord] = u.HashedPassword,
+        [HashedPassword] = u.HashedPassword,
         [FirstName] = u.FirstName,
         [LastName] = u.LastName,
         [BirthDate] = u.BirthDate,

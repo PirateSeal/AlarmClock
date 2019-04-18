@@ -37,7 +37,7 @@ namespace Alarmclock.WebApp.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            return View();       
         }
 
         [HttpPost]
@@ -75,13 +75,13 @@ namespace Alarmclock.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                var result = await _userService.CreatePasswordUser( model.Email, model.Password );
+                var result = await _userService.CreatePasswordUser( model.Pseudo ,model.Email, model.Password );
                 if( result.HasError )
                 {
                     ModelState.AddModelError( string.Empty, result.ErrorMessage );
                     return View( model );
                 }
-
+                 
                 await SignIn( model.Email, result.Content.ToString() );
                 return RedirectToAction( nameof(Authenticated) );
             }

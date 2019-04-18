@@ -9,6 +9,7 @@
             </p>
         </div>
     </section>
+    <!-- if composant A ? composant A : composant B car c'est une view !!! -->
 </template>
 
 <script>

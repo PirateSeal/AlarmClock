@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,7 +10,7 @@ namespace AlarmClock.DAL
 {
     public class UserGateway
     {
-        private string ConnectionString { get; }
+        private string ConnectionString { get; set; }
 
         public UserGateway( string connectionString )
         {
@@ -21,21 +22,32 @@ namespace AlarmClock.DAL
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 return await con.QueryAsync<string>(
-                    "select p.ProviderName from iti.vAuthenticationProvider p where p.UserId = @UserId",
+                    "select p.ProviderName from spi.vAuthenticationProvider p where p.UserId = @UserId",
                     new { UserId = userId } );
             }
         }
 
-        public async Task<Result<int>> CreatePasswordUser( string email, byte[] password )
+        public async Task<Result<int>> CreatePasswordUser( string pseudo, string email, byte[] password )
         {
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters p = new DynamicParameters();
+
+                string FirstName = "titi ";
+                string LastName = "tutu ";
+                DateTime BirthDate = new DateTime(2018,11,10);
+
+
                 p.Add( "@Email", email );
-                p.Add( "@Password", password );
-                p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
+                p.Add( "@Pseudo", pseudo );
+                p.Add( "@HashedPassword", password );
+                p.Add( "@FirstName", FirstName );
+                p.Add( "@LastName", LastName );
+                p.Add( "@BirthDate", BirthDate );
+
+               p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
                 p.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
-                await con.ExecuteAsync( "iti.sPasswordUserCreate", p, commandType: CommandType.StoredProcedure );
+                await con.ExecuteAsync( "spi.sCreateUser", p, commandType: CommandType.StoredProcedure );
 
                 int status = p.Get<int>( "@Status" );
                 if( status == 1 )
@@ -51,7 +63,7 @@ namespace AlarmClock.DAL
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 return await con.QueryFirstOrDefaultAsync<UserData>(
-                    "select u.UserId, u.Email, u.[Password], u.GithubAccessToken, u.GoogleRefreshToken, u.GoogleId, u.GithubId from iti.vUser u where u.Email = @Email",
+                    "select u.[ID], u.Email, u.Pseudo, u.[HashedPassword], u.FirstName, u.LastName, u.BirthDate, u.UserType from spi.vUsers u where u.Email = @Email",
                     new { Email = email } );
             }
         }

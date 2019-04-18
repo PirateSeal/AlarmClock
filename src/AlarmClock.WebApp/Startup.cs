@@ -29,7 +29,7 @@ namespace Alarmclock.WebApp
             services.AddOptions();
 
             services.AddMvc();
-            services.AddSingleton( _ => new UserGateway( Configuration["ConnectionStrings:PrimarySchoolDB"] ) );
+            services.AddSingleton( _ => new UserGateway( Configuration["ConnectionStrings:AlarmClock"] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();

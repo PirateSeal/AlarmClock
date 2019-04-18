@@ -44,6 +44,7 @@ dlldata.c
 project.lock.json
 project.fragment.lock.json
 artifacts/
+appsettings.json
 
 *_i.c
 *_p.c
@@ -69,6 +70,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+
 
 # Chutzpah Test files
 _Chutzpah*
@@ -255,9 +257,10 @@ paket-files/
 # CodeRush
 .cr/
 
-# PrimarySchool project
-src/AlarmClock.WebApp/wwwroot/assets/
-src/AlarmClock.WebApp/wwwroot/dist/
-src/AlarmClock.DAL.Tests/appsettings.json
-src/AlarmClock.WebApp/appsettings.json
-src/AlarmClock.DB/appsettings.json
+src/AlarmClock\.DAL\.Tests/appsettings\.json
+
+src/AlarmClock\.DB/appsettings\.json
+
+src/AlarmClock\.WebApp/appsettings\.json
+
+src/AlarmClock\.Spa/eslint\.rc
