@@ -5,16 +5,17 @@
     </div>
     <div class="right">
       <div
-        class="link"
-        :class="{active: currentRoute === 'Account/login'}"
-        @click="login('Base')"
-      >Login</div>
-      <div
         v-if="auth"
         :class="{active: currentRoute === '/logout'}"
         class="link"
         @click="$router.push('/logout')"
       >Logout</div>
+      <div 
+        v-if="auth=false"
+        class="link"
+        :class="{active: currentRoute === 'Account/login'}"
+        @click="login('Base')"
+      >Login</div>
     </div>
   </div>
 </template>

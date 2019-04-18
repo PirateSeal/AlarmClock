@@ -6,15 +6,13 @@ Vue.use(VueRouter);
 import requireAuth from "./helpers/requireAuth";
 
 // Components
-import Home from "./components/Home/Home.vue";
-import HomeLoged from "./components/Home/HomeLoged.vue";
+import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Profile from "./views/Profile.vue";
 
 const routes = [
     { path: "", component: Home },
-    { path: "/loged", component: HomeLoged },
     { path: "/login", component: Login },
     { path: "/logout", component: Logout, beforeEnter: requireAuth },
     { path: "/Profile", component: Profile, beforeEnter: requireAuth }
