@@ -75,7 +75,7 @@ namespace Alarmclock.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                var result = await _userService.CreatePasswordUser( model.Pseudo ,model.Email, model.Password );
+                var result = await _userService.CreateUser( model.Pseudo ,model.Email, model.Password );
                 if( result.HasError )
                 {
                     ModelState.AddModelError( string.Empty, result.ErrorMessage );

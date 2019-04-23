@@ -1,10 +1,10 @@
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace AlarmClock.DAL
 {
@@ -27,7 +27,7 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<int>> CreatePasswordUser( string pseudo, string email, byte[] password )
+        public async Task<Result<int>> CreateUser( string pseudo, string email, byte[] password )
         {
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
@@ -35,7 +35,7 @@ namespace AlarmClock.DAL
 
                 string FirstName = "titi ";
                 string LastName = "tutu ";
-                DateTime BirthDate = new DateTime(2018,11,10);
+                DateTime BirthDate = new DateTime( 2018, 11, 10 );
 
 
                 p.Add( "@Email", email );
@@ -45,7 +45,7 @@ namespace AlarmClock.DAL
                 p.Add( "@LastName", LastName );
                 p.Add( "@BirthDate", BirthDate );
 
-               p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
+                p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
                 p.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
                 await con.ExecuteAsync( "spi.sCreateUser", p, commandType: CommandType.StoredProcedure );
 
@@ -55,6 +55,27 @@ namespace AlarmClock.DAL
 
                 Debug.Assert( status == 0 );
                 return Result.Success( p.Get<int>( "@UserId" ) );
+            }
+        }
+
+        public async Task<Result<UserData>> FindByIdAsync( int userId )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                UserData User = await connection.QueryFirstOrDefaultAsync<UserData>(
+                    @"select u.StudentId,
+                             u.FirstName,
+                             u.LastName,
+                             u.BirthDate,
+                             u.Email,
+                             u.Pseudo,
+                            u.HashedPassword
+                      from spi.vUsers u
+                      where u.UserId = @UserId;",
+                    new { UserId = userId } );
+
+                if( User == null ) return Result.Failure<UserData>( Status.NotFound, "User not found." );
+                return Result.Success( User );
             }
         }
 

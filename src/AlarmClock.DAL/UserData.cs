@@ -10,6 +10,10 @@ namespace AlarmClock.DAL
 
         public string Pseudo { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public byte[] HashedPassword { get; set; }
 
          public DateTime BirthDate { get; set; }
