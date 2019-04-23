@@ -1,0 +1,23 @@
+{
+  "name": "alarm-clock",
+  "description": "Client-side Vue application for AlarmClock.",
+  "author": "Thomas C., Paul S.",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "luxon": "^1.11.4",
+    "popper.js": "^1.14.7",
+    "vue": "^2.6.8",
+    "vue-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.4.1",
+    "@vue/cli-service": "^3.5.3",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.6.8"
+  }
+}
