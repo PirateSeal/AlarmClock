@@ -5,17 +5,17 @@
     </div>
     <div class="right">
       <div
-        v-if="auth.isConnected"
+        v-if="AuthService.isConnected"
         :class="{active: currentRoute === '/logout'}"
         class="link"
         @click="logout"
-      >Logout | {{ auth.isConnected }}</div>
+      >Logout | {{ AuthService.isConnected }}</div>
       <div
         v-else
         class="link"
         :class="{active: currentRoute === 'Account/login'}"
         @click="login('Base')"
-      >Login | {{ auth.isConnected }}</div>
+      >Login | {{ AuthService.isConnected }}</div>
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
   name: "NavBar",
   data() {
     return {
+      AuthService,
       endpoint: null
     };
   },
@@ -40,8 +41,6 @@ export default {
   },
 
   computed: {
-    auth: () => AuthService,
-
     currentRoute() {
       if (!this || !this.$route) return;
       return this.$route.path;
@@ -53,7 +52,7 @@ export default {
       AuthService.login(provider);
     },
     onAuthenticated() {
-      console.log(this.auth.isConnected);
+      console.log(this.AuthService.isConnected);
       this.$router.replace("/home");
     },
     logout() {
@@ -69,14 +68,14 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 6vh;
+  height: 48px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   background: #e7a61a;
   overflow: hidden;
   box-shadow: 0px 0.6px 0px 0.5px rgba(158, 158, 158, 1);
-  z-index: 1;
+  z-index: 995384;
 
   background: rgb(2, 0, 36);
   background: linear-gradient(
