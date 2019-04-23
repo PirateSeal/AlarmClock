@@ -54,7 +54,7 @@ export default {
     },
     onAuthenticated() {
       console.log(this.auth.isConnected);
-      this.$router.replace("/");
+      this.$router.replace("/home");
     },
     logout() {
       this.$router.replace("/logout");
@@ -111,7 +111,7 @@ export default {
           content: "";
           width: 100%;
           height: 100%;
-          border-bottom: 5px solid #00000067;
+          border-bottom: 5px solid #ffffff67;
           left: 0%;
         }
       }

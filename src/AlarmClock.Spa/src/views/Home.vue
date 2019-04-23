@@ -1,23 +1,27 @@
 <template>
   <div class="container">
-    <HomeIn v-if="auth.isConnected"/>
-    <HomeOut v-else/>
+    <homeConnected v-if="AuthService.isConnected"/>
+    <homeDisconnected v-else/>
   </div>
 </template>
 
 <script>
 import AuthService from "../services/AuthService";
-import HomeOut from "../components/Home/HomeOut.vue";
-import HomeIn from "../components/Home/HomeIn.vue";
-import { METHODS } from 'http';
+import home_connected from "@/components/Home/home_connected";
+import home_disconnected from "@/components/Home/home_disconnected";
+
 export default {
   components: {
-    HomeOut: HomeOut,
-    HomeIn: HomeIn
+    homeConnected: home_connected,
+    homeDisconnected:  home_disconnected
 
   },
+  data() {
+    return {
+      AuthService
+    }
+  },
   computed: {
-    auth: () => AuthService 
   }
   
 };

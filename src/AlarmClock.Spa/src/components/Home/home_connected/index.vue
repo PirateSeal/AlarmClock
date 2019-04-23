@@ -5,13 +5,10 @@
 </template>
 
 <script>
-
 export default {
-  name: "HomeOut",
+  name: "home_connected_index",
   data() {
     return {
-    endpoint: null
-
     };
   }
 };

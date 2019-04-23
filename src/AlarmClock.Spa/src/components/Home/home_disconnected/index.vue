@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: "HomeOut",
+  name: "home_disconnected_index",
   data() {
     return {
     endpoint: null
