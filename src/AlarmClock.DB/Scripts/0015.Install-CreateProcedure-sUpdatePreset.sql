@@ -17,7 +17,7 @@ BEGIN
         -- Select rows from a Table or View 'vPresets' in schema 'spi'
         SELECT *
     FROM spi.vPresets
-    WHERE ID = @AlarmPresetId
+    WHERE AlarmPresetId = @AlarmPresetId
     )
     
     BEGIN
@@ -32,7 +32,7 @@ BEGIN
         [Song] = @Song,
         [ActivationFlag] = @ActivationFlag,
         [Challenge] = @Challenge
-    WHERE ID = @AlarmPresetId
+    WHERE AlarmPresetId = @AlarmPresetId
 
     COMMIT
     RETURN 0

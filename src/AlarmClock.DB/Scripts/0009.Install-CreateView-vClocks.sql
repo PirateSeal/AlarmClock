@@ -2,7 +2,7 @@ CREATE VIEW spi.vClocks
 AS
     -- Select rows from a Table or View 'tClocks' in schema 'spi'
     SELECT
-        [ID] = c.ClockId,
+        [ClockId] = c.ClockId,
         [Name] = c.Name,
         [GUID] = c.GUID,
         [Pseudo] = u.Pseudo,

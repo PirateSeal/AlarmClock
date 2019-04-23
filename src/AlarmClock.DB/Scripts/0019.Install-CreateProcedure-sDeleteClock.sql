@@ -1,12 +1,9 @@
--- Create a new stored procedure called 'sUpdateClock' in schema 'spi'
-CREATE PROCEDURE spi.sUpdateClock
-
-    @ClockId INT,
+-- Create a new stored procedure called 'sDeleteClock' in schema 'spi'
+CREATE PROCEDURE spi.sDeleteClock
     @Name NVARCHAR(255)
-
 AS
+-- body of the stored procedure
 BEGIN
-    -- body of the stored procedure
     SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
     BEGIN TRAN;
 
@@ -14,7 +11,7 @@ BEGIN
         -- Select rows from a Table or View 'vClocks' in schema 'spi'
         SELECT *
     FROM spi.vClocks
-    WHERE ClockId = @ClockId
+    WHERE [Name] = @Name
     )
 
     BEGIN
@@ -22,13 +19,12 @@ BEGIN
         RETURN 1
     END
 
-    -- Update rows in table 'spi.vClocks'
-    UPDATE spi.vClocks
-    SET
-    [Name]=@Name
-    WHERE ClockId = @ClockId
+    -- Delete rows from table 'spi.vClocks'
+    DELETE FROM spi.vClocks
+    WHERE [Name] = @Name
 
     COMMIT
     RETURN 0
+
 
 END
