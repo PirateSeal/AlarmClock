@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Nav/>
-    <div class="content">
-      <router-view class="child"></router-view>
-    </div>
+    <router-view class="content"></router-view>
     <!-- <Footer /> -->
   </div>
 </template>
@@ -15,7 +13,7 @@ import { state } from "./state";
 import NavBar from "./components/NavBar";
 
 export default {
-  name: "NavBar",
+  name: "App",
   components: {
     Nav: NavBar
   },
@@ -39,16 +37,17 @@ export default {
 </style>
 <style lang="scss" scoped>
 #app {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
   .content {
     display: flex;
     flex-wrap: center;
     align-items: center;
-    text-align: center;
     overflow: hidden;
-    min-width: 100%;
-    min-height: 80vh;
+    text-align: center;
+    height: 94vh;
+    width: 100%;
     z-index: 0;
     background: rgb(34,193,195);
     background: linear-gradient(337deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);

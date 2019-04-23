@@ -1,3 +1,5 @@
+using System;
+
 namespace AlarmClock.DAL
 {
     public class UserData
@@ -6,7 +8,13 @@ namespace AlarmClock.DAL
 
         public string Email { get; set; }
 
-        public byte[] Password { get; set; }
+        public string Pseudo { get; set; }
+
+        public byte[] HashedPassword { get; set; }
+
+         public DateTime BirthDate { get; set; }
+
+        public string UserType { get; set; }
 
     }
 }

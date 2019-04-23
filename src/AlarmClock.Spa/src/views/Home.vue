@@ -1,23 +1,38 @@
 <template>
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Bienvenue sur ITI.PrimarySchool</h1>
-            <p class="lead text-muted">Cette application est réalisée à l'aide du framework Vue 2.</p>
-            <p>
-                <a href="http://vuejs.org/v2/guide/" class="btn btn-primary my-2">Guide Vue 2</a>
-                <a href="http://vuejs.org/v2/api/" class="btn btn-secondary my-2">Documentation API Vue 2</a>
-            </p>
-        </div>
-    </section>
-    <!-- if composant A ? composant A : composant B car c'est une view !!! -->
+  <div class="container">
+    <homeConnected v-if="AuthService.isConnected"/>
+    <homeDisconnected v-else/>
+  </div>
 </template>
 
 <script>
-export default {
+import AuthService from "../services/AuthService";
+import home_connected from "@/components/Home/home_connected";
+import home_disconnected from "@/components/Home/home_disconnected";
 
-}
+export default {
+  components: {
+    homeConnected: home_connected,
+    homeDisconnected:  home_disconnected
+
+  },
+  data() {
+    return {
+      AuthService
+    }
+  },
+  computed: {
+  }
+  
+};
 </script>
 
 <style lang="scss">
-
+.container{
+  width: 100%;
+  height: calc(100vh - 48px);
+  display: flex;
+  align-items: center;
+  text-align: center;  
+}
 </style>
