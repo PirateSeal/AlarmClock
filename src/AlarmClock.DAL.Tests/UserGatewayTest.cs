@@ -1,14 +1,14 @@
-using Alarmclock.WebApp;
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using Alarmclock.WebApp;
+using NUnit.Framework;
 
 namespace AlarmClock.DAL.Tests
 {
     [TestFixture]
-    class UserGatewayTest
+    internal class UserGatewayTest
     {
-        private Random Random { get; set; }
+        private Random Random { get; }
         private PasswordHasher Hasher { get; set; }
 
         public UserGatewayTest()
@@ -16,40 +16,36 @@ namespace AlarmClock.DAL.Tests
             Random = new Random();
         }
 
-        void CheckUser( Result<UserData> User, string Pseudo, string Email, string Firstname)
+        private void CheckUser( Result<UserData> user, string pseudo, string email )
         {
-            Assert.That( User.Status, Is.EqualTo( Status.Ok ) );
-            Assert.That( User.Content.Pseudo, Is.EqualTo( Pseudo ) );
-            Assert.That( User.Content.Email, Is.EqualTo( Email ) );
+            Assert.That( user.Status, Is.EqualTo( Status.Ok ) );
+            Assert.That( user.Content.Pseudo, Is.EqualTo( pseudo ) );
+            Assert.That( user.Content.Email, Is.EqualTo( email ) );
         }
 
         [Test]
         public async Task Create_Update_Delete_User()
         {
             UserGateway userGateway = new UserGateway( TestHelpers.ConnectionString );
-            string Pseudo = TestHelpers.RandomTestName();
-            string Email = TestHelpers.RandomTestName();
-            string Password =   TestHelpers.RandomTestName();
+            string pseudo = TestHelpers.RandomTestName();
+            string email = TestHelpers.RandomTestName();
+            string password = TestHelpers.RandomTestName();
 
-            var userResult = await userGateway.CreateUser( Pseudo, Email, Hasher.HashPassword(Password));
+            var userResult = await userGateway.CreateUserAsync( pseudo, email, Hasher.HashPassword( password ) );
             Assert.That( userResult.Status, Is.EqualTo( Status.Created ) );
-            int UserId = userResult.Content;
+            int userId = userResult.Content;
 
             Result<UserData> User;
             {
-                User = await userGateway.FindByIdAsync( UserId );
-                CheckUser( User, Pseudo, Email, Password );
+                User = await userGateway.FindByIdAsync( userId );
+                CheckUser( User, pseudo, email );
             }
 
             {
-                 Pseudo = TestHelpers.RandomTestName();
-                 Email = TestHelpers.RandomTestName();
-                 Password = TestHelpers.RandomTestName();
-
+                pseudo = TestHelpers.RandomTestName();
+                email = TestHelpers.RandomTestName();
+                password = TestHelpers.RandomTestName();
             }
-
-
-
         }
     }
 }

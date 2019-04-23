@@ -14,9 +14,9 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-        -- Select rows from a Table or View 'vPresets' in schema 'spi'
+        -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
         SELECT *
-    FROM spi.vPresets
+    FROM spi.tAlarmPreset
     WHERE AlarmPresetId = @AlarmPresetId
     )
     
@@ -25,8 +25,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Update rows in table 'spi.vPresets'
-    UPDATE spi.vPresets
+    -- Update rows in table 'spi.tAlarmPreset'
+    UPDATE spi.tAlarmPreset
     SET
         [WakingTime] = @WakingTime,
         [Song] = @Song,

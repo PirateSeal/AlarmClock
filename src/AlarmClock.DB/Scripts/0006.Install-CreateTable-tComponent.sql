@@ -1,5 +1,5 @@
--- Create a new table called 'tComponents' in schema 'spi'
-CREATE TABLE spi.tComponents
+-- Create a new table called 'tComponent' in schema 'spi'
+CREATE TABLE spi.tComponent
 (
     ComponentId INT           IDENTITY(0,1) NOT NULL ,
     -- primary key column
@@ -7,12 +7,12 @@ CREATE TABLE spi.tComponents
 
     CONSTRAINT PK_ComponentId PRIMARY KEY(ComponentId),
 
-    CONSTRAINT UK_tComponents_Name UNIQUE([Name])
+    CONSTRAINT UK_tComponent_Name UNIQUE([Name])
 );
-GO
 
--- Insert rows into table 'spi.tComponents'
-INSERT INTO spi.tComponents
+
+-- Insert rows into table 'spi.tComponent'
+INSERT INTO spi.tComponent
     ( -- columns to insert data into
     [Name]
     )
@@ -22,4 +22,3 @@ VALUES
     ('Speaker'),
     ('Screen'),
     ('Tactile Screen')
-GO

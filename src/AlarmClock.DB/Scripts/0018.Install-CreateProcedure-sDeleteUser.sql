@@ -8,9 +8,9 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-        -- Select rows from a Table or View 'vClocks' in schema 'spi'
+        -- Select rows from a Table or View 'tUser' in schema 'spi'
         SELECT *
-    FROM spi.vUsers
+    FROM spi.tUser
     WHERE Email = @Email
     )
 
@@ -19,8 +19,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Delete rows from table 'spi.vUsers'
-    DELETE FROM spi.vUsers
+    -- Delete rows from table 'spi.tUser'
+    DELETE FROM spi.tUser
     WHERE Email = @Email
 
     COMMIT

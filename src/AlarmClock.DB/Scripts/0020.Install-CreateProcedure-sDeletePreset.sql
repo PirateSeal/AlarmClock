@@ -8,9 +8,9 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-        -- Select rows from a Table or View 'vPresets' in schema 'spi'
+        -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
         SELECT *
-    FROM spi.vPresets
+    FROM spi.tAlarmPreset
     WHERE AlarmPresetId = @AlarmPresetId
     )
 
@@ -19,8 +19,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Delete rows from table 'spi.vPresets'
-    DELETE FROM spi.vPresets
+    -- Delete rows from table 'spi.tAlarmPreset'
+    DELETE FROM spi.tAlarmPreset
     WHERE AlarmPresetId = @AlarmPresetId
 
     COMMIT

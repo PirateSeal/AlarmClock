@@ -16,12 +16,12 @@ namespace Alarmclock.WebApp.Services
 
         public Task<Result<int>> CreateUser( string pseudo, string email, string password )
         {
-            return _userGateway.CreateUser(pseudo, email, _passwordHasher.HashPassword( password ) );
+            return _userGateway.CreateUserAsync( pseudo, email, _passwordHasher.HashPassword( password ) );
         }
 
         public async Task<UserData> FindUser( string email, string password )
         {
-            UserData user = await _userGateway.FindByEmail( email );
+            UserData user = await _userGateway.FindByEmailAsync( email );
             if( user != null && _passwordHasher.VerifyHashedPassword( user.HashedPassword, password ) ==
                 PasswordVerificationResult.Success ) return user;
 

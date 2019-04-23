@@ -11,9 +11,9 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-        -- Select rows from a Table or View 'vClocks' in schema 'spi'
+        -- Select rows from a Table or View 'tClock' in schema 'spi'
         SELECT *
-    FROM spi.vClocks
+    FROM spi.tClock
     WHERE ClockId = @ClockId
     )
 
@@ -22,8 +22,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Update rows in table 'spi.vClocks'
-    UPDATE spi.vClocks
+    -- Update rows in table 'spi.tClock'
+    UPDATE spi.tClock
     SET
     [Name]=@Name
     WHERE ClockId = @ClockId

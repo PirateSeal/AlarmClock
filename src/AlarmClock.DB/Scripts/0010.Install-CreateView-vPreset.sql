@@ -1,12 +1,11 @@
 CREATE VIEW spi.vPresets
 AS
-    -- Select rows from a Table or View 'tAlarmPresets' in schema 'spi'
+    -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
     SELECT
         [AlarmPresetId] = a.AlarmPresetId,
         [WakingTime] = a.WakingTime ,
         [Challenge] = a.Challenge,
         [ActivationFlag] = a.ActivationFlag,
         [Song] = a.Song
-    FROM spi.tAlarmPresets a
+    FROM spi.tAlarmPreset a
     WHERE a.AlarmPresetId <> 0
-GO

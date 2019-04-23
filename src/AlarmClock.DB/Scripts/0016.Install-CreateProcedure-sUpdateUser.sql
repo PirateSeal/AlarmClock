@@ -16,9 +16,9 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-        -- Select rows from a Table or View 'vUsers' in schema 'spi'
+        -- Select rows from a Table or View 'tUser' in schema 'spi'
         SELECT *
-    FROM spi.vUsers
+    FROM spi.tUser
     WHERE UserId = @UserId
     )
     
@@ -27,8 +27,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Update rows in table 'spi.vUsers'
-    UPDATE spi.vUsers
+    -- Update rows in table 'spi.tUser'
+    UPDATE spi.tUser
     SET
         Pseudo = @Pseudo,
         HashedPassword = @HashedPassword,

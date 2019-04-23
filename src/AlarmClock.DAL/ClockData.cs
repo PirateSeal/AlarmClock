@@ -2,22 +2,14 @@ using System;
 
 namespace AlarmClock.DAL
 {
-    public class UserData
+    internal class ClockData
     {
+        public int ClockId { get; set; }
+        public string Name { get; set; }
+        public Guid Guid { get; set; }
         public int UserId { get; set; }
-
-        public string Email { get; set; }
-
         public string Pseudo { get; set; }
-
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
-
-        public byte[] HashedPassword { get; set; }
-
-        public DateTime BirthDate { get; set; }
-
-        public string UserType { get; set; }
     }
 }

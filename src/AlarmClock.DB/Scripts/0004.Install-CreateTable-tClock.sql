@@ -1,5 +1,5 @@
--- Create a new table called 'tClocks' in schema 'spi'
-CREATE TABLE spi.tClocks
+-- Create a new table called 'tClock' in schema 'spi'
+CREATE TABLE spi.tClock
 (
     ClockId INT              NOT NULL IDENTITY(0,1),
     -- primary key column
@@ -9,20 +9,19 @@ CREATE TABLE spi.tClocks
 
     CONSTRAINT PK_ClockId PRIMARY KEY(ClockId),
 
-    CONSTRAINT FK_tClocks_tDevices
+    CONSTRAINT FK_tClock_tDevice
         FOREIGN KEY(ClockId)
-        REFERENCES spi.tDevices(DeviceId),
-    CONSTRAINT FK_tClocks_tUsers
+        REFERENCES spi.tDevice(DeviceId),
+    CONSTRAINT FK_tClock_tUser
         FOREIGN KEY (UserId)
-        REFERENCES spi.tUsers(UserId),
+        REFERENCES spi.tUser(UserId),
 
-    CONSTRAINT UK_tClocks_Name UNIQUE([Name]),
-    CONSTRAINT UK_tClocks_GUID UNIQUE([GUID])
+    CONSTRAINT UK_tClock_Name UNIQUE([Name]),
+    CONSTRAINT UK_tClock_GUID UNIQUE([GUID])
 );
-GO
 
 -- Insert rows into table 'spi.Clocks'
-INSERT INTO spi.tClocks
+INSERT INTO spi.tClock
     ( -- columns to insert data into
     [Name], [GUID], UserId
     )
@@ -32,4 +31,3 @@ VALUES
         newid(),
         0
 )
-GO
