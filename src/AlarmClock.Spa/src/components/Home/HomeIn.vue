@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Homeloged">
     YOU ARE lOG IN
   </div>
 </template>
@@ -16,3 +16,10 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+
+.Homeloged{
+  text-align: center;
+
+}
+</style>

@@ -5,49 +5,59 @@
     </div>
     <div class="right">
       <div
-        v-if="auth"
+        v-if="auth.isConnected"
         :class="{active: currentRoute === '/logout'}"
         class="link"
-        @click="$router.push('/logout')"
-      >Logout</div>
-      <div 
-        v-if="auth=false"
+        @click="logout"
+      >Logout | {{ auth.isConnected }}</div>
+      <div
+        v-else
         class="link"
         :class="{active: currentRoute === 'Account/login'}"
         @click="login('Base')"
-      >Login</div>
+      >Login | {{ auth.isConnected }}</div>
     </div>
   </div>
 </template>
 
 <script>
 import AuthService from "../../services/AuthService";
-import Vue from 'vue'
+import Vue from "vue";
 export default {
   name: "NavBar",
   data() {
     return {
-    endpoint: null
-
+      endpoint: null
     };
   },
+
   mounted() {
-      AuthService.registerAuthenticatedCallback(() => this.onAuthenticated());
+    // AuthService.registerAuthenticatedCallback(() => this.onAuthenticated());
   },
+
+  beforeDestroy() {
+    // AuthService.removeAuthenticatedCallback(() => this.onAuthenticated());
+  },
+
   computed: {
-    auth: () => (AuthService ? AuthService.isConnected : false),
+    auth: () => AuthService,
+
     currentRoute() {
       if (!this || !this.$route) return;
       return this.$route.path;
     }
   },
-  methods: {
-      login(provider) {
-       AuthService.login(provider);
-     },
 
-     onAuthenticated() {
-       this.$router.replace("/");
+  methods: {
+    login(provider) {
+      AuthService.login(provider);
+    },
+    onAuthenticated() {
+      console.log(this.auth.isConnected);
+      this.$router.replace("/");
+    },
+    logout() {
+      this.$router.replace("/logout");
     }
   }
 };
@@ -67,9 +77,15 @@ export default {
   overflow: hidden;
   box-shadow: 0px 0.6px 0px 0.5px rgba(158, 158, 158, 1);
   z-index: 1;
-  
-background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,88,106,1) 36%, rgba(0,88,106,1) 69%, rgba(2,0,36,1) 100%);
+
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 88, 106, 1) 36%,
+    rgba(0, 88, 106, 1) 69%,
+    rgba(2, 0, 36, 1) 100%
+  );
 
   .left,
   .right {

@@ -11,6 +11,8 @@ import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Profile from "./views/Profile.vue";
 
+import HomeOut from "./components/Home/HomeOut.vue"
+
 const routes = [
     { path: "", component: Home },
     { path: "/login", component: Login },

@@ -67,11 +67,10 @@ class AuthService {
     }
 
     onAuthenticated(i) {
-        this.identity = i;
-
-        for (var cb of this.authenticatedCallbacks) {
-            cb();
-        }
+      this.identity = i;
+      for (var cb of this.authenticatedCallbacks) {
+        cb();
+      }
     }
 
     logout() {
