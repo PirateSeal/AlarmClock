@@ -2,7 +2,7 @@ CREATE VIEW spi.vPresets
 AS
     -- Select rows from a Table or View 'tAlarmPresets' in schema 'spi'
     SELECT
-        [ID] = a.AlarmPresetId,
+        [AlarmPresetId] = a.AlarmPresetId,
         [WakingTime] = a.WakingTime ,
         [Challenge] = a.Challenge,
         [ActivationFlag] = a.ActivationFlag,

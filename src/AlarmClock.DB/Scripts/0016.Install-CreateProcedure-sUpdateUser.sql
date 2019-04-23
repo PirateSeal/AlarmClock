@@ -19,7 +19,7 @@ BEGIN
         -- Select rows from a Table or View 'vUsers' in schema 'spi'
         SELECT *
     FROM spi.vUsers
-    WHERE ID = @UserId
+    WHERE UserId = @UserId
     )
     
     BEGIN
@@ -36,7 +36,7 @@ BEGIN
         LastName = @LastName,
         BirthDate = @BirthDate,
         UserType = @UserType
-    WHERE ID = @UserId
+    WHERE UserId = @UserId
 
     COMMIT
     RETURN 0

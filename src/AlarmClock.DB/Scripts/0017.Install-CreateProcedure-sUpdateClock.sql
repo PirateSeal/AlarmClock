@@ -14,7 +14,7 @@ BEGIN
         -- Select rows from a Table or View 'vClocks' in schema 'spi'
         SELECT *
     FROM spi.vClocks
-    WHERE ID = @ClockId
+    WHERE ClockId = @ClockId
     )
 
     BEGIN
@@ -26,7 +26,7 @@ BEGIN
     UPDATE spi.vClocks
     SET
     [Name]=@Name
-    WHERE ID = @ClockId
+    WHERE ClockId = @ClockId
 
     COMMIT
     RETURN 0
