@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AlarmClock.WebApp.Authentication;
-using AlarmClock.WebApp.Models.AccountViewModels;
 using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
