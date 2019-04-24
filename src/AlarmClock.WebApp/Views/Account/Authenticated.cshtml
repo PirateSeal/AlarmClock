@@ -1,4 +1,4 @@
-@using Alarmclock.WebApp.Services
+@using AlarmClock.WebApp.Services
 @{
     string spaHost = (string) ViewData["SpaHost"];
     Token token = (Token) ViewData["Token"];
@@ -17,7 +17,8 @@
 </head>
 <body>
 <script>
-    (function() {
+    (function () {
+        debugger;
         window.opener.postMessage({
                 type: 'authenticated',
                 payload: {

@@ -1,9 +1,9 @@
 using System;
 using System.Security.Claims;
 using System.Text;
-using Alarmclock.WebApp.Authentication;
-using Alarmclock.WebApp.Controllers;
-using Alarmclock.WebApp.Services;
+using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Controllers;
+using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Alarmclock.WebApp
+namespace AlarmClock.WebApp
 {
     public class Startup
     {
@@ -71,8 +71,6 @@ namespace Alarmclock.WebApp
                         ValidateLifetime = true
                     };
                 } );
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

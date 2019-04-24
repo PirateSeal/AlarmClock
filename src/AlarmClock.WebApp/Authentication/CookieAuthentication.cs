@@ -1,8 +1,8 @@
-namespace Alarmclock.WebApp.Authentication
+namespace AlarmClock.WebApp.Authentication
 {
     public static class CookieAuthentication
     {
-        public const string AuthenticationScheme = "PrimarySchoolCookie";
-        public const string AuthenticationType = "PrimarySchoolCookie";
+        public const string AuthenticationScheme = "AlarmClockCookie";
+        public const string AuthenticationType = "AlarmClockCookie";
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Alarmclock.WebApp.Authentication;
+using AlarmClock.WebApp.Authentication;
 using Microsoft.Extensions.Options;
 
-namespace Alarmclock.WebApp.Services
+namespace AlarmClock.WebApp.Services
 {
     public class TokenService
     {
