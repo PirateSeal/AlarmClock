@@ -58,7 +58,7 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> DeleteUserAsync( string email, byte[] password)
+        public async Task<Result> DeleteUserAsync( string email, byte[] password )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {

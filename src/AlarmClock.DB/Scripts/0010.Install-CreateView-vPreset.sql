@@ -6,6 +6,7 @@ AS
         [WakingTime] = a.WakingTime ,
         [Challenge] = a.Challenge,
         [ActivationFlag] = a.ActivationFlag,
-        [Song] = a.Song
+        [Song] = a.Song,
+        [ClockId] = a.ClockId
     FROM spi.tAlarmPreset a
     WHERE a.AlarmPresetId <> 0
