@@ -1,6 +1,7 @@
 -- Create a new stored procedure called 'sDeleteUser' in schema 'spi'
 CREATE PROCEDURE spi.sDeleteUser
-    @Email NVARCHAR(255)
+    @Email NVARCHAR(255),
+    @HashedPassword VARBINARY(128)
 AS
 -- body of the stored procedure
 BEGIN
@@ -21,7 +22,7 @@ BEGIN
 
     -- Delete rows from table 'spi.tUser'
     DELETE FROM spi.tUser
-    WHERE Email = @Email
+    WHERE Email = @Email AND HashedPassword = @HashedPassword
 
     COMMIT
     RETURN 0

@@ -58,13 +58,14 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> DeleteUserAsync( string email )
+        public async Task<Result> DeleteUserAsync( string email, byte[] password)
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameter = new DynamicParameters();
 
                 parameter.Add( "@Email", email );
+                parameter.Add( "@HashedPassword", password );
                 parameter.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
 
                 await connection.ExecuteAsync( "spi.sDeleteUser", parameter, commandType: CommandType.StoredProcedure );
