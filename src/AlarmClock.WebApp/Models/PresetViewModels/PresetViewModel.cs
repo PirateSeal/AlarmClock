@@ -1,14 +1,14 @@
 using System;
 
-namespace AlarmClock.DAL
+namespace Alarmclock.WebApp.Models.PresetViewModels
 {
-    public class PresetData
+    public class PresetViewModel
     {
         public int AlarmPresetId { get; set; }
         public TimeSpan WakingTime { get; set; }
-        public string Song { get; set; }
-        public byte ActivationFlag { get; set; }
         public int Challenge { get; set; }
+        public byte ActivationFlag { get; set; }
+        public string Song { get; set; }
         public int ClockId { get; set; }
     }
 }

@@ -19,10 +19,10 @@ namespace AlarmClock.DAL
 
         public async Task<IEnumerable<ClockData>> GetAllClocksByUserId( int userId )
         {
-            using( SqlConnection connection = new SqlConnection() )
+            using( SqlConnection connection = new SqlConnection(ConnectionString) )
             {
                 return await connection.QueryAsync<ClockData>(
-                    "SELECT ClockId, [Name], [GUID], UserId, Pseudo, FirstName, LastName " +
+                    "SELECT ClockId, [Name], [GUID], UserId" +
                     "FROM spi.vClock " +
                     "WHERE UserId = @UserId", new {UserId = userId} );
             }
@@ -92,6 +92,22 @@ namespace AlarmClock.DAL
 
                 Debug.Assert( status == 0 );
                 return Result.Success();
+            }
+        }
+
+        public async Task<Result<ClockData>> FindClockById ( int id )
+        {
+            using( SqlConnection connection =  new SqlConnection(ConnectionString))
+            {
+                ClockData data = await connection.QueryFirstAsync<ClockData>(
+                    @"SELECT ClockId, [Name], [Guid], UserId
+                            FROM spi.vClock
+                            WHERE ClockId = @ClockId;",
+                    new {ClockId = id} );
+
+                return data == null
+                    ? Result.Failure<ClockData>( Status.NotFound, "Clock not found." )
+                    : Result.Success( Status.Ok, data );
             }
         }
     }

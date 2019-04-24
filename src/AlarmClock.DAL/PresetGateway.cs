@@ -8,7 +8,7 @@ using Dapper;
 
 namespace AlarmClock.DAL
 {
-    internal class PresetGateway
+    public class PresetGateway
     {
         public PresetGateway( string connectionString )
         {
@@ -19,7 +19,7 @@ namespace AlarmClock.DAL
 
         public async Task<IEnumerable<PresetData>> GetAllPresetFromClockId( int clockId )
         {
-            using( SqlConnection connection = new SqlConnection() )
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 return await connection.QueryAsync<PresetData>(
                     "SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId " +
@@ -85,7 +85,7 @@ namespace AlarmClock.DAL
 
         public async Task<Result> DeletePreset( int alarmPresetId )
         {
-            using( SqlConnection connection = new SqlConnection() )
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
@@ -101,6 +101,20 @@ namespace AlarmClock.DAL
 
                 Debug.Assert( status == 0 );
                 return Result.Success();
+            }
+        }
+
+        public async Task<Result<PresetData>> FindPresetById( int id )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                PresetData data = await connection.QueryFirstAsync<PresetData>(
+                    @"SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
+                    new {AlarmPresetId = id}
+                );
+                return data == null
+                    ? Result.Failure<PresetData>( Status.NotFound, "Preset not found." )
+                    : Result.Success( Status.Ok, data );
             }
         }
     }
