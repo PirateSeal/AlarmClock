@@ -45,7 +45,7 @@ namespace AlarmClock.DAL
                     commandType: CommandType.StoredProcedure );
 
                 int status = parameters.Get<int>( "@Status" );
-                if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This clock already exist." );
+                if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This clock already exists." );
 
                 Debug.Assert( status == 0 );
                 return Result.Success( parameters.Get<int>( "@ClockId" ) );
