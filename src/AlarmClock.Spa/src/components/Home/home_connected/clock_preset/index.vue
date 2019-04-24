@@ -19,9 +19,10 @@ export default {
   props: {
     clock: {
       type: Object,
-      required: true
+      required: true,
     }
   },
+
   data() {
     return {
       days

@@ -1,6 +1,10 @@
 <template>
   <div class="Homeloged">
-    <clock v-for="(clock, index) in clocks" :key="`${clock.title}${index}`" :clock="clock"/>
+    <div @click="Form()">
+    <!-- <router-link to='/PresetForm'> -->
+      <clock v-for="(clock, index) in clocks" :key="`${clock.title}${index}`" :clock="clock"/>
+    <!-- </router-link> -->
+    </div>
   </div>
 </template>
 
@@ -64,10 +68,18 @@ export default {
           ]
         }
         
-      ]
-    };
+      ],
+    }
+  },
+  
+  methods: {
+    Form() {
+      debugger;
+      this.$router.replace("/PresetForm");
+    }
   }
 };
+
 </script>
 <style lang="scss" scoped>
 
