@@ -1,13 +1,13 @@
 CREATE VIEW spi.vClocks
 AS
-    -- Select rows from a Table or View 'tClocks' in schema 'spi'
+    -- Select rows from a Table or View 'tClock' in schema 'spi'
     SELECT
-        [ID] = c.ClockId,
+        [ClockId] = c.ClockId,
         [Name] = c.Name,
         [GUID] = c.GUID,
+        [UserId] = u.UserId,
         [Pseudo] = u.Pseudo,
         [FirstName] = u.FirstName,
         [LastName] = u.LastName
-    FROM spi.tClocks c LEFT OUTER JOIN spi.tUsers u ON c.UserId = u.UserId
+    FROM spi.tClock c LEFT OUTER JOIN spi.tUser u ON c.UserId = u.UserId
     WHERE c.ClockId <> 0
-GO

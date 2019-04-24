@@ -31,7 +31,7 @@ namespace Alarmclock.WebApp.Controllers
             string userId = identity.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = identity.FindFirst( ClaimTypes.Email ).Value;
             Token token = _tokenService.GenerateToken( userId, email );
-            var providers = await _userGateway.GetAuthenticationProviders( userId );
+            var providers = await _userGateway.GetAuthenticationProvidersAsync( userId );
             return Ok( new {Success = true, Bearer = token, Email = email, BoundProviders = providers} );
         }
     }

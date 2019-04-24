@@ -1,5 +1,5 @@
 CREATE VIEW spi.vAuthenticationProvider
 AS
     SELECT UserId = u.UserId, ProviderName = 'AlarmClock'
-    FROM spi.tUsers u
+    FROM spi.tUser u
     WHERE u.UserId <> 0;

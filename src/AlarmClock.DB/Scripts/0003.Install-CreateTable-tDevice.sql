@@ -1,5 +1,5 @@
--- Create a new table called 'tDevices' in schema 'spi'
-CREATE TABLE spi.tDevices
+-- Create a new table called 'tDevice' in schema 'spi'
+CREATE TABLE spi.tDevice
 (
     DeviceId     INT              NOT NULL IDENTITY(0,1),
     -- primary key column
@@ -8,11 +8,10 @@ CREATE TABLE spi.tDevices
 
     CONSTRAINT PK_DeviceId PRIMARY KEY (DeviceId)
 );
-GO
 
--- Insert rows into table 'spi.tDevices'
-INSERT INTO spi.tDevices
+
+-- Insert rows into table 'spi.tDevice'
+INSERT INTO spi.tDevice
     ([GUID], LastSeenDate)
 VALUES
     (newid(), '00010101')
-GO

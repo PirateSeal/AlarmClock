@@ -1,5 +1,5 @@
--- Create a new table called 'tAlarmPresets' in schema 'spi'
-CREATE TABLE spi.tAlarmPresets
+-- Create a new table called 'tAlarmPreset' in schema 'spi'
+CREATE TABLE spi.tAlarmPreset
 (
     AlarmPresetId  INT           IDENTITY(0,1) NOT NULL ,
     -- primary key column
@@ -11,14 +11,14 @@ CREATE TABLE spi.tAlarmPresets
 
     CONSTRAINT PK_AlarmPresetId PRIMARY KEY (AlarmPresetId),
 
-    CONSTRAINT FK_tAlarmPresets_tClocks
+    CONSTRAINT FK_tAlarmPreset_tClock
         FOREIGN KEY (ClockId)
-        REFERENCES spi.tClocks(ClockId)
+        REFERENCES spi.tClock(ClockId)
 );
-GO
 
--- Insert rows into table 'spi.tAlarmPresets'
-INSERT INTO spi.tAlarmPresets
+
+-- Insert rows into table 'spi.tAlarmPreset'
+INSERT INTO spi.tAlarmPreset
     ( -- columns to insert data into
     WakingTime, Song, ActivationFlag,Challenge, ClockId
     )
@@ -26,4 +26,3 @@ VALUES
     (
         '00010101', 'randomString', 0, 0, 0
     )
-GO

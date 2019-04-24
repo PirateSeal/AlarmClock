@@ -15,9 +15,9 @@ BEGIN
     BEGIN TRAN
 
     IF EXISTS (
-        -- Select rows from a Table or View 'tAlarmPresets' in schema 'spi'
+        -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
         SELECT *
-    FROM spi.tAlarmPresets
+    FROM spi.tAlarmPreset
     WHERE WakingTime = @WakingTime AND ClockId = @ClockId
     )
     
@@ -26,8 +26,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Insert rows into table 'spi.tAlarmPresets'
-    INSERT INTO spi.tAlarmPresets
+    -- Insert rows into table 'spi.tAlarmPreset'
+    INSERT INTO spi.tAlarmPreset
         ( [WakingTime],[Song],[ActivationFlag],[Challenge],[ClockId] )
     VALUES
         ( @WakingTime, @Song, @ActivationFlag, @Challenge, @ClockId )

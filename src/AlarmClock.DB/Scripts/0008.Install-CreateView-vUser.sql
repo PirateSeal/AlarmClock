@@ -1,8 +1,8 @@
 CREATE VIEW spi.vUsers
 AS
-    -- Select rows from a Table or View 'tUsers' in schema 'spi'
+    -- Select rows from a Table or View 'tUser' in schema 'spi'
     SELECT
-        [ID] = u.UserId,
+        [UserId] = u.UserId,
         [Email] = u.Email,
         [Pseudo] = u.Pseudo,
         [HashedPassword] = u.HashedPassword,
@@ -10,6 +10,5 @@ AS
         [LastName] = u.LastName,
         [BirthDate] = u.BirthDate,
         [UserType] = u.UserType
-    FROM spi.tUsers u
+    FROM spi.tUser u
     WHERE u.UserId <> 0
-GO
