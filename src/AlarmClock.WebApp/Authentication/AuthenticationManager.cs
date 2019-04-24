@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
-namespace Alarmclock.WebApp.Authentication
+namespace AlarmClock.WebApp.Authentication
 {
     public abstract class AuthenticationManager<TUserInfo>
     {

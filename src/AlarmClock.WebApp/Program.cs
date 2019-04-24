@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Alarmclock.WebApp
+namespace AlarmClock.WebApp
 {
     public class Program
     {

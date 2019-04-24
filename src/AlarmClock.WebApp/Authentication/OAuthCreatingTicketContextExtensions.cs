@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
-namespace Alarmclock.WebApp.Authentication
+namespace AlarmClock.WebApp.Authentication
 {
     public static class OAuthCreatingTicketContextExtensions
     {

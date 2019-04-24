@@ -1,4 +1,4 @@
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     public class SpaOptions
     {

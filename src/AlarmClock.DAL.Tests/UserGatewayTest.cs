@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Alarmclock.WebApp;
+using AlarmClock.WebApp;
 using NUnit.Framework;
 
 namespace AlarmClock.DAL.Tests

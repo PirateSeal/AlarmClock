@@ -2,7 +2,7 @@ using System;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     public static class ControllerExtensions
     {

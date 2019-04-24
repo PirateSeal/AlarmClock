@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using AlarmClock.DAL;
 
-namespace Alarmclock.WebApp.Services
+namespace AlarmClock.WebApp.Services
 {
     public class UserService
     {

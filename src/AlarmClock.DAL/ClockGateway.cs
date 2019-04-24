@@ -8,7 +8,7 @@ using Dapper;
 
 namespace AlarmClock.DAL
 {
-    internal class ClockGateway
+   public  class ClockGateway
     {
         public ClockGateway( string connectionString )
         {

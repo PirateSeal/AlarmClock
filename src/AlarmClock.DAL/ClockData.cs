@@ -2,7 +2,7 @@ using System;
 
 namespace AlarmClock.DAL
 {
-    internal class ClockData
+    public class ClockData
     {
         public int ClockId { get; set; }
         public string Name { get; set; }

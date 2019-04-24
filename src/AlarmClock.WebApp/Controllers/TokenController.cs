@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Alarmclock.WebApp.Authentication;
-using Alarmclock.WebApp.Services;
+using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     [Route( "/api/[controller]" )]
     public class TokenController : Controller

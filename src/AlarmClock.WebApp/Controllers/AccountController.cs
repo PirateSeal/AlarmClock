@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Alarmclock.WebApp.Authentication;
-using Alarmclock.WebApp.Models.AccountViewModels;
-using Alarmclock.WebApp.Services;
+using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Models.AccountViewModels;
+using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     public class AccountController : Controller
     {
