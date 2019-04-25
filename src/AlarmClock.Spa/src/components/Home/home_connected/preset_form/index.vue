@@ -1,33 +1,38 @@
 <template>
     <form @submit="onSubmit($event)">
         
-        <div>
-            <label class="required">Nom</label>
-            <input type="text" v-model="preset.Name" value="preset.Name" class="form-control" required>
-        </div>
+        <div class="box-horizon" margin-right: 40px>
+            <div class="box-vertical">
 
-        <div>
-            <label class="required">Heure</label>
-            <input type="time" v-model="preset.Hour" value="preset.Hour" class="form-control" required>
-        </div>
-        <div>
+                <label class="required">Nom</label>
+                <input type="text" v-model="preset.Name" value="preset.Name" class="form-control" required>
+
+                <label class="required">Heure</label>
+                <input type="time" v-model="preset.Hour" value="preset.Hour" class="form-control" required>
+
+            </div>
+
             <label class="required">Days</label>
-            <input type="checkbox" v-model="preset.Days[0]" value="1" (v-if="preset.Days[0]=1" checked) class="form-control">Sunday
-            <input type="checkbox" v-model="preset.Days[1]" value="1" (v-if="preset.Days[1]=1" checked) class="form-control">Monday
-            <input type="checkbox" v-model="preset.Days[2]" value="1" (v-if="preset.Days[2]=1" checked) class="form-control">Tuesday
-            <input type="checkbox" v-model="preset.Days[3]" value="1" (v-if="preset.Days[3]=1" checked) class="form-control">Wednesday
-            <input type="checkbox" v-model="preset.Days[4]" value="1" (v-if="preset.Days[4]=1" checked) class="form-control">Thursday
-            <input type="checkbox" v-model="preset.Days[5]" value="1" (v-if="preset.Days[5]=1" checked) class="form-control">Friday
-            <input type="checkbox" v-model="preset.Days[6]" value="1" (v-if="preset.Days[6]=1" checked) class="form-control">Saturday
-        </div>
+
+            <div class="box-vertical">
+
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[0]" value="1">Sunday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[1]" value="1">Monday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[2]" value="1">Tuesday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[3]" value="1">Wednesday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[4]" value="1">Thursday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[5]" value="1">Friday</div>
+                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[6]" value="1">Saturday</div>
+
+            </div>
+        </div><br>
 
         <button type="submit" class="btn btn-primary">Sauvegarder</button>
-    
+        
     </form>
 </template>
 
 <script>
-
 
     export default {
 
@@ -75,5 +80,60 @@
 
 <style lang="scss">
 
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=checkbox], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=time], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+.box-horizon {
+    display: flex;
+    writing-mode: horizontal-tb;
+}
+
+.box-vertical {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+}
 
 </style>

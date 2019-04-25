@@ -1,6 +1,6 @@
 <template>
   <div class="Homeloged">
-    <div @click="Form()">
+    <div v-on:click="Form()">
     <!-- <router-link to='/PresetForm'> -->
       <clock v-for="(clock, index) in clocks" :key="`${clock.title}${index}`" :clock="clock"/>
     <!-- </router-link> -->
@@ -74,8 +74,7 @@ export default {
   
   methods: {
     Form() {
-      debugger;
-      this.$router.replace("/PresetForm");
+      this.$router.push("/PresetForm");
     }
   }
 };
