@@ -2,6 +2,13 @@
   <div class="navbar">
     <div class="left">
       <div class="link" :class="{active: currentRoute === '/'}" @click="$router.push('/')">Home</div>
+      <div
+        v-if="AuthService.isConnected"
+        :class="{active: currentRoute === 'Clock/register'}"
+        class="link"
+        @click="$router.push('/Clock/Register')"
+      >Register Clock</div>
+
     </div>
     <div class="right">
       <div
@@ -9,13 +16,13 @@
         :class="{active: currentRoute === '/logout'}"
         class="link"
         @click="logout"
-      >Logout | {{ AuthService.isConnected }}</div>
+      >Logout</div>
       <div
         v-else
         class="link"
         :class="{active: currentRoute === 'Account/login'}"
         @click="login('Base')"
-      >Login | {{ AuthService.isConnected }}</div>
+      >Login</div>
     </div>
   </div>
 </template>

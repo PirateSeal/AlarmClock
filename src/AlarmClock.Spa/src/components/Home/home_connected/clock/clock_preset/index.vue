@@ -22,7 +22,7 @@ import { getClockListAsync, deleteClockAsync } from "@/api/clockApi";
 export default {
   name: "clock_preset",
   props: {
-    clock: {
+    clock_preset: {
       type: Object,
       required: true
     }

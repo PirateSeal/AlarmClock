@@ -1,30 +1,26 @@
 <template>
-  <div class="Homeloged">
-    <clock v-for="(clock, index) in clocks" :key="`${clock.title}${index}`" :clock="clock"/>
+  <div class="Clock">
+
   </div>
 </template>
 
 <script>
-import days from '@/components/enums/days'
-import clock from './clock'
-import { getClockListAsync, deleteClockAsync } from "@/api/clockApi";
-
+import days from "@/components/enums/days";
+import clock_preset from './clock_preset'
 export default {
-  name: "home_connected_index",
-  components: {
-    clock
+  name: "clock",
+  props: {
+    clock: {
+      type: Object,
+      required: true
+    }
   },
-  mounted() {
 
-
-
-
+  async mounted() {
   },
   data() {
     return {
-      days,
-      clockList: [],
-      clocks_preset: [
+       clocks_preset: [
         {
           title: 'yolo',
           time: '18:56',
@@ -71,22 +67,36 @@ export default {
             
           ]
         }
-        
-      ]
+      ],
     };
+  },
+  methods: {
+    days() {
+      return days;
+    },
+    isDayActive(clock, index) {
+      return clock.days.find(e => e === index + 1);
+    },
   }
 };
 </script>
 <style lang="scss" scoped>
-
-.Homeloged{
-  width: 100%;
-  height: 100%;
+.clock{
+  min-height: 256px;
+  height: 256px;
+  min-width: 128px;
+  width: 512px;
+  max-width: 512px;
+  flex-grow: 1;
+  margin: 2.5%;
+  background: rgb(1, 1, 133);
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  //overflow-y: scroll;
- // overflow: hidden;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.5s;
+  border-radius: 25px 25px 25px 25px;
+  box-shadow: 0px -1px 30px 0px rgba(0, 0, 0, 0.9);
 }
 </style>
