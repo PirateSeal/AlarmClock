@@ -1,14 +1,14 @@
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace AlarmClock.DAL
 {
-   public  class ClockGateway
+    public class ClockGateway
     {
         public ClockGateway( string connectionString )
         {
@@ -19,12 +19,12 @@ namespace AlarmClock.DAL
 
         public async Task<IEnumerable<ClockData>> GetAllClocksByUserId( int userId )
         {
-            using( SqlConnection connection = new SqlConnection(ConnectionString) )
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 return await connection.QueryAsync<ClockData>(
                     "SELECT ClockId, [Name], [GUID], UserId" +
                     "FROM spi.vClock " +
-                    "WHERE UserId = @UserId", new {UserId = userId} );
+                    "WHERE UserId = @UserId", new { UserId = userId } );
             }
         }
 
@@ -48,7 +48,7 @@ namespace AlarmClock.DAL
                 if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This clock already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( parameters.Get<int>( "@ClockId" ) );
+                return Result.Success( Status.Created, parameters.Get<int>( "@ClockId" ) );
             }
         }
 
@@ -70,7 +70,7 @@ namespace AlarmClock.DAL
                 if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "Can't find this clock." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success();
+                return Result.Success( Status.Ok );
             }
         }
 
@@ -95,19 +95,19 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<ClockData>> FindClockById ( int id )
+        public async Task<Result<ClockData>> FindClockById( int id )
         {
-            using( SqlConnection connection =  new SqlConnection(ConnectionString))
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
-                ClockData data = await connection.QueryFirstAsync<ClockData>(
+                ClockData data = await connection.QueryFirstOrDefaultAsync<ClockData>(
                     @"SELECT ClockId, [Name], [Guid], UserId
                             FROM spi.vClock
                             WHERE ClockId = @ClockId;",
-                    new {ClockId = id} );
+                    new { ClockId = id } );
 
                 return data == null
                     ? Result.Failure<ClockData>( Status.NotFound, "Clock not found." )
-                    : Result.Success( Status.Ok, data );
+                    : Result.Success( data );
             }
         }
     }

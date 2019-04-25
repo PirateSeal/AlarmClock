@@ -1,6 +1,6 @@
 -- Create a new stored procedure called 'sDeleteClock' in schema 'spi'
 CREATE PROCEDURE spi.sDeleteClock
-    @Name NVARCHAR(255)
+    @ClockId INT
 AS
 -- body of the stored procedure
 BEGIN
@@ -11,7 +11,7 @@ BEGIN
         -- Select rows from a Table or View 'tClock' in schema 'spi'
         SELECT *
     FROM spi.tClock
-    WHERE [Name] = @Name
+    WHERE [ClockId] = @ClockId
     )
 
     BEGIN
@@ -21,7 +21,7 @@ BEGIN
 
     -- Delete rows from table 'spi.tClock'
     DELETE FROM spi.tClock
-    WHERE [Name] = @Name
+    WHERE [ClockId] = @ClockId
 
     COMMIT
     RETURN 0

@@ -1,4 +1,4 @@
-CREATE VIEW spi.vPresets
+CREATE VIEW spi.vPreset
 AS
     -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
     SELECT

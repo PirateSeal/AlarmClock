@@ -1,10 +1,10 @@
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace AlarmClock.DAL
 {
@@ -24,7 +24,7 @@ namespace AlarmClock.DAL
                 return await connection.QueryAsync<PresetData>(
                     "SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId " +
                     "FROM spi.vPreset " +
-                    "WHERE ClockId = @ClockId", new {ClockId = clockId}
+                    "WHERE ClockId = @ClockId", new { ClockId = clockId }
                 );
             }
         }
@@ -52,7 +52,7 @@ namespace AlarmClock.DAL
                 if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This preset already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( parameters.Get<int>( "@ClockId" ) );
+                return Result.Success( Status.Created, parameters.Get<int>( "@ClockId" ) );
             }
         }
 
@@ -110,7 +110,7 @@ namespace AlarmClock.DAL
             {
                 PresetData data = await connection.QueryFirstAsync<PresetData>(
                     @"SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
-                    new {AlarmPresetId = id}
+                    new { AlarmPresetId = id }
                 );
                 return data == null
                     ? Result.Failure<PresetData>( Status.NotFound, "Preset not found." )

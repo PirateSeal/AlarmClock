@@ -1,4 +1,4 @@
-CREATE VIEW spi.vClocks
+CREATE VIEW spi.vClock
 AS
     -- Select rows from a Table or View 'tClock' in schema 'spi'
     SELECT
