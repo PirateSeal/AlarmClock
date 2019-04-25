@@ -12,6 +12,12 @@ export default {
   components: {
     clock
   },
+  mounted() {
+
+
+
+
+  },
   data() {
     return {
       days,
@@ -51,7 +57,6 @@ export default {
           days: [
             1,
             5,
-            
           ]
         },
         {
@@ -74,12 +79,11 @@ export default {
 .Homeloged{
   width: 100%;
   height: 100%;
-  // background: red;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
-  overflow-y: scroll;
-  overflow: hidden;
+  //overflow-y: scroll;
+ // overflow: hidden;
 }
 </style>

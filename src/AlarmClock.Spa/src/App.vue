@@ -45,6 +45,7 @@ export default {
     flex-wrap: center;
     align-items: center;
     overflow: hidden;
+    overflow-y: scroll;
     text-align: center;
     height: 94vh;
     width: 100%;

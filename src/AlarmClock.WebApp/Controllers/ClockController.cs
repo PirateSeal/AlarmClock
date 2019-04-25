@@ -11,7 +11,7 @@ namespace AlarmClock.WebApp.Controllers
     [Authorize( AuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class ClockController : Controller
     {
-        public ClockController( ClockGateway clockGateway )
+        public ClockController( ClockGateway clockGateway)
         {
             Gateway = clockGateway;
         }

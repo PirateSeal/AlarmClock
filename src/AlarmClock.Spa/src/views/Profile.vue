@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { GetUserInfo } from "../api/UserApi";
+//import { GetUserInfo } from "../api/UserApi";
 export default {
   data() {
     return { UserData: {} };
