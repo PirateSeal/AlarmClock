@@ -32,7 +32,7 @@ namespace AlarmClock.DAL
         public async Task<Result<int>> CreatePreset( TimeSpan wakingTime, string song, byte activationFlag,
             int challenge, int clockId )
         {
-            using( SqlConnection connection = new SqlConnection() )
+            using( SqlConnection connection = new SqlConnection(ConnectionString) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
@@ -52,7 +52,7 @@ namespace AlarmClock.DAL
                 if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This preset already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( Status.Created, parameters.Get<int>( "@ClockId" ) );
+                return Result.Success( Status.Created, parameters.Get<int>( "@AlarmPresetId" ) );
             }
         }
 
@@ -108,7 +108,7 @@ namespace AlarmClock.DAL
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
-                PresetData data = await connection.QueryFirstAsync<PresetData>(
+                PresetData data = await connection.QueryFirstOrDefaultAsync<PresetData>(
                     @"SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
                     new { AlarmPresetId = id }
                 );
