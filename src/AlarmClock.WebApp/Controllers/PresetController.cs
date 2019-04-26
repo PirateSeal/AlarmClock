@@ -34,7 +34,7 @@ namespace Alarmclock.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePreset( [FromBody] PresetViewModel model )
         {
-            var result = await Gateway.CreatePreset( model.WakingTime, model.Song, model.ActivationFlag,
+            var result = await Gateway.CreatePreset( model.WakingTime, model.Name, model.Song, model.ActivationFlag,
                 model.Challenge, model.ClockId );
             return this.CreateResult( result, options =>
             {
@@ -46,7 +46,7 @@ namespace Alarmclock.WebApp.Controllers
         [HttpPut( "{id}" )]
         public async Task<IActionResult> UpdatePreset( int id, [FromBody] PresetViewModel model )
         {
-            return this.CreateResult( await Gateway.UpdatePreset( model.AlarmPresetId, model.WakingTime, model.Song,
+            return this.CreateResult( await Gateway.UpdatePreset( model.AlarmPresetId, model.WakingTime, model.Name, model.Song,
                 model.ActivationFlag, model.Challenge ) );
         }
 

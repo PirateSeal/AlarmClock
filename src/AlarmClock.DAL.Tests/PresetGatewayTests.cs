@@ -31,13 +31,14 @@ namespace AlarmClock.DAL.Tests
         public async Task Test_Create_Find_Update_Delete_Preset()
         {
             TimeSpan wakingTime = new TimeSpan( 15, 0, 0 );
+            string name = TestHelpers.RandomTestName();
             string song = TestHelpers.RandomTestName();
             byte activationFlag = (byte)Random.Next( 255 );
             int challenge = 0;
             int clockId = 0;
 
             Result<int> presetStatus =
-                await Gateway.CreatePreset( wakingTime, song, activationFlag, challenge, clockId );
+                await Gateway.CreatePreset( wakingTime, name, song, activationFlag, challenge, clockId );
             Assert.That( presetStatus.Status, Is.EqualTo( Status.Created ) );
 
             int presetId = presetStatus.Content;
@@ -53,7 +54,7 @@ namespace AlarmClock.DAL.Tests
             {
                 wakingTime = new TimeSpan( 9, 30, 0 );
                 song = TestHelpers.RandomTestName();
-                Result r = await Gateway.UpdatePreset( presetId, wakingTime, song, activationFlag, challenge );
+                Result r = await Gateway.UpdatePreset( presetId, wakingTime, name, song, activationFlag, challenge );
                 Assert.That( r.Status, Is.EqualTo( Status.Ok ) );
 
                 preset = await Gateway.FindPresetById( presetId );

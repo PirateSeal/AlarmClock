@@ -21,9 +21,9 @@ CREATE TABLE spi.tAlarmPreset
 -- Insert rows into table 'spi.tAlarmPreset'
 INSERT INTO spi.tAlarmPreset
     ( -- columns to insert data into
-    WakingTime, Song, ActivationFlag,Challenge, ClockId
+    WakingTime, [Name], Song, ActivationFlag,Challenge, ClockId
     )
 VALUES
     (
-        '00010101', 'randomString', 0, 0, 0
+        '00010101','RandomName', 'randomString', 0, 0, 0
     )
