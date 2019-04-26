@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Alarmclock.WebApp.Authentication;
-using Alarmclock.WebApp.Services;
+using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     [Route( "/api/[controller]" )]
     public class TokenController : Controller
@@ -31,7 +31,7 @@ namespace Alarmclock.WebApp.Controllers
             string userId = identity.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = identity.FindFirst( ClaimTypes.Email ).Value;
             Token token = _tokenService.GenerateToken( userId, email );
-            var providers = await _userGateway.GetAuthenticationProviders( userId );
+            var providers = await _userGateway.GetAuthenticationProvidersAsync( userId );
             return Ok( new {Success = true, Bearer = token, Email = email, BoundProviders = providers} );
         }
     }

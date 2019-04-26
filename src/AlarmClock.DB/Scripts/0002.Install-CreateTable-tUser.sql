@@ -1,5 +1,5 @@
--- Create a new table called 'tUsers' in schema 'spi'
-CREATE TABLE spi.tUsers
+-- Create a new table called 'tUser' in schema 'spi'
+CREATE TABLE spi.tUser
 (
     UserId         INT            IDENTITY(0,1) NOT NULL,
     -- primary key column
@@ -13,18 +13,18 @@ CREATE TABLE spi.tUsers
 
     CONSTRAINT PK_UserId PRIMARY KEY(UserId),
 
-    CONSTRAINT UK_tUsers_Pseudo UNIQUE(Pseudo),
-    CONSTRAINT UK_tUsers_Email UNIQUE(Email),
+    CONSTRAINT UK_tUser_Pseudo UNIQUE(Pseudo),
+    CONSTRAINT UK_tUser_Email UNIQUE(Email),
 
-    CONSTRAINT CK_tUsers_Pseudo CHECK(Pseudo <> N''),
-    CONSTRAINT CK_tUsers_Email CHECK(Email <> N''),
-    CONSTRAINT CK_tUsers_HashedPassword CHECK(HashedPassword <> N''),
-    CONSTRAINT CK_tUsers_FirstName CHECK(FirstName <> N''),
-    CONSTRAINT CK_tUsers_LastName CHECK(LastName <> N'')
+    CONSTRAINT CK_tUser_Pseudo CHECK(Pseudo <> N''),
+    CONSTRAINT CK_tUser_Email CHECK(Email <> N''),
+    CONSTRAINT CK_tUser_HashedPassword CHECK(HashedPassword <> N''),
+    CONSTRAINT CK_tUser_FirstName CHECK(FirstName <> N''),
+    CONSTRAINT CK_tUser_LastName CHECK(LastName <> N'')
 );
 
--- Insert rows into table 'spi.tUsers'
-INSERT INTO spi.tUsers
+-- Insert rows into table 'spi.tUser'
+INSERT INTO spi.tUser
     ( -- columns to insert data into
     [Pseudo], [Email], [HashedPassword],[FirstName]
     ,[LastName],[BirthDate],[UserType])
@@ -38,4 +38,3 @@ VALUES
         '00010101',
         'U'
     );
-GO

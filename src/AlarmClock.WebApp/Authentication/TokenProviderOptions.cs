@@ -1,7 +1,7 @@
 using System;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Alarmclock.WebApp.Authentication
+namespace AlarmClock.WebApp.Authentication
 {
     public class TokenProviderOptions
     {

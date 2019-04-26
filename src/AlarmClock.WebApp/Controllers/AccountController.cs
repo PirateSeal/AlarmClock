@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Alarmclock.WebApp.Authentication;
-using Alarmclock.WebApp.Models.AccountViewModels;
-using Alarmclock.WebApp.Services;
+using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Models.AccountViewModels;
+using AlarmClock.WebApp.Services;
 using AlarmClock.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Alarmclock.WebApp.Controllers
+namespace AlarmClock.WebApp.Controllers
 {
     public class AccountController : Controller
     {
@@ -37,7 +37,7 @@ namespace Alarmclock.WebApp.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();       
+            return View();
         }
 
         [HttpPost]
@@ -75,13 +75,13 @@ namespace Alarmclock.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                var result = await _userService.CreatePasswordUser( model.Pseudo ,model.Email, model.Password );
+                var result = await _userService.CreateUser( model.Pseudo, model.Email, model.Password );
                 if( result.HasError )
                 {
                     ModelState.AddModelError( string.Empty, result.ErrorMessage );
                     return View( model );
                 }
-                 
+
                 await SignIn( model.Email, result.Content.ToString() );
                 return RedirectToAction( nameof(Authenticated) );
             }
@@ -130,7 +130,7 @@ namespace Alarmclock.WebApp.Controllers
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
             Token token = _tokenService.GenerateToken( userId, email );
-            var providers = await _userGateway.GetAuthenticationProviders( userId );
+            var providers = await _userGateway.GetAuthenticationProvidersAsync( userId );
             ViewData["SpaHost"] = _spaOptions.Value.Host;
             ViewData["BreachPadding"] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData["Token"] = token;

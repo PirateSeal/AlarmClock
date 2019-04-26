@@ -19,7 +19,7 @@ BEGIN
 
     IF EXISTS(
         SELECT *
-    FROM spi.tUsers u
+    FROM spi.tUser u
     WHERE u.Email = @Email
     )
         BEGIN
@@ -27,8 +27,8 @@ BEGIN
         RETURN 1
     END
 
-    -- Insert rows into table 'spi.tUsers'
-    INSERT INTO spi.tUsers
+    -- Insert rows into table 'spi.tUser'
+    INSERT INTO spi.tUser
         ( Pseudo,HashedPassword,Email,FirstName,LastName,BirthDate,UserType )
     VALUES
         (

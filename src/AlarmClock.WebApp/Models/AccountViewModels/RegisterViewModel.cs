@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Alarmclock.WebApp.Models.AccountViewModels
+namespace AlarmClock.WebApp.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
