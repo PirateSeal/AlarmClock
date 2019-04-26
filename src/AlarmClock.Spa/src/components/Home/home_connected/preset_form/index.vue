@@ -1,7 +1,7 @@
 <template>
     <form @submit="onSubmit($event)">
         
-        <div class="box-horizon" margin-right: 40px>
+        <div class="box-horizon">
             <div class="box-vertical">
 
                 <label class="required">Nom</label>
