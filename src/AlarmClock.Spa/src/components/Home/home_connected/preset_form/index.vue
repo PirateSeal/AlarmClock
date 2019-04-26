@@ -1,86 +1,139 @@
 <template>
-    <form @submit="onSubmit($event)">
-        
+  <form @submit="onSubmit($event)">
+    <div class="box-horizon">
+      <div class="box-vertical">
+        <label class="required">Preset Name</label>
+        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
+
+        <label class="required">Waking Time</label>
+        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
+
+        <label class="required">Song</label>
+
+        <select type="select" v-model="preset.Song">
+          <option value="Diggy_Diggy_Hole.mp4">Diggy Diggy Hole</option>
+          <option value="Random_Music_1.mp4">Random Music 1</option>
+          <option value="Random_Music_2.mp4">Random Music 2</option>
+          <option value="Random_Music_3.mp4">Random Music 3</option>
+          <option value="Random_Music_4.mp4">Random Music 4</option>
+          <option value="Random_Music_5.mp4">Random Music 5</option>
+          <option value="Random_Music_6.mp4">Random Music 6</option>
+          <option value="Random_Music_7.mp4">Random Music 7</option>
+          <option value="Random_Music_8.mp4">Random Music 8</option>
+        </select>
+      </div>
+
+      <label class="required">Activation Flag</label>
+
+      <div class="box-vertical">
         <div class="box-horizon">
-            <div class="box-vertical">
+          <input type="checkbox" v-model="preset.ActivationFlag[0]" value="1">Sunday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[1]" value="1">Monday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[2]" value="1">Tuesday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[3]" value="1">Wednesday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[4]" value="1">Thursday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[5]" value="1">Friday
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="preset.ActivationFlag[6]" value="1">Saturday
+        </div>
+      </div>
 
-                <label class="required">Nom</label>
-                <input type="text" v-model="preset.Name" value="preset.Name" class="form-control" required>
+      <div class="box-vertical">
+        <label class="required">Challenge</label>
 
-                <label class="required">Heure</label>
-                <input type="time" v-model="preset.Hour" value="preset.Hour" class="form-control" required>
+        <select type="select" v-model="preset.Challenge">
+          <option value="BlindTest">BlindTest</option>
+          <option value="Joke">Joke</option>
+          <option value="Snake">Snake</option>
+          <option value="Pacman">Pacman</option>
+          <option value="Tetris">Tetris</option>
+          <option value="ReflexTest">Reflex Test</option>
+        </select>
 
-            </div>
+        <br>
+        <br>
 
-            <label class="required">Days</label>
+        <label type="text">Alarm Preset Id : {{preset.AlarmPresetId}}</label>
 
-            <div class="box-vertical">
+        <br>
+        <br>
 
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[0]" value="1">Sunday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[1]" value="1">Monday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[2]" value="1">Tuesday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[3]" value="1">Wednesday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[4]" value="1">Thursday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[5]" value="1">Friday</div>
-                <div class="box-horizon"><input type="checkbox" v-model="preset.Days[6]" value="1">Saturday</div>
+        <label type="text">Clock Id : {{preset.ClockId}}</label>
+      </div>
+    </div>
 
-            </div>
-        </div><br>
+    <br>
+    <br>
 
-        <button type="submit" class="btn btn-primary">Sauvegarder</button>
-        
-    </form>
+    <button type="submit">Sauvegarder</button>
+  </form>
 </template>
 
 <script>
+import {createPresetAsync, updatePresetAsync} from "../../../../api/PresetApi.js";
+export default {
+  data() {
+    return {
+      preset: {
+        AlarmPresetId: 1,
+        PresetName: "Test",
+        WakingTime: "13:35",
+        Song: "Diggy_Diggy_Hole.mp4",
+        ActivationFlag: [true, false, false, true, false, true, false],
+        Challenge: "Joke",
+        ClockId: 1
+      },
+      mode: "edit",
+      errors: []
+    };
+  },
 
-    export default {
+  async mounted() {},
 
-        data () {
-            return {
-                preset: {
-                    Name:"Test",
-                    Hour:"13:35",
-                    Days: ["1","0","0","1","0","1","0"]
-                },
-                mode: null,
-                errors: []
-            }
-        },
+  methods: {
+    async onSubmit(event) {
+      event.preventDefault();
 
-        async mounted() {
-        },
+      var errors = [];
 
-        methods: {
-            async onSubmit(event) {
-                event.preventDefault();
-                
-                var errors = [];
+      if (!this.preset.PresetName) errors.push("PresetName");
+      if (!this.preset.WakingTime) errors.push("WakingTime");
+      if (!this.preset.Song) errors.push("Song");
+      if (!this.preset.ActivationFlag) errors.push("ActivationFlag");
+      if (!this.preset.Challenge) errors.push("Challenge");
+      if (!this.preset.AlarmPresetId) errors.push("AlarmPresetId");
+      if (!this.preset.ClockId) errors.push("ClockId");
 
-                if(!this.preset.Name) errors.push("Name")
-                if(!this.preset.Hour) errors.push("Hour")
-                if(!this.preset.Days) errors.push("Days")
+      this.errors = errors;
 
-                this.errors = errors;
-
-                if(errors.length == 0) {
-                    try {
-                        if(this.mode === 'edit') await updateStudentAsync(this.preset);
-                        else await createStudentAsync(this.preset);
-                        this.$router.replace('');
-                    }
-                    catch(e) {
-                        console.error(e);
-                    }
-                }
-            }
+      if (errors.length == 0) {
+        try {
+          if (this.mode == "edit") await updatePresetAsync(this.preset);
+          else await createPresetAsync(this.preset);
+          this.$router.replace("");
+        } catch (e) {
+          console.error(e);
         }
+      }
     }
+  }
+};
 </script>
 
 <style lang="scss">
-
-input[type=text], select {
+input[type="text"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -90,7 +143,8 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-input[type=checkbox], select {
+input[type="select"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -100,7 +154,8 @@ input[type=checkbox], select {
   box-sizing: border-box;
 }
 
-input[type=time], select {
+input[type="checkbox"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -110,9 +165,9 @@ input[type=time], select {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+input[type="submit"] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -121,19 +176,26 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type="submit"]:hover {
   background-color: #45a049;
 }
 
-
 .box-horizon {
-    display: flex;
-    writing-mode: horizontal-tb;
+  display: flex;
+  input[type="time"],
+  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
 }
 
 .box-vertical {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, auto));
 }
-
 </style>
