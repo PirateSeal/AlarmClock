@@ -3,6 +3,7 @@ CREATE TABLE spi.tAlarmPreset
 (
     AlarmPresetId  INT           IDENTITY(0,1) NOT NULL ,
     -- primary key column
+    [Name]         NVARCHAR(255) NOT NULL,
     WakingTime     TIME          NOT NULL,
     Song           NVARCHAR(255) NOT NULL,
     ActivationFlag TINYINT       NOT NULL,

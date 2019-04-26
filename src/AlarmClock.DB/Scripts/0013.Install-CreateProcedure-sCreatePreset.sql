@@ -1,6 +1,7 @@
 -- Create a new stored procedure called 'sCreatePreset' in schema 'spi'
 CREATE PROCEDURE spi.sCreatePreset
     @WakingTime TIME,
+    @Name NVARCHAR(255),
     @Song NVARCHAR(255),
     @ActivationFlag TINYINT,
     @Challenge INT,
@@ -28,9 +29,9 @@ BEGIN
 
     -- Insert rows into table 'spi.tAlarmPreset'
     INSERT INTO spi.tAlarmPreset
-        ( [WakingTime],[Song],[ActivationFlag],[Challenge],[ClockId] )
+        ( [WakingTime],[Name],[Song],[ActivationFlag],[Challenge],[ClockId] )
     VALUES
-        ( @WakingTime, @Song, @ActivationFlag, @Challenge, @ClockId )
+        ( @WakingTime, @Name, @Song, @ActivationFlag, @Challenge, @ClockId )
     SET @AlarmPresetId = SCOPE_IDENTITY();
     COMMIT
     RETURN 0
