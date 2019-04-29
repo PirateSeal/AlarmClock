@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Services;
-using AlarmClock.DAL;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlarmClock.WebApp.Controllers

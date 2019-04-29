@@ -2,6 +2,7 @@
 CREATE PROCEDURE spi.sUpdatePreset
 
     @AlarmPresetId INT,
+    @Name NVARCHAR(255),
     @WakingTime TIME,
     @Song NVARCHAR(255),
     @ActivationFlag TINYINT,
@@ -29,6 +30,7 @@ BEGIN
     UPDATE spi.tAlarmPreset
     SET
         [WakingTime] = @WakingTime,
+        [Name] = @Name,
         [Song] = @Song,
         [ActivationFlag] = @ActivationFlag,
         [Challenge] = @Challenge

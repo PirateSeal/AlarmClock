@@ -22,21 +22,22 @@ namespace AlarmClock.DAL
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 return await connection.QueryAsync<PresetData>(
-                    "SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId " +
+                    "SELECT AlarmPresetId, [Name], WakingTime, Song, ActivationFlag, Challenge, ClockId " +
                     "FROM spi.vPreset " +
                     "WHERE ClockId = @ClockId", new {ClockId = clockId}
                 );
             }
         }
 
-        public async Task<Result<int>> CreatePreset( TimeSpan wakingTime, string song, byte activationFlag,
+        public async Task<Result<int>> CreatePreset( TimeSpan wakingTime, string name, string song, byte activationFlag,
             int challenge, int clockId )
         {
-            using( SqlConnection connection = new SqlConnection() )
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
                 parameters.Add( "@WakingTime", wakingTime );
+                parameters.Add( "@Name", name );
                 parameters.Add( "@Song", song );
                 parameters.Add( "@ActivationFlag", activationFlag );
                 parameters.Add( "@Challenge", challenge );
@@ -52,11 +53,11 @@ namespace AlarmClock.DAL
                 if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "This preset already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( parameters.Get<int>( "@ClockId" ) );
+                return Result.Success( Status.Created, parameters.Get<int>( "@AlarmPresetId" ) );
             }
         }
 
-        public async Task<Result> UpdatePreset( int alarmPresetId, TimeSpan wakingTime, string song,
+        public async Task<Result> UpdatePreset( int alarmPresetId, TimeSpan wakingTime, string name, string song,
             byte activationFlag,
             int challenge )
         {
@@ -66,6 +67,7 @@ namespace AlarmClock.DAL
 
                 parameters.Add( "@AlarmPresetId", alarmPresetId );
                 parameters.Add( "@WakingTime", wakingTime );
+                parameters.Add( "@Name", name );
                 parameters.Add( "@Song", song );
                 parameters.Add( "@ActivationFlag", activationFlag );
                 parameters.Add( "@Challenge", challenge );
@@ -108,8 +110,8 @@ namespace AlarmClock.DAL
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
-                PresetData data = await connection.QueryFirstAsync<PresetData>(
-                    @"SELECT AlarmPresetId, WakingTime, Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
+                PresetData data = await connection.QueryFirstOrDefaultAsync<PresetData>(
+                    @"SELECT AlarmPresetId, WakingTime, [Name], Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
                     new {AlarmPresetId = id}
                 );
                 return data == null

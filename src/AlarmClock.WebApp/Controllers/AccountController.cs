@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Models.AccountViewModels;
 using AlarmClock.WebApp.Services;
-using AlarmClock.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -75,7 +75,7 @@ namespace AlarmClock.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                var result = await _userService.CreateUser( model.Pseudo, model.Email, model.Password );
+                var result = await _userService.CreateUser( model.Pseudo, model.Email, model.Password, model.FirstName, model.LastName, model.BirthDate );
                 if( result.HasError )
                 {
                     ModelState.AddModelError( string.Empty, result.ErrorMessage );

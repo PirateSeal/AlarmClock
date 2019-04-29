@@ -1,10 +1,10 @@
 using System;
 using System.Security.Claims;
 using System.Text;
+using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Controllers;
 using AlarmClock.WebApp.Services;
-using AlarmClock.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

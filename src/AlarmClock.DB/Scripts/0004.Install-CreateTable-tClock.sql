@@ -9,9 +9,6 @@ CREATE TABLE spi.tClock
 
     CONSTRAINT PK_ClockId PRIMARY KEY(ClockId),
 
-    CONSTRAINT FK_tClock_tDevice
-        FOREIGN KEY(ClockId)
-        REFERENCES spi.tDevice(DeviceId),
     CONSTRAINT FK_tClock_tUser
         FOREIGN KEY (UserId)
         REFERENCES spi.tUser(UserId),

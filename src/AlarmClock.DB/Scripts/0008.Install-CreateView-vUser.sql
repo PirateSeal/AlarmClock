@@ -1,4 +1,4 @@
-CREATE VIEW spi.vUsers
+CREATE VIEW spi.vUser
 AS
     -- Select rows from a Table or View 'tUser' in schema 'spi'
     SELECT
