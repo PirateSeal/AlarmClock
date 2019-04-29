@@ -7,12 +7,10 @@ namespace AlarmClock.DAL.Tests
     [TestFixture]
     public class ClockGatewayTests
     {
-        private Random Random { get; }
         private ClockGateway Gateway { get; }
 
         public ClockGatewayTests()
         {
-            Random = new Random();
             Gateway = new ClockGateway( TestHelpers.ConnectionString );
         }
 

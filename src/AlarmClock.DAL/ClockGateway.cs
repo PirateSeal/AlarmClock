@@ -105,9 +105,9 @@ namespace AlarmClock.DAL
                             WHERE ClockId = @ClockId;",
                     new {ClockId = id} );
 
-                return data == null
-                    ? Result.Failure<ClockData>( Status.NotFound, "Clock not found." )
-                    : Result.Success( data );
+                return data != null
+                    ? Result.Success( data )
+                    : Result.Failure<ClockData>( Status.NotFound, "Clock not found." );
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 
@@ -24,6 +25,75 @@ namespace AlarmClock.DAL
                 return await con.QueryAsync<string>(
                     "select p.ProviderName from spi.vAuthenticationProvider p where p.UserId = @UserId",
                     new {UserId = userId} );
+            }
+        }
+
+        public async Task<UserDetails> GetUserDetails( int userId )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                var userFlatDetails =
+                    await connection.QueryAsync<UserFlatDetails>( "SELECT * FROM spi.vUserInfo WHERE UserId = @UserId",
+                        new {UserId = userId} );
+
+                UserFlatDetails tempoDetails = userFlatDetails.First();
+                var clocks = new List<Clock>();
+
+                UserDetails userDetails = new UserDetails
+                {
+                    UserId = tempoDetails.UserId,
+                    Pseudo = tempoDetails.Pseudo,
+                    Email = tempoDetails.Email,
+                    FirstName = tempoDetails.FirstName,
+                    LastName = tempoDetails.LastName,
+                    BirthDate = tempoDetails.BirthDate,
+                    Clocks = clocks
+                };
+
+                foreach( UserFlatDetails detail in userFlatDetails )
+                {
+                    switch( clocks.Count )
+                    {
+                        case 0:
+                            clocks.Add(
+                                new Clock
+                                {
+                                    ClockId = detail.ClockId,
+                                    ClockName = detail.ClockName,
+                                    ClockGuid = detail.ClockGuid,
+                                    Presets = new List<Preset>()
+                                } );
+                            break;
+                        default:
+                        {
+                            if( clocks.Last().ClockId != detail.ClockId )
+                                clocks.Add(
+                                    new Clock
+                                    {
+                                        ClockId = detail.ClockId,
+                                        ClockName = detail.ClockName,
+                                        ClockGuid = detail.ClockGuid,
+                                        Presets = new List<Preset>()
+                                    } );
+                            break;
+                        }
+                    }
+
+                    Clock clock = clocks.Find(pClock => pClock.ClockId == detail.ClockId);
+                    Preset findPreset = clock.Presets.AsList().Find( pPreset => pPreset.PresetId == detail.PresetId && pPreset.PresetClockId == detail.PresetClockId);
+                    if (findPreset == null) clock.Presets.AsList().Add(new Preset
+                    {
+                        PresetId = detail.PresetId,
+                        PresetName = detail.PresetName,
+                        WakingTime = detail.WakingTime,
+                        ActivationFlag = detail.ActivationFlag,
+                        Song = detail.Song,
+                        Challenge = detail.Challenge,
+                        PresetClockId = detail.PresetClockId
+                    });
+                }
+
+                return userDetails;
             }
         }
 
@@ -74,9 +144,9 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> UpdateUserAsync( int userId, string pseudo,  byte[] password,
+        public async Task<Result> UpdateUserAsync( int userId, string pseudo, byte[] password,
             string firstName,
-            string lastName, DateTime birthDate, string userType = "U")
+            string lastName, DateTime birthDate, string userType = "U" )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
