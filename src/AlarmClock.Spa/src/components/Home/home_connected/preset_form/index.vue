@@ -3,73 +3,63 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
+        <input type="text" v-model="preset.name" value="preset.PresetName" required>
 
         <label class="required">Waking Time</label>
-        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
+        <input type="time" v-model="preset.wakingTime" value="preset.WakingTime" required>
 
         <label class="required">Song</label>
 
-        <select type="select" v-model="preset.Song">
-          <option value="Diggy_Diggy_Hole.mp4">Diggy Diggy Hole</option>
-          <option value="Random_Music_1.mp4">Random Music 1</option>
-          <option value="Random_Music_2.mp4">Random Music 2</option>
-          <option value="Random_Music_3.mp4">Random Music 3</option>
-          <option value="Random_Music_4.mp4">Random Music 4</option>
-          <option value="Random_Music_5.mp4">Random Music 5</option>
-          <option value="Random_Music_6.mp4">Random Music 6</option>
-          <option value="Random_Music_7.mp4">Random Music 7</option>
-          <option value="Random_Music_8.mp4">Random Music 8</option>
-        </select>
+        <input type="text" v-model="preset.song" value="preset.song" required>
       </div>
 
       <label class="required">Activation Flag</label>
 
       <div class="box-vertical">
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[0]" value="1">Sunday
+          <input type="checkbox" v-model="days[0]" value="1">Sunday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[1]" value="1">Monday
+          <input type="checkbox" v-model="days[1]" value="1">Monday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[2]" value="1">Tuesday
+          <input type="checkbox" v-model="days[2]" value="1">Tuesday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[3]" value="1">Wednesday
+          <input type="checkbox" v-model="days[3]" value="1">Wednesday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[4]" value="1">Thursday
+          <input type="checkbox" v-model="days[4]" value="1">Thursday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[5]" value="1">Friday
+          <input type="checkbox" v-model="days[5]" value="1">Friday
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="preset.ActivationFlag[6]" value="1">Saturday
+          <input type="checkbox" v-model="days[6]" value="1">Saturday
         </div>
       </div>
 
       <div class="box-vertical">
         <label class="required">Challenge</label>
 
-        <select type="select" v-model="preset.Challenge">
-          <option value="BlindTest">BlindTest</option>
-          <option value="Joke">Joke</option>
-          <option value="Snake">Snake</option>
-          <option value="Pacman">Pacman</option>
-          <option value="Tetris">Tetris</option>
-          <option value="ReflexTest">Reflex Test</option>
+        <select type="select" v-model="preset.challenge">
+          <option value="0">BlindTest</option>
+          <option value="1">Joke</option>
+          <option value="2">Snake</option>
+          <option value="3">Pacman</option>
+          <option value="4">Tetris</option>
+          <option value="5">Reflex Test</option>
         </select>
 
         <br>
         <br>
 
-        <label type="text">Alarm Preset Id : {{preset.AlarmPresetId}}</label>
+        <label type="text">Alarm Preset Id : {{preset.alarmPresetId}}</label>
 
         <br>
         <br>
 
-        <label type="text">Clock Id : {{preset.ClockId}}</label>
+        <label type="text">Clock Id : {{preset.clockId}}</label>
       </div>
     </div>
 
@@ -91,6 +81,7 @@ export default {
     return {
       id: 3,
       preset: {},
+      days: [true, false, true, true, false, true, false],
       mode: "edit",
       errors: []
     };

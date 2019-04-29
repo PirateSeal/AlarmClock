@@ -23,7 +23,7 @@ namespace AlarmClock.DAL
             {
                 return await connection.QueryAsync<PresetData>(
                     "SELECT AlarmPresetId, [Name], WakingTime, Song, ActivationFlag, Challenge, ClockId " +
-                    "FROM spi.vPreset " +
+                    "FROM spi.vAlarmPreset " +
                     "WHERE ClockId = @ClockId", new {ClockId = clockId}
                 );
             }
@@ -111,7 +111,7 @@ namespace AlarmClock.DAL
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 PresetData data = await connection.QueryFirstOrDefaultAsync<PresetData>(
-                    @"SELECT AlarmPresetId, WakingTime, [Name], Song, ActivationFlag, Challenge, ClockId FROM spi.vPreset WHERE AlarmPresetId = @AlarmPresetId;",
+                    @"SELECT AlarmPresetId, WakingTime, [Name], Song, ActivationFlag, Challenge, ClockId FROM spi.vAlarmPreset WHERE AlarmPresetId = @AlarmPresetId;",
                     new {AlarmPresetId = id}
                 );
                 return data == null
