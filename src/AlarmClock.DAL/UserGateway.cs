@@ -27,22 +27,18 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<int>> CreateUserAsync( string pseudo, string email, byte[] password )
+        public async Task<Result<int>> CreateUserAsync( string pseudo, string email, byte[] password, string firstName,
+            string lastName, DateTime birthDate )
         {
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters p = new DynamicParameters();
 
-                string FirstName = "titi ";
-                string LastName = "tutu ";
-                DateTime birthDate = new DateTime( 2018, 11, 10 );
-
-
                 p.Add( "@Email", email );
                 p.Add( "@Pseudo", pseudo );
                 p.Add( "@HashedPassword", password );
-                p.Add( "@FirstName", FirstName );
-                p.Add( "@LastName", LastName );
+                p.Add( "@FirstName", firstName );
+                p.Add( "@LastName", lastName );
                 p.Add( "@BirthDate", birthDate );
 
                 p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
@@ -54,7 +50,7 @@ namespace AlarmClock.DAL
                     return Result.Failure<int>( Status.BadRequest, "An account with this email already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( p.Get<int>( "@UserId" ) );
+                return Result.Success( Status.Created, p.Get<int>( "@UserId" ) );
             }
         }
 
@@ -78,9 +74,9 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> UpdateUserAsync( int userId, string pseudo, string email, byte[] password,
+        public async Task<Result> UpdateUserAsync( int userId, string pseudo,  byte[] password,
             string firstName,
-            string lastName, DateTime birthDate, char userType )
+            string lastName, DateTime birthDate, string userType = "U")
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
@@ -88,7 +84,6 @@ namespace AlarmClock.DAL
 
                 parameters.Add( "@UserId", userId );
                 parameters.Add( "@Pseudo", pseudo );
-                parameters.Add( "@Email", email );
                 parameters.Add( "@HashedPassword", password );
                 parameters.Add( "@FirstName", firstName );
                 parameters.Add( "@LastName", lastName );
@@ -120,7 +115,7 @@ namespace AlarmClock.DAL
                              u.Email,
                              u.Pseudo,
                             u.HashedPassword
-                      from spi.vUsers u
+                      from spi.vUser u
                       where u.UserId = @UserId;",
                     new {UserId = userId} );
 

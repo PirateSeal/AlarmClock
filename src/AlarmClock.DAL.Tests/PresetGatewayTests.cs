@@ -1,13 +1,13 @@
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace AlarmClock.DAL.Tests
 {
     [TestFixture]
     public class PresetGatewayTests
     {
-        private Random Random { get; set; }
+        private Random Random { get; }
         private PresetGateway Gateway { get; }
 
         public PresetGatewayTests()
@@ -33,11 +33,11 @@ namespace AlarmClock.DAL.Tests
             TimeSpan wakingTime = new TimeSpan( 15, 0, 0 );
             string name = TestHelpers.RandomTestName();
             string song = TestHelpers.RandomTestName();
-            byte activationFlag = (byte)Random.Next( 255 );
+            byte activationFlag = (byte) Random.Next( 255 );
             int challenge = 0;
             int clockId = 0;
 
-            Result<int> presetStatus =
+            var presetStatus =
                 await Gateway.CreatePreset( wakingTime, name, song, activationFlag, challenge, clockId );
             Assert.That( presetStatus.Status, Is.EqualTo( Status.Created ) );
 

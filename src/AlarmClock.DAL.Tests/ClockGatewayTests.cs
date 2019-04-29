@@ -1,13 +1,13 @@
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace AlarmClock.DAL.Tests
 {
     [TestFixture]
     public class ClockGatewayTests
     {
-        private Random Random { get; set; }
+        private Random Random { get; }
         private ClockGateway Gateway { get; }
 
         public ClockGatewayTests()
@@ -31,7 +31,7 @@ namespace AlarmClock.DAL.Tests
             Guid guid = Guid.NewGuid();
             int userId = 0;
 
-            Result<int> clockStatus = await Gateway.CreateClockAsync( name, guid, userId );
+            var clockStatus = await Gateway.CreateClockAsync( name, guid, userId );
             Assert.That( clockStatus.Status, Is.EqualTo( Status.Created ) );
 
             int clockId = clockStatus.Content;

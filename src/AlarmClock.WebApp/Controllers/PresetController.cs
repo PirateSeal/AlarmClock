@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.PresetViewModels;
-using AlarmClock.WebApp.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using AlarmClock.DAL;
+using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alarmclock.WebApp.Controllers
@@ -12,12 +12,12 @@ namespace Alarmclock.WebApp.Controllers
     [Authorize( AuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class PresetController : Controller
     {
-        public PresetGateway Gateway { get; }
-
         public PresetController( PresetGateway gateway )
         {
             Gateway = gateway;
         }
+
+        public PresetGateway Gateway { get; }
 
         [HttpGet]
         public async Task<IActionResult> ShowPresets( [FromBody] PresetViewModel model )
@@ -46,7 +46,8 @@ namespace Alarmclock.WebApp.Controllers
         [HttpPut( "{id}" )]
         public async Task<IActionResult> UpdatePreset( int id, [FromBody] PresetViewModel model )
         {
-            return this.CreateResult( await Gateway.UpdatePreset( model.AlarmPresetId, model.WakingTime, model.Name, model.Song,
+            return this.CreateResult( await Gateway.UpdatePreset( model.AlarmPresetId, model.WakingTime, model.Name,
+                model.Song,
                 model.ActivationFlag, model.Challenge ) );
         }
 
@@ -55,6 +56,5 @@ namespace Alarmclock.WebApp.Controllers
         {
             return this.CreateResult( await Gateway.DeletePreset( id ) );
         }
-
     }
 }

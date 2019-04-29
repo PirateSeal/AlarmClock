@@ -1,10 +1,10 @@
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace AlarmClock.DAL
 {
@@ -24,7 +24,7 @@ namespace AlarmClock.DAL
                 return await connection.QueryAsync<ClockData>(
                     "SELECT ClockId, [Name], [GUID], UserId" +
                     "FROM spi.vClock " +
-                    "WHERE UserId = @UserId", new { UserId = userId } );
+                    "WHERE UserId = @UserId", new {UserId = userId} );
             }
         }
 
@@ -103,7 +103,7 @@ namespace AlarmClock.DAL
                     @"SELECT ClockId, [Name], [Guid], UserId
                             FROM spi.vClock
                             WHERE ClockId = @ClockId;",
-                    new { ClockId = id } );
+                    new {ClockId = id} );
 
                 return data == null
                     ? Result.Failure<ClockData>( Status.NotFound, "Clock not found." )
