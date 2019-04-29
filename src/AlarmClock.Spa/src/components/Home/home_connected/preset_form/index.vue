@@ -81,25 +81,30 @@
 </template>
 
 <script>
-import {createPresetAsync, updatePresetAsync} from "../../../../api/PresetApi.js";
+import {
+  createPresetAsync,
+  updatePresetAsync,
+  getPresetAsync
+} from "../../../../api/PresetApi.js";
 export default {
   data() {
     return {
-      preset: {
-        AlarmPresetId: 1,
-        PresetName: "Test",
-        WakingTime: "13:35",
-        Song: "Diggy_Diggy_Hole.mp4",
-        ActivationFlag: [true, false, false, true, false, true, false],
-        Challenge: "Joke",
-        ClockId: 1
-      },
+      id: 3,
+      preset: {},
       mode: "edit",
       errors: []
     };
   },
 
-  async mounted() {},
+  async mounted() {
+    //this.id = this.$route.params.id;
+    if (this.mode == "edit") {
+      try {
+        this.preset = await getPresetAsync(this.id);
+      } catch (e) {
+      }
+    }
+  },
 
   methods: {
     async onSubmit(event) {
