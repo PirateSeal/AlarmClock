@@ -11,6 +11,7 @@ import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Profile from "./views/Profile.vue";
 import ClockRegister from "./views/ClockRegister.vue";
+import PresetForm from "./views/PresetForm.vue";
 
 const routes = [
     { path: "", component: Home },
@@ -18,7 +19,7 @@ const routes = [
     { path: "/logout", component: Logout, beforeEnter: requireAuth },
     { path: "/Home", component: Home, beforeEnter: requireAuth },
     { path: "/Clock/register", component: ClockRegister, beforeEnter: requireAuth },
-    
+    { path: "/PresetForm", component: PresetForm, beforeEnter: requireAuth }
 ];
 
 export default new VueRouter({
