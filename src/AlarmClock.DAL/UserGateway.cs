@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 
@@ -27,22 +28,87 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<int>> CreateUserAsync( string pseudo, string email, byte[] password )
+        public async Task<UserDetails> GetUserDetails( int userId )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                var userFlatDetails =
+                    await connection.QueryAsync<UserFlatDetails>( "SELECT * FROM spi.vUserInfo WHERE UserId = @UserId",
+                        new {UserId = userId} );
+
+                UserFlatDetails tempoDetails = userFlatDetails.First();
+                var clocks = new List<Clock>();
+
+                UserDetails userDetails = new UserDetails
+                {
+                    UserId = tempoDetails.UserId,
+                    Pseudo = tempoDetails.Pseudo,
+                    Email = tempoDetails.Email,
+                    FirstName = tempoDetails.FirstName,
+                    LastName = tempoDetails.LastName,
+                    BirthDate = tempoDetails.BirthDate,
+                    Clocks = clocks
+                };
+
+                foreach( UserFlatDetails detail in userFlatDetails )
+                {
+                    switch( clocks.Count )
+                    {
+                        case 0:
+                            clocks.Add(
+                                new Clock
+                                {
+                                    ClockId = detail.ClockId,
+                                    ClockName = detail.ClockName,
+                                    ClockGuid = detail.ClockGuid,
+                                    Presets = new List<Preset>()
+                                } );
+                            break;
+                        default:
+                        {
+                            if( clocks.Last().ClockId != detail.ClockId )
+                                clocks.Add(
+                                    new Clock
+                                    {
+                                        ClockId = detail.ClockId,
+                                        ClockName = detail.ClockName,
+                                        ClockGuid = detail.ClockGuid,
+                                        Presets = new List<Preset>()
+                                    } );
+                            break;
+                        }
+                    }
+
+                    Clock clock = clocks.Find(pClock => pClock.ClockId == detail.ClockId);
+                    Preset findPreset = clock.Presets.AsList().Find( pPreset => pPreset.PresetId == detail.PresetId && pPreset.PresetClockId == detail.PresetClockId);
+                    if (findPreset == null) clock.Presets.AsList().Add(new Preset
+                    {
+                        PresetId = detail.PresetId,
+                        PresetName = detail.PresetName,
+                        WakingTime = detail.WakingTime,
+                        ActivationFlag = detail.ActivationFlag,
+                        Song = detail.Song,
+                        Challenge = detail.Challenge,
+                        PresetClockId = detail.PresetClockId
+                    });
+                }
+
+                return userDetails;
+            }
+        }
+
+        public async Task<Result<int>> CreateUserAsync( string pseudo, string email, byte[] password, string firstName,
+            string lastName, DateTime birthDate )
         {
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters p = new DynamicParameters();
 
-                string FirstName = "titi ";
-                string LastName = "tutu ";
-                DateTime birthDate = new DateTime( 2018, 11, 10 );
-
-
                 p.Add( "@Email", email );
                 p.Add( "@Pseudo", pseudo );
                 p.Add( "@HashedPassword", password );
-                p.Add( "@FirstName", FirstName );
-                p.Add( "@LastName", LastName );
+                p.Add( "@FirstName", firstName );
+                p.Add( "@LastName", lastName );
                 p.Add( "@BirthDate", birthDate );
 
                 p.Add( "@UserId", dbType: DbType.Int32, direction: ParameterDirection.Output );
@@ -54,7 +120,7 @@ namespace AlarmClock.DAL
                     return Result.Failure<int>( Status.BadRequest, "An account with this email already exists." );
 
                 Debug.Assert( status == 0 );
-                return Result.Success( p.Get<int>( "@UserId" ) );
+                return Result.Success( Status.Created, p.Get<int>( "@UserId" ) );
             }
         }
 
@@ -78,9 +144,9 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> UpdateUserAsync( int userId, string pseudo, string email, byte[] password,
+        public async Task<Result> UpdateUserAsync( int userId, string pseudo, byte[] password,
             string firstName,
-            string lastName, DateTime birthDate, char userType )
+            string lastName, DateTime birthDate, string userType = "U" )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
@@ -88,7 +154,6 @@ namespace AlarmClock.DAL
 
                 parameters.Add( "@UserId", userId );
                 parameters.Add( "@Pseudo", pseudo );
-                parameters.Add( "@Email", email );
                 parameters.Add( "@HashedPassword", password );
                 parameters.Add( "@FirstName", firstName );
                 parameters.Add( "@LastName", lastName );
@@ -120,7 +185,7 @@ namespace AlarmClock.DAL
                              u.Email,
                              u.Pseudo,
                             u.HashedPassword
-                      from spi.vUsers u
+                      from spi.vUser u
                       where u.UserId = @UserId;",
                     new {UserId = userId} );
 

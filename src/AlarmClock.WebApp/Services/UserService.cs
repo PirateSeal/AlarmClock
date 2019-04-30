@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AlarmClock.DAL;
 
@@ -14,9 +15,9 @@ namespace AlarmClock.WebApp.Services
             _passwordHasher = passwordHasher;
         }
 
-        public Task<Result<int>> CreateUser( string pseudo, string email, string password )
+        public Task<Result<int>> CreateUser( string pseudo, string email, string password , string firstName, string lastName, DateTime birthDate)
         {
-            return _userGateway.CreateUserAsync( pseudo, email, _passwordHasher.HashPassword( password ) );
+            return _userGateway.CreateUserAsync( pseudo, email, _passwordHasher.HashPassword( password ), firstName, lastName, birthDate );
         }
 
         public async Task<UserData> FindUser( string email, string password )

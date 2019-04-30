@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlarmClock.WebApp.Models.AccountViewModels
@@ -26,5 +27,22 @@ namespace AlarmClock.WebApp.Models.AccountViewModels
         [Display( Name = "Confirm password" )]
         [Compare( "Password", ErrorMessage = "The password and confirmation password do not match." )]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength( 30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+            MinimumLength = 3 )]
+        [Display( Name = "FirstName" )]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength( 30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+            MinimumLength = 3 )]
+        [Display( Name = "LastName" )]
+        public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "BirthDate")]
+        public  DateTime BirthDate { get; set; }
     }
 }

@@ -4,8 +4,8 @@ CREATE PROCEDURE spi.sCreateUser
     @Pseudo NVARCHAR(255),
     @HashedPassword VARBINARY(128) ,
     @Email NVARCHAR(255),
-    @FirstName NVARCHAR = "tutu",
-    @LastName NVARCHAR = "toto",
+    @FirstName NVARCHAR(255),
+    @LastName NVARCHAR(255),
     @BirthDate DATETIME2,
     @UserType CHAR = 'U',
     @UserId INT OUT
