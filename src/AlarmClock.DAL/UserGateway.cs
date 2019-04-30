@@ -181,7 +181,7 @@ namespace AlarmClock.DAL
                 UserData user = await connection.QueryFirstOrDefaultAsync<UserData>(
                     @"select u.UserId,
                              u.FirstName,
-                             u.LastName,
+                             u.LastName,vUser
                              u.BirthDate,
                              u.Email,
                              u.Pseudo,
@@ -201,7 +201,7 @@ namespace AlarmClock.DAL
             using( SqlConnection con = new SqlConnection( ConnectionString ) )
             {
                 return await con.QueryFirstOrDefaultAsync<UserData>(
-                    "select u.UserId, u.Email, u.Pseudo, u.HashedPassword, u.FirstName, u.LastName, u.BirthDate, u.UserType from spi.vUsers u where u.Email = @Email",
+                    "select u.UserId, u.Email, u.Pseudo, u.HashedPassword, u.FirstName, u.LastName, u.BirthDate, u.UserType from spi.vUser u where u.Email = @Email",
                     new {Email = email} );
             }
         }

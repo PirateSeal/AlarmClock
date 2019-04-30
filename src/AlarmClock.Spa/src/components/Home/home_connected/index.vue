@@ -1,36 +1,31 @@
 <template>
   <div class="Homeloged">
     <clock v-for="(clock, index) in clocks_preset" :key="`${clock.title}${index}`" :clock="clock"/>
-  <clockPreset></clockPreset>
+    <clockPreset></clockPreset>
   </div>
 </template>
 
 <script>
-import clock from './clock'
+import clock from "./clock";
 import { GetAllClocksByUserId, deleteClockAsync } from "@/api/clockApi";
-import ClockPreset from '@/components/Home/home_connected/clock/clock_preset'
-
 
 export default {
   name: "home_connected_index",
   components: {
-    clock,
-    clockPreset
+    clock
   },
   mounted() {
     clockList = GetAllClocksByUserId();
   },
   data() {
     return {
-      clockList: [],
+      clockList: []
     };
   }
 };
-
 </script>
 <style lang="scss" scoped>
-
-.Homeloged{
+.Homeloged {
   width: 100%;
   height: 100%;
   display: flex;
@@ -38,6 +33,6 @@ export default {
   justify-content: space-around;
   flex-wrap: wrap;
   //overflow-y: scroll;
- // overflow: hidden;
+  // overflow: hidden;
 }
 </style>

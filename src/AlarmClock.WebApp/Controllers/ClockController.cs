@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;
@@ -20,7 +19,6 @@ namespace AlarmClock.WebApp.Controllers
             Gateway = clockGateway;
         }
 
-        private Random rnd { get; }
         private ClockGateway Gateway { get; }
 
         [HttpGet]
