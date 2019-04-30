@@ -30,6 +30,7 @@ namespace AlarmClock.WebApp
 
             services.AddMvc();
             services.AddSingleton( _ => new UserGateway( Configuration["ConnectionStrings:AlarmClock"] ) );
+            services.AddSingleton( _ => new ClockGateway( Configuration["ConnectionStrings:AlarmClock"] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();

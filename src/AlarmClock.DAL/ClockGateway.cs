@@ -28,7 +28,7 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<int>> CreateClockAsync( string name, int userId, Guid guid = new Guid() )
+        public async Task<Result<int>> CreateClockAsync( string name, string guid, int userId)
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {

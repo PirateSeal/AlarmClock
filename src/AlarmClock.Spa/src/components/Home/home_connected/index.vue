@@ -1,78 +1,28 @@
 <template>
   <div class="Homeloged">
-    <clock v-for="(clock, index) in clocks" :key="`${clock.title}${index}`" :clock="clock"/>
+    <clock v-for="(clock, index) in clocks_preset" :key="`${clock.title}${index}`" :clock="clock"/>
+  <clockPreset></clockPreset>
   </div>
 </template>
 
 <script>
-import days from '@/components/enums/days'
 import clock from './clock'
-import { getClockListAsync, deleteClockAsync } from "@/api/clockApi";
+import { GetAllClocksByUserId, deleteClockAsync } from "@/api/clockApi";
+import ClockPreset from '@/components/Home/home_connected/clock/clock_preset'
+
 
 export default {
   name: "home_connected_index",
   components: {
-    clock
+    clock,
+    clockPreset
   },
   mounted() {
-
-
-
-
+    clockList = GetAllClocksByUserId();
   },
   data() {
     return {
-      days,
       clockList: [],
-      clocks_preset: [
-        {
-          title: 'yolo',
-          time: '18:56',
-          days: [
-            1,
-            5,
-            3,
-            7
-          ]
-        },
-        {
-          title: 'preset2',
-          time: '19:33',
-          days: [
-            1,
-            2,
-            4,
-            7
-          ]
-        },
-        {
-          title: 'preset3',
-          time: '07:56',
-          days: [
-            1,
-            5,
-            
-          ]
-        },
-        {
-          title: 'preset4',
-          time: '07:56',
-          days: [
-            1,
-            5,
-          ]
-        },
-        {
-          title: 'preset5',
-          time: '07:56',
-          days: [
-            1,
-            5,
-            
-          ]
-        }
-        
-      ]
     };
   }
 };

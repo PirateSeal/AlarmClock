@@ -17,8 +17,8 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/logout", component: Logout, beforeEnter: requireAuth },
     { path: "/Home", component: Home, beforeEnter: requireAuth },
-    { path: "/Clock/register", component: ClockRegister, beforeEnter: requireAuth }
-
+    { path: "/Clock/register", component: ClockRegister, beforeEnter: requireAuth },
+    
 ];
 
 export default new VueRouter({

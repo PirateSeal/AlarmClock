@@ -11,5 +11,4 @@ VALUES
         LEFT(CONVERT(NVARCHAR(36), newid()), 32),
         LEFT(CONVERT(NVARCHAR(36), newid()), 32),
         '00010101',
-        'U'
-)
+        'U')

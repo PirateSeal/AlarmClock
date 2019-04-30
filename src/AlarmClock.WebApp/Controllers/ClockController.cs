@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;
@@ -7,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlarmClock.WebApp.Controllers
 {
+  
+
+
     [Route( "api/[controller]" )]
     [Authorize( AuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class ClockController : Controller
@@ -16,6 +20,7 @@ namespace AlarmClock.WebApp.Controllers
             Gateway = clockGateway;
         }
 
+        private Random rnd { get; }
         private ClockGateway Gateway { get; }
 
         [HttpGet]
@@ -33,6 +38,8 @@ namespace AlarmClock.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClock( [FromBody] ClockViewModel model )
         {
+
+            if( model.Guid == "" ) model.Guid = new Guid();
             var result = await Gateway.CreateClockAsync( model.Name, model.Guid, model.UserId );
             return this.CreateResult( result, options =>
             {

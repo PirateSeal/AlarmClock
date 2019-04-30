@@ -17,7 +17,7 @@
 
 <script>
 import days from "@/components/enums/days";
-import { getClockListAsync, deleteClockAsync } from "@/api/clockApi";
+import { GetAllClocksByUserId, deleteClockAsync } from "@/api/clockApi";
 
 export default {
   name: "clock_preset",

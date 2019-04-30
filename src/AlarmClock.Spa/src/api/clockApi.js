@@ -1,9 +1,9 @@
 import { getAsync, postAsync, putAsync, deleteAsync } from '../helpers/apiHelper'
 
-const endpoint = process.env.VUE_APP_BACKEND + "/api/clockController";
+const endpoint = process.env.VUE_APP_BACKEND + "/api/clock";
 
-export async function getClockListAsync() {
-    return await getAsync(endpoint);
+export async function GetAllClocksByUserId(Id) {
+    return await getAsync(endpoint,Id);
 }
 
 export async function getClockAsync(Id) {

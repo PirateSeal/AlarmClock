@@ -1,6 +1,6 @@
 <template>
-  <div class="Clock">
-
+  <div class="Clock" @click="$router.push('/Clock/'+clock.id)" >
+      {{clock.title}}
   </div>
 </template>
 
@@ -71,12 +71,7 @@ export default {
     };
   },
   methods: {
-    days() {
-      return days;
-    },
-    isDayActive(clock, index) {
-      return clock.days.find(e => e === index + 1);
-    },
+
   }
 };
 </script>
@@ -94,6 +89,7 @@ export default {
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+  background-color: red;
   overflow: hidden;
   transition: all 0.5s;
   border-radius: 25px 25px 25px 25px;

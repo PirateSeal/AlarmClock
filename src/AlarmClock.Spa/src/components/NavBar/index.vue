@@ -8,7 +8,7 @@
         class="link"
         @click="$router.push('/Clock/Register')"
       >Register Clock</div>
-
+      <div class="UserMail">{{AuthService.email}}</div>
     </div>
     <div class="right">
       <div
