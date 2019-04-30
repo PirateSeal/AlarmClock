@@ -4,7 +4,6 @@ AS
     SELECT
         [ClockId] = c.ClockId,
         [Name] = c.Name,
-        [GUID] = c.GUID,
         [UserId] = c.UserId
     FROM spi.tClock c
     WHERE c.ClockId <> 0

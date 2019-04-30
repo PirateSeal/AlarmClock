@@ -13,7 +13,8 @@ AS
         -- Clock Data
         [ClockId] = c.ClockId,
         [ClockName] = c.Name,
-        [ClockGuid] = c.GUID,
+        [ClockGuid] = d.GUID,
+        [LastSeenDate] = d.LastSeenDate,
 
         -- Preset Data
         [PresetId] = a.AlarmPresetId,
@@ -28,6 +29,8 @@ AS
         spi.tUser u
         JOIN spi.tClock c
         ON u.UserId = c.UserId
+        JOIN spi.tDevice d
+        ON d.DeviceId = c.ClockId
         JOIN spi.tAlarmPreset a
         ON c.ClockId = a.ClockId
 

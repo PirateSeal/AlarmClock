@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -28,14 +27,13 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result<int>> CreateClockAsync( string name, string guid, int userId)
+        public async Task<Result<int>> CreateClockAsync( string name, int userId )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
                 parameters.Add( "@Name", name );
-                parameters.Add( "@GUID", guid );
                 parameters.Add( "@UserId", userId );
 
                 parameters.Add( "@ClockId", dbType: DbType.Int32, direction: ParameterDirection.Output );
@@ -100,7 +98,7 @@ namespace AlarmClock.DAL
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 ClockData data = await connection.QueryFirstOrDefaultAsync<ClockData>(
-                    @"SELECT ClockId, [Name], [Guid], UserId
+                    @"SELECT ClockId, [Name], UserId
                             FROM spi.vClock
                             WHERE ClockId = @ClockId;",
                     new {ClockId = id} );
