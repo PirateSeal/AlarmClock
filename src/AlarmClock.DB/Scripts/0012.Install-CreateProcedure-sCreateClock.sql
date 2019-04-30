@@ -2,35 +2,20 @@
 CREATE PROCEDURE spi.sCreateClock
 
     @Name NVARCHAR(255),
-    @GUID NVARCHAR(255),
     @UserId INT,
-    @ClockId INT out
+    @ClockId INT OUT
 
 AS
 BEGIN
-    -- body of the stored procedure
+    DECLARE @DeviceId INT;
 
-    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
-    BEGIN TRAN
-
-    IF EXISTS (
-        -- Select rows from a Table or View 'tClock' in schema 'spi'
-        SELECT *
-    FROM spi.tClock r
-    WHERE r.GUID = @GUID	
-    )
-
-    BEGIN
-        ROLLBACK
-        RETURN 1
-    END
+    EXECUTE spi.sCreateDevice @DeviceId OUTPUT;
 
     -- Insert rows into table 'spi.tClock'
     INSERT INTO spi.tClock
-        ( [Name],[GUID],[UserId] )
+        ( [Name],[UserId] )
     VALUES
-        ( @Name, @GUID, @UserId )
+        ( @Name, @UserId )
     SET @ClockId = SCOPE_IDENTITY();
-    COMMIT
     RETURN 0
 END

@@ -19,6 +19,7 @@ namespace AlarmClock.DAL
         public int ClockId { get; set; }
         public string ClockName { get; set; }
         public Guid ClockGuid { get; set; }
+        public DateTime LastSeenDate { get; set; }
         public IEnumerable<Preset> Presets { get; set; }
     }
 

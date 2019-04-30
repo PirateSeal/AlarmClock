@@ -61,6 +61,7 @@ namespace AlarmClock.DAL
                                     ClockId = detail.ClockId,
                                     ClockName = detail.ClockName,
                                     ClockGuid = detail.ClockGuid,
+                                    LastSeenDate = detail.LastSeenDate,
                                     Presets = new List<Preset>()
                                 } );
                             break;

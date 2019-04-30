@@ -33,7 +33,7 @@ namespace AlarmClock.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClock( [FromBody] ClockViewModel model )
         {
-            var result = await Gateway.CreateClockAsync( model.Name, model.Guid, model.UserId );
+            var result = await Gateway.CreateClockAsync( model.Name, model.UserId );
             return this.CreateResult( result, options =>
             {
                 options.RouteName = "GetClock";
