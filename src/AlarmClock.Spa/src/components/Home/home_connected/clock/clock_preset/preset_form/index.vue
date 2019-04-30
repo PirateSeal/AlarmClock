@@ -75,7 +75,7 @@ import {
   createPresetAsync,
   updatePresetAsync,
   getPresetAsync
-} from "../../../../api/PresetApi.js";
+} from "@/api/presetApi.js";
 export default {
   data() {
     return {

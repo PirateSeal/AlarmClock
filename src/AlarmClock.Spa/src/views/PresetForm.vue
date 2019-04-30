@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import preset_form from "@/components/Home/home_connected/preset_form";
+import preset_form from "@/components/Home/home_connected/clock/clock_preset/preset_form";
 
 export default {
   components: {
