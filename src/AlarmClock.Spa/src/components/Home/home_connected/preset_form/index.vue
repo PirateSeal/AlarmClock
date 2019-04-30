@@ -100,16 +100,16 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-
+      debugger;
       var errors = [];
 
-      if (!this.preset.PresetName) errors.push("PresetName");
-      if (!this.preset.WakingTime) errors.push("WakingTime");
-      if (!this.preset.Song) errors.push("Song");
-      if (!this.preset.ActivationFlag) errors.push("ActivationFlag");
-      if (!this.preset.Challenge) errors.push("Challenge");
-      if (!this.preset.AlarmPresetId) errors.push("AlarmPresetId");
-      if (!this.preset.ClockId) errors.push("ClockId");
+      if (!this.preset.name) errors.push("Name");
+      if (!this.preset.wakingTime) errors.push("WakingTime");
+      if (!this.preset.song) errors.push("Song");
+      // if (!this.preset.activationFlag) errors.push("ActivationFlag");
+      if (!this.preset.challenge) errors.push("Challenge");
+      if (!this.preset.alarmPresetId) errors.push("AlarmPresetId");
+      if (!this.preset.clockId) errors.push("ClockId");
 
       this.errors = errors;
 
