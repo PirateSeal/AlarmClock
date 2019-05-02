@@ -1,6 +1,6 @@
 <template>
   <div class="Homeloged">
-    <clock v-for="(clock, index) in clocks_preset" :key="`${clock.title}${index}`" :clock="clock"/>
+    <clock v-for="(clockList, index) in clocks_preset" :key="`${clock.title}${index}`" :clock="clock"/>
     <clockPreset></clockPreset>
   </div>
 </template>

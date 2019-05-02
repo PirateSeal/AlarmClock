@@ -1,6 +1,6 @@
 <template>
   <div class="clock_register_form">
-    <input type="text" :v-model="item.Name" class="clockName">
+    <input type="text" v-model="item.Name" class="clockName">
     <div class="sub" @click="submit()">register</div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: "clock_register",
   data() {
     return {
-      item: {name:'', userId:'1', guid: ''}
+      item: {Name:"", UserId:1, Guid: ""}
 
     }
   },
