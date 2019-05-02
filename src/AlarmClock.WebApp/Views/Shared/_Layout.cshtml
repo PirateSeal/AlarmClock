@@ -1,15 +1,178 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"] - Primary school</title>
-
-    @Html.Partial("_AppStyles")
-</head>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>@ViewData["Title"] - AlarmClock</title>
+        @Html.Partial("_AppStyles")
+    </head>
 <body>
 <div>
     @RenderBody()
 </div>
+<script>
+    function animatedForm() {
+        const chevrons = document.querySelectorAll(".fa-chevron-right");
+
+        chevrons.forEach(chevron => {
+            chevron.addEventListener("click", () => {
+                const input = chevron.previousElementSibling;
+                const parent = chevron.parentElement;
+                const nextForm = parent.nextElementSibling;
+
+                if (input.type === "pseudo" && validateUser(input)) {
+                    nextSlide(parent, nextForm);
+                } else if (input.type === "email" && validateEmail(input)) {
+                    nextSlide(parent, nextForm);
+                } else if (input.type === "password" && validateUser(input)) {
+                    nextSlide(parent, nextForm);
+                } else {
+                    parent.style.animation = "shake 0.4s ease";
+                }
+
+                parent.addEventListener("animationend", () => {
+                    parent.style.animation = "";
+                });
+            });
+        });
+    }
+
+    function validateUser(user) {
+        if (user.value.length < 6) {
+            ChangeBgColor("rgb(189,87,87)");
+        } else {
+            ChangeBgColor("rgb(87,189,130)");
+            return true;
+        }
+    }
+
+    function validateEmail(email) {
+        const validation = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+        if (validation.test(email.value)) {
+            ChangeBgColor("rgb(87,189,130)");
+            return true;
+        } else {
+            ChangeBgColor("rgb(189,87,87)");
+        }
+    }
+
+    function nextSlide(parent, nextForm) {
+        parent.classList.add("inactive");
+        parent.classList.remove("active");
+        nextForm.classList.remove("inactive");
+        nextForm.classList.add("active");
+    }
+
+    function ChangeBgColor(color) {
+        document.body.style.backgroundColor = color;
+    }
+
+    animatedForm();
+
+
+</script>
 </body>
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    h2 {
+        top: 25%;
+        left: 50%;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        background-color: rgb(87, 189, 130);
+        transition: background 0.5s ease;
+        position: relative;
+    }
+
+    .field-email,
+    .field-password,
+    .field-send {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        height: 50px;
+        width: 400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 10px;
+        transition: all 0.5s ease;
+    }
+
+    .register {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .field-email input,
+    .field-password input,
+    .field-send button {
+        background: none;
+        border: none;
+        flex: 1;
+        height: 100%;
+        outline: none;
+    }
+
+    .field-email i,
+    .field-password i {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .field-send label {
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+    }
+
+    div.inactive {
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 50%);
+    }
+
+    div.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translate(-50%, -50%);
+    }
+
+    @@keyframes shake {
+    0% {
+        transform: translate(-50%, -50%) rotate(0);
+    }
+
+    15% {
+        transform: translate(-50%, -50%) rotate(-5deg);
+    }
+
+    35% {
+        transform: translate(-50%, -50%) rotate(5deg);
+    }
+
+    65% {
+        transform: translate(-50%, -50%) rotate(-5deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(0);
+    }
+    }
+
+</style>
 </html>
