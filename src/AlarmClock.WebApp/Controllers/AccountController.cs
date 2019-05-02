@@ -39,13 +39,6 @@ namespace AlarmClock.WebApp.Controllers
         {
             return View();
         }
-        
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> GetUserInfo(string Email )
-        //{
-
-        //}
 
         [HttpPost]
         [AllowAnonymous]
@@ -67,6 +60,7 @@ namespace AlarmClock.WebApp.Controllers
 
             return View( model );
         }
+
 
         [HttpGet]
         [AllowAnonymous]

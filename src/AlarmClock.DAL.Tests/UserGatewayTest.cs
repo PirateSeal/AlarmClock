@@ -85,8 +85,8 @@ namespace AlarmClock.DAL.Tests
                 FirstName = TestHelpers.RandomTestName(),
                 LastName = TestHelpers.RandomTestName(),
                 Email = TestHelpers.RandomTestName(),
-                BirthDate = TestHelpers.RandomBirthDate(20),
-                HashedPassword = Hasher.HashPassword(TestHelpers.RandomTestName())
+                BirthDate = TestHelpers.RandomBirthDate( 20 ),
+                HashedPassword = Hasher.HashPassword( TestHelpers.RandomTestName() )
             };
             var userResult = await UserGateway.CreateUserAsync( createUser.Pseudo, createUser.Email, createUser.HashedPassword, createUser.FirstName, createUser.LastName,
                 createUser.BirthDate );
@@ -99,7 +99,7 @@ namespace AlarmClock.DAL.Tests
 
             PresetData createPreset = new PresetData
             {
-                WakingTime = new TimeSpan(15,0,0),
+                WakingTime = new TimeSpan( 15, 0, 0 ),
                 ActivationFlag = 0,
                 Challenge = 0,
                 Name = TestHelpers.RandomTestName(),
@@ -112,35 +112,36 @@ namespace AlarmClock.DAL.Tests
             Assert.That( presetResult.Status, Is.EqualTo( Status.Created ) );
             createPreset.AlarmPresetId = presetResult.Content;
 
-            UserDetails resultInfo = await UserGateway.GetUserDetails( createUser.UserId );
+            Result<UserDetails> resultInfo = await UserGateway.GetUserDetails( createUser.UserId );
 
             {
+                UserDetails r = resultInfo.Content;
                 {
-                    Assert.That(resultInfo.UserId,Is.EqualTo(createUser.UserId));
-                    Assert.That(resultInfo.Pseudo,Is.EqualTo(createUser.Pseudo));
-                    Assert.That(resultInfo.Email,Is.EqualTo(createUser.Email));
-                    Assert.That(resultInfo.FirstName,Is.EqualTo(createUser.FirstName));
-                    Assert.That(resultInfo.LastName,Is.EqualTo(createUser.LastName));
-                    Assert.That(resultInfo.BirthDate,Is.EqualTo(createUser.BirthDate));
+                    Assert.That( r.UserId, Is.EqualTo( createUser.UserId ) );
+                    Assert.That( r.Pseudo, Is.EqualTo( createUser.Pseudo ) );
+                    Assert.That( r.Email, Is.EqualTo( createUser.Email ) );
+                    Assert.That( r.FirstName, Is.EqualTo( createUser.FirstName ) );
+                    Assert.That( r.LastName, Is.EqualTo( createUser.LastName ) );
+                    Assert.That( r.BirthDate, Is.EqualTo( createUser.BirthDate ) );
                 }
 
                 {
-                    Assert.That(resultInfo.Clocks.Count(),Is.EqualTo(1));
-                    Clock clock = resultInfo.Clocks.First();
+                    Assert.That( r.Clocks.Count(), Is.EqualTo( 1 ) );
+                    Clock clock = r.Clocks.First();
                     {
-                        Assert.That(clock.ClockId,Is.EqualTo(clockId));
+                        Assert.That( clock.ClockId, Is.EqualTo( clockId ) );
                         Assert.That( clock.ClockName, Is.EqualTo( "Test-Clock" ) );
                     }
 
                     Assert.That( clock.Presets.Count(), Is.EqualTo( 1 ) );
                     Preset preset = clock.Presets.First();
                     {
-                        Assert.That(preset.PresetId, Is.EqualTo(createPreset.AlarmPresetId));
-                        Assert.That(preset.ActivationFlag, Is.EqualTo(createPreset.ActivationFlag));
-                        Assert.That(preset.Challenge, Is.EqualTo(createPreset.Challenge));
-                        Assert.That(preset.Song, Is.EqualTo(createPreset.Song));
-                        Assert.That(preset.PresetClockId, Is.EqualTo(createPreset.ClockId));
-                        Assert.That(preset.PresetName, Is.EqualTo(createPreset.Name));
+                        Assert.That( preset.PresetId, Is.EqualTo( createPreset.AlarmPresetId ) );
+                        Assert.That( preset.ActivationFlag, Is.EqualTo( createPreset.ActivationFlag ) );
+                        Assert.That( preset.Challenge, Is.EqualTo( createPreset.Challenge ) );
+                        Assert.That( preset.Song, Is.EqualTo( createPreset.Song ) );
+                        Assert.That( preset.PresetClockId, Is.EqualTo( createPreset.ClockId ) );
+                        Assert.That( preset.PresetName, Is.EqualTo( createPreset.Name ) );
                     }
                 }
             }
@@ -154,11 +155,11 @@ namespace AlarmClock.DAL.Tests
             {
                 Result r = await ClockGateway.DeleteClockAsync( clockId );
                 Assert.That( r.Status, Is.EqualTo( Status.Ok ) );
-                var find = await ClockGateway.FindClockById( clockId);
+                var find = await ClockGateway.FindClockById( clockId );
                 Assert.That( find.Status, Is.EqualTo( Status.NotFound ) );
             }
             {
-                Result r = await UserGateway.DeleteUserAsync( createUser.Email,createUser.HashedPassword);
+                Result r = await UserGateway.DeleteUserAsync( createUser.Email, createUser.HashedPassword );
                 Assert.That( r.Status, Is.EqualTo( Status.Ok ) );
                 var find = await UserGateway.FindByIdAsync( createUser.UserId );
                 Assert.That( find.Status, Is.EqualTo( Status.NotFound ) );

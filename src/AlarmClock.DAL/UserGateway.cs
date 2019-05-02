@@ -24,17 +24,22 @@ namespace AlarmClock.DAL
             {
                 return await con.QueryAsync<string>(
                     "select p.ProviderName from spi.vAuthenticationProvider p where p.UserId = @UserId",
-                    new {UserId = userId} );
+                    new { UserId = userId } );
             }
         }
 
-        public async Task<UserDetails> GetUserDetails( int userId )
+        public async Task<Result<UserDetails>> GetUserDetails( int userId )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 var userFlatDetails =
                     await connection.QueryAsync<UserFlatDetails>( "SELECT * FROM spi.vUserInfo WHERE UserId = @UserId",
-                        new {UserId = userId} );
+                        new { UserId = userId } );
+
+                if( !userFlatDetails.Any())
+                {
+                    return Result.Failure<UserDetails>( Status.NotFound, "Details Not Found" );
+                }
 
                 UserFlatDetails tempoDetails = userFlatDetails.First();
                 var clocks = new List<Clock>();
@@ -66,23 +71,23 @@ namespace AlarmClock.DAL
                                 } );
                             break;
                         default:
-                        {
-                            if( clocks.Last().ClockId != detail.ClockId )
-                                clocks.Add(
-                                    new Clock
-                                    {
-                                        ClockId = detail.ClockId,
-                                        ClockName = detail.ClockName,
-                                        ClockGuid = detail.ClockGuid,
-                                        Presets = new List<Preset>()
-                                    } );
-                            break;
-                        }
+                            {
+                                if( clocks.Last().ClockId != detail.ClockId )
+                                    clocks.Add(
+                                        new Clock
+                                        {
+                                            ClockId = detail.ClockId,
+                                            ClockName = detail.ClockName,
+                                            ClockGuid = detail.ClockGuid,
+                                            Presets = new List<Preset>()
+                                        } );
+                                break;
+                            }
                     }
 
-                    Clock clock = clocks.Find(pClock => pClock.ClockId == detail.ClockId);
-                    Preset findPreset = clock.Presets.AsList().Find( pPreset => pPreset.PresetId == detail.PresetId && pPreset.PresetClockId == detail.PresetClockId);
-                    if (findPreset == null) clock.Presets.AsList().Add(new Preset
+                    Clock clock = clocks.Find( pClock => pClock.ClockId == detail.ClockId );
+                    Preset findPreset = clock.Presets.AsList().Find( pPreset => pPreset.PresetId == detail.PresetId && pPreset.PresetClockId == detail.PresetClockId );
+                    if( findPreset == null ) clock.Presets.AsList().Add( new Preset
                     {
                         PresetId = detail.PresetId,
                         PresetName = detail.PresetName,
@@ -91,10 +96,10 @@ namespace AlarmClock.DAL
                         Song = detail.Song,
                         Challenge = detail.Challenge,
                         PresetClockId = detail.PresetClockId
-                    });
+                    } );
                 }
 
-                return userDetails;
+                return Result.Success( userDetails );
             }
         }
 
@@ -185,10 +190,9 @@ namespace AlarmClock.DAL
                              u.BirthDate,
                              u.Email,
                              u.Pseudo,
-                            u.HashedPassword
                       from spi.vUser u
                       where u.UserId = @UserId;",
-                    new {UserId = userId} );
+                    new { UserId = userId } );
 
                 if( user == null ) return Result.Failure<UserData>( Status.NotFound, "User not found." );
 
@@ -202,7 +206,7 @@ namespace AlarmClock.DAL
             {
                 return await con.QueryFirstOrDefaultAsync<UserData>(
                     "select u.UserId, u.Email, u.Pseudo, u.HashedPassword, u.FirstName, u.LastName, u.BirthDate, u.UserType from spi.vUser u where u.Email = @Email",
-                    new {Email = email} );
+                    new { Email = email } );
             }
         }
     }
