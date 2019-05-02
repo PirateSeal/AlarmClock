@@ -181,7 +181,7 @@ namespace AlarmClock.DAL
                 UserData user = await connection.QueryFirstOrDefaultAsync<UserData>(
                     @"select u.UserId,
                              u.FirstName,
-                             u.LastName,vUser
+                             u.LastName,
                              u.BirthDate,
                              u.Email,
                              u.Pseudo,
