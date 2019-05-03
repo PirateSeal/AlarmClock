@@ -1,7 +1,14 @@
 @model AlarmClock.WebApp.Models.AccountViewModels.LoginViewModel
 @{ViewData["Title"] = "Se connecter via spi.AlarmClock"; }
+<div class="Title">
+    <h2>@ViewData["Title"]</h2>
+</div>
 
-<h2>@ViewData["Title"]</h2>
+<div class="register">
+    <a asp-action="Register">
+        Register
+    </a>
+</div>
 
 <form asp-controller="Account" id="login" asp-action="Login" method="post">
     @if (!ViewContext.ViewData.ModelState.IsValid) {
@@ -15,20 +22,15 @@
     </div>
 
     <div class="field-password inactive">
+        <i class="fas fa-chevron-left"></i>
         <i class="fas fa-key"></i>
         <input asp-for="Password" type="password" placeholder="Enter password" required />
         <i class="fas fa-chevron-right"></i>
     </div>
 
     <div class="field-send inactive">
-        <label onclick="document.getElementById('login').submit()">
-            Send
-        </label>
+        <i class="fas fa-chevron-left"></i>
+        <button type="submit">Login</button>
     </div>
 
-    <div class="register">
-        <a asp-action="Register">
-            <i class="fas fa-user-plus"></i>
-        </a>
-    </div>
 </form>

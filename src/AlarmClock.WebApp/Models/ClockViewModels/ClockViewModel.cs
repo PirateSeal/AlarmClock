@@ -1,5 +1,3 @@
-using System;
-
 namespace Alarmclock.WebApp.Models.ClockViewModels
 {
     public class ClockViewModel
