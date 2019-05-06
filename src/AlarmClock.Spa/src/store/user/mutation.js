@@ -1,10 +1,10 @@
 export const types = {
-  SET_USER: 'SET_USER'
+  SET_USERINFO: 'SET_USERINFO'
 }
 
 const mutations = {
   [types.SET_USER] (state, data) {
-    this.state.user = data
+    this.state.userInfo = data
   }
 }
 

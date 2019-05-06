@@ -4,6 +4,8 @@
 
 <script>
 import AuthService from '../services/AuthService'
+import {getGlobalUserInfoByid} from '@/api/UserApi.js'
+
 import Vue from 'vue'
 
 export default {
