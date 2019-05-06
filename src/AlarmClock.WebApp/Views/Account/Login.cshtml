@@ -1,36 +1,36 @@
 @model AlarmClock.WebApp.Models.AccountViewModels.LoginViewModel
-
-@{
-    ViewData["Title"] = "Se connecter via spi.AlarmClock";
-}
-
-<div class="container">
-    <h2 class="my-4">@ViewData["Title"]</h2>
-
-    <form asp-controller="Account" asp-action="Login" method="post">
-        @if (!ViewContext.ViewData.ModelState.IsValid)
-        {
-            <div asp-validation-summary="All" class="alert alert-danger"></div>
-        }
-
-        <div class="form-group">
-            <label asp-for="Email">E-mail : </label>
-            <input asp-for="Email" class="form-control"/>
-            <span asp-validation-for="Email"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Password">Mot de passe : </label>
-            <input asp-for="Password" class="form-control"/>
-            <span asp-validation-for="Password"></span>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-        </div>
-
-        <div class="form-group">
-            <a class="btn btn-default btn-block" asp-action="Register">Créer un nouveau compte</a>
-        </div>
-    </form>
+@{ViewData["Title"] = "Se connecter via spi.AlarmClock"; }
+<div class="Title">
+    <h2>@ViewData["Title"]</h2>
 </div>
+
+<div class="register">
+    <a asp-action="Register">
+        Register
+    </a>
+</div>
+
+<form asp-controller="Account" id="login" asp-action="Login" method="post">
+    @if (!ViewContext.ViewData.ModelState.IsValid) {
+    <div asp-validation-summary="All"></div>
+    }
+
+    <div class="field-email active">
+        <i class="fas fa-at"></i>
+        <input asp-for="Email" type="email" placeholder="Enter email adress" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-password inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-key"></i>
+        <input asp-for="Password" type="password" placeholder="Enter password" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-send inactive">
+        <i class="fas fa-chevron-left"></i>
+        <button type="submit">Login</button>
+    </div>
+
+</form>
