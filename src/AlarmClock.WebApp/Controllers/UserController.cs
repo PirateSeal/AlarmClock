@@ -20,8 +20,7 @@ namespace Alarmclock.WebApp.Controllers
         [HttpGet( "GetUserInfo/{id}" )]
         public async Task<IActionResult> GetUserInfo( int id )
         {
-            var r = await Gateway.GetUserDetails( id );
-            return r.Status == Status.NotFound ? this.CreateResult( await Gateway.FindByIdAsync( id ) ) : this.CreateResult( r );
+            return this.CreateResult(await Gateway.GetUserDetails( id ));
         }
 
         [HttpGet( "{id}" )]

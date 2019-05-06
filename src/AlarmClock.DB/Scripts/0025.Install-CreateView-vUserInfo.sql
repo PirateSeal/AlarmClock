@@ -27,11 +27,8 @@ AS
 
     FROM
         spi.tUser u
-        JOIN spi.tClock c
-        ON u.UserId = c.UserId
-        JOIN spi.tDevice d
-        ON d.DeviceId = c.ClockId
-        JOIN spi.tAlarmPreset a
-        ON c.ClockId = a.ClockId
+        LEFT JOIN spi.tClock c ON c.UserId = u.UserId AND c.ClockId <> 0
+        LEFT JOIN spi.tDevice d ON d.DeviceId = c.ClockId
+        LEFT JOIN spi.tAlarmPreset a ON c.ClockId = a.ClockId AND a.AlarmPresetId <> 0
 
-    WHERE u.UserId <> 0 AND c.ClockId <> 0 AND a.AlarmPresetId <> 0
+    WHERE u.UserId <> 0
