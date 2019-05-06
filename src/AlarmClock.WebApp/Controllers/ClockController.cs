@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlarmClock.WebApp.Controllers
 {
-  
-
-
     [Route( "api/[controller]" )]
     [Authorize( AuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class ClockController : Controller
     {
-        public ClockController( ClockGateway clockGateway)
+        public ClockController( ClockGateway clockGateway )
         {
             Gateway = clockGateway;
         }
@@ -40,7 +37,7 @@ namespace AlarmClock.WebApp.Controllers
             return this.CreateResult( result, options =>
             {
                 options.RouteName = "GetClock";
-                options.RouteValues = id => new {id};
+                options.RouteValues = id => new { id };
             } );
         }
 

@@ -96,7 +96,7 @@ export default {
   .left,
   .right {
     display: flex;
-    .link {
+    .link, .UserMail {
       display: flex;
       align-items: center;
       text-align: center;
