@@ -4,57 +4,72 @@
     ViewData["Title"] = "Créer un nouveau compte";
 }
 
-<div class="container">
-    <h2 class="my-4">@ViewData["Title"]</h2>
-
-    <form asp-controller="Account" asp-action="Register" method="post">
-        @if (!ViewContext.ViewData.ModelState.IsValid)
-        {
-            <div asp-validation-summary="All" class="alert alert-danger"></div>
-        }
-
-        <div class="form-group">
-            <label asp-for="Email">E-mail : </label>
-            <input asp-for="Email" class="form-control"/>
-            <span asp-validation-for="Email"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Pseudo">Pseudo : </label>
-            <input asp-for="Pseudo" class="form-control"/>
-            <span asp-validation-for="Pseudo"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="FirstName">First Name : </label>
-            <input asp-for="FirstName" class="form-control"/>
-            <span asp-validation-for="FirstName"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="LastName">Last Name : </label>
-            <input asp-for="LastName" class="form-control"/>
-            <span asp-validation-for="LastName"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="BirthDate">Birth Date : </label>
-            <input type="date" asp-for="BirthDate" class="form-control"/>
-            <span asp-validation-for="BirthDate"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Password">Mot de passe : </label>
-            <input asp-for="Password" class="form-control"/>
-            <span asp-validation-for="Password"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ConfirmPassword">Répétez le mot de passe : </label>
-            <input asp-for="ConfirmPassword" class="form-control"/>
-            <span asp-validation-for="ConfirmPassword"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">S'enregistrer</button>
-    </form>
+<div class="Title">
+    <h2>@ViewData["Title"]</h2>
 </div>
+
+<div class="Connect">
+    <a asp-action="Login">
+        Return to connection menu
+    </a>
+</div>
+
+<form asp-controller="Account" asp-action="Register" method="post">
+    @if (!ViewContext.ViewData.ModelState.IsValid)
+    {
+        <div asp-validation-summary="All" class="alert alert-danger"></div>
+    }
+
+    <div class="field-email active">
+        <i class="fas fa-at"></i>
+        <input asp-for="Email" type="email" placeholder="Please enter email" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-pseudo inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-user"></i>
+        <input asp-for="Pseudo" placeholder="Please enter pseudo" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-firstname inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-user"></i>
+        <input asp-for="FirstName" placeholder="Please enter firstname" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-lastname inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-user"></i>
+        <input asp-for="LastName" placeholder="Please enter lastname" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-birthdate inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-calendar-alt"></i>
+        <input type="date" asp-for="BirthDate" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-password inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-key"></i>
+        <input asp-for="Password" placeholder="Please enter password" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-passwordcheck inactive">
+        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-key"></i>
+        <input asp-for="ConfirmPassword" placeholder="Please confirm password" required />
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="field-send inactive">
+        <i class="fas fa-chevron-left"></i>
+        <button type="submit">Register</button>
+    </div>
+</form>
