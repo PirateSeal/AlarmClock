@@ -189,7 +189,7 @@ namespace AlarmClock.DAL
                              u.LastName,
                              u.BirthDate,
                              u.Email,
-                             u.Pseudo,
+                             u.Pseudo
                       from spi.vUser u
                       where u.UserId = @UserId;",
                     new { UserId = userId } );

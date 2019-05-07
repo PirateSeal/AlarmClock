@@ -20,10 +20,7 @@ export default {
     return {
       AuthService
     }
-  },
-  computed: {
   }
-  
 };
 </script>
 

@@ -5,10 +5,7 @@ import * as actions from './actions'
 //gerer User obj with multi params
 
 const state = {
-  user: {
-    info: {},
-    clockInfo: {},
-  }
+  userInfo: {}
 }
 
 export default {
