@@ -15,7 +15,7 @@ export default {
   name: "clock_register",
   data() {
     return {
-      item: {Name:"", UserId:1, Guid: ""}
+      item: {}
 
     }
   },

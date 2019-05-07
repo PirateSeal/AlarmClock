@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
@@ -17,9 +19,10 @@ namespace Alarmclock.WebApp.Controllers
         }
         private UserGateway Gateway { get; }
 
-        [HttpGet( "GetUserInfo/{id}" )]
-        public async Task<IActionResult> GetUserInfo( int id )
+        [HttpGet]
+        public async Task<IActionResult> GetUserInfo()
         {
+            int id = int.Parse( User.Claims.ElementAt<Claim>( 0 ).Value );
             return this.CreateResult(await Gateway.GetUserDetails( id ));
         }
 
