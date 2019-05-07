@@ -1,7 +1,6 @@
 <template>
   <div class="Homeloged">
-    <clock v-for="(clock, index) in clocks_preset" :key="`${clock.title}${index}`" :clock="clock"/>
-    <clockPreset></clockPreset>
+    <clock v-for="(clock, index) in globalInfo.clock" :key="`${clock.title}${index}`" :clock="clock"/>
   </div>
 </template>
 
@@ -10,6 +9,8 @@ import clock from "./clock";
 import { deleteClockAsync } from "@/api/clockApi";
 import { getGlobalUserInfo } from '@/api/UserApi'
 import { mapGetters } from 'vuex'
+import Vuex from 'vuex';
+
 
 
 export default {
@@ -19,7 +20,8 @@ export default {
   },
   async mounted() {
     this.globalInfo = await getGlobalUserInfo()
-    $store.dispatch('setUserInfo', this.globalInfo)
+    console.log(this.$store);
+    await this.$store.dispatch('setUserInfo', this.globalInfo)
   },
     computed: {
     ...mapGetters({

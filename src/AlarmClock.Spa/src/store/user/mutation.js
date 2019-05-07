@@ -3,7 +3,7 @@ export const types = {
 }
 
 const mutations = {
-  [types.SET_USER] (state, data) {
+  [types.SET_USERINFO] (state, data) {
     this.state.userInfo = data
   }
 }

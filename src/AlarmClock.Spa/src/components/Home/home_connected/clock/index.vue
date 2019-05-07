@@ -15,59 +15,9 @@ export default {
       required: true
     }
   },
-
-  async mounted() {
-  },
   data() {
     return {
-       clocks_preset: [
-        {
-          title: 'yolo',
-          time: '18:56',
-          days: [
-            1,
-            5,
-            3,
-            7
-          ]
-        },
-        {
-          title: 'preset2',
-          time: '19:33',
-          days: [
-            1,
-            2,
-            4,
-            7
-          ]
-        },
-        {
-          title: 'preset3',
-          time: '07:56',
-          days: [
-            1,
-            5,
-            
-          ]
-        },
-        {
-          title: 'preset4',
-          time: '07:56',
-          days: [
-            1,
-            5,
-          ]
-        },
-        {
-          title: 'preset5',
-          time: '07:56',
-          days: [
-            1,
-            5,
-            
-          ]
-        }
-      ],
+       clocks_preset: [],
     };
   },
   methods: {
