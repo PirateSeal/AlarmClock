@@ -77,18 +77,29 @@ import {
   getPresetAsync
 } from "@/api/presetApi.js";
 export default {
+  computed: {
+    ...mapGetters({
+      getUserInfo: 'getUserInfo'
+    })
+  },
   data() {
     return {
       id: 3,
       preset: {},
       days: [true, false, true, true, false, true, false],
       mode: "edit",
-      errors: []
+      errors: [],
+      globalInfo: {}
     };
   },
 
   async mounted() {
     //this.id = this.$route.params.id;
+    
+    this.globalInfo = await getGlobalUserInfo()
+    console.log(this.$store);
+    await this.$store.dispatch('setUserInfo', this.globalInfo)
+
     if (this.mode == "edit") {
       try {
         this.preset = await getPresetAsync(this.id);
