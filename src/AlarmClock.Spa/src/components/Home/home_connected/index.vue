@@ -1,6 +1,7 @@
 <template>
   <div class="Homeloged">
-    <clock v-for="(clock, index) in globalInfo.clock" :key="`${clock.title}${index}`" :clock="clock"/>
+    <div class="title">Vos clock</div>
+    <clock v-for="(clock, index) in globalInfo.clocks" :key="`${clock.title}${index}`" :clock="clock"/>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
   },
   async mounted() {
     this.globalInfo = await getGlobalUserInfo()
-    console.log(this.$store);
+    console.log(this.globalInfo)
     await this.$store.dispatch('setUserInfo', this.globalInfo)
   },
     computed: {
