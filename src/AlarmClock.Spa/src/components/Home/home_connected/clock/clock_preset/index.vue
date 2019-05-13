@@ -17,24 +17,26 @@
 
 <script>
 import days from "@/components/enums/days";
-import { GetAllClocksByUserId, deleteClockAsync } from "@/api/clockApi";
+import { deleteClockAsync } from "@/api/clockApi";
+import { mapGetters } from 'vuex'
+
 
 export default {
   name: "clock_preset",
-  props: {
-    clock_preset: {
-      type: Object,
-      required: true
-    }
-  },
-
+ 
   async mounted() {
-    await this.refreshList();
+    this.globalInfo =  this.getUserInfo
+    console.log(this.globalInfo)
   },
   data() {
     return {
-      clockList: []
+      PresetInfo: this.globalInfo.clocks[this.$root.params.id]
     };
+  },
+computed: {
+    ...mapGetters({
+      getUserInfo: 'getUserInfo'
+    })
   },
   methods: {
     days() {
