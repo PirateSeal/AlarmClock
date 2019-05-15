@@ -206,9 +206,9 @@ namespace AlarmClock.DAL
                       where u.UserId = @UserId;",
                     new { UserId = userId } );
 
-                if( user == null ) return Result.Failure<UserData>( Status.NotFound, "User not found." );
-
-                return Result.Success( user );
+                return user == null
+                    ? Result.Failure<UserData>( Status.NotFound, "User not found." )
+                    : Result.Success( user );
             }
         }
 

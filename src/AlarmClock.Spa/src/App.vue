@@ -50,8 +50,12 @@ export default {
     height: 94vh;
     width: 100%;
     z-index: 0;
-    background: rgb(34,193,195);
-    background: linear-gradient(337deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+      337deg,
+      rgba(34, 193, 195, 1) 0%,
+      rgba(253, 187, 45, 1) 100%
+    );
   }
 }
 </style>
