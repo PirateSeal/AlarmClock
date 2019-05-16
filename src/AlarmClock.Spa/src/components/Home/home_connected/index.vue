@@ -1,6 +1,6 @@
 <template>
   <div class="Homeloged">
-    <div class="title">Vos clock</div>
+    <div class="displayed">Vos clock</div>
     <clock v-for="(clock, index) in globalInfo.clocks" :key="`${clock.title}${index}`" :clock="clock"/>
   </div>
 </template>
@@ -38,6 +38,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.displayed 
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .Homeloged {
   width: 100%;
   height: 100%;

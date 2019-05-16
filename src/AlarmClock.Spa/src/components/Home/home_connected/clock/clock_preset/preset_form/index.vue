@@ -71,11 +71,8 @@
 </template>
 
 <script>
-import {
-  createPresetAsync,
-  updatePresetAsync,
-  getPresetAsync
-} from "@/api/presetApi.js";
+import { createPresetAsync, updatePresetAsync, getPresetAsync } from "@/api/presetApi.js";
+import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
