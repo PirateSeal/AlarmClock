@@ -29,6 +29,7 @@ export default {
   width: 100%;
   height: calc(100vh - 48px);
   display: flex;
+    justify-content: center;
   align-items: center;
   text-align: center;  
 }

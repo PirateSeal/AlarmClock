@@ -1,11 +1,14 @@
 <template>
   <div class="Homeloged">
     <div class="title">Vos clock</div>
+    <div class="clock">
     <clock
       v-for="(clock, index) in globalInfo.clocks"
       :key="`${clock.title}${index}`"
       :clock="clock"
+      :index="index"
     />
+    </div>
   </div>
 </template>
 
@@ -24,7 +27,8 @@ export default {
   async mounted() {
     this.globalInfo = await getGlobalUserInfo();
     console.log(this.globalInfo);
-    await this.$store.dispatch("setUserInfo", this.globalInfo);
+   this.$store.dispatch("setUserInfo", this.globalInfo);
+
   },
   computed: {
     ...mapGetters({
@@ -45,8 +49,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  flex-wrap: wrap;
   //overflow-y: scroll;
   // overflow: hidden;
+  .clock{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+  }
 }
 </style>

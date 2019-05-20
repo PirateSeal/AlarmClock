@@ -54,12 +54,12 @@
         <br>
         <br>
 
-        <label type="text">Alarm Preset Id : {{preset.alarmPresetId}}</label>
+        <label type="text">Alarm Preset Id : {{preset.PresetId}}</label>
 
         <br>
         <br>
 
-        <label type="text">Clock Id : {{preset.clockId}}</label>
+        <label type="text">Clock Id : {{getUserInfo.clocks[$route.params.id].clockId}}</label>
       </div>
     </div>
 
@@ -73,45 +73,41 @@
 <script>
 import {
   createPresetAsync,
-  updatePresetAsync,
-  getPresetAsync
+ getPresetAsync,
+ updatePresetAsync
 } from "@/api/presetApi.js";
+
+import { mapGetters } from "vuex";
+import Vuex from "vuex";
+
 export default {
   computed: {
     ...mapGetters({
-      getUserInfo: 'getUserInfo'
+      getUserInfo: "getUserInfo"
     })
   },
   data() {
     return {
-      id: 3,
-      preset: {},
+      preset: {
+      },
       days: [true, false, true, true, false, true, false],
-      mode: "edit",
       errors: [],
-      globalInfo: {}
     };
   },
 
   async mounted() {
     //this.id = this.$route.params.id;
+   if(this.$route.params.presetId != null)this.preset.PresetId = this.$route.params.presetId;
     
-    this.globalInfo = await getGlobalUserInfo()
-    console.log(this.$store);
-    await this.$store.dispatch('setUserInfo', this.globalInfo)
 
-    if (this.mode == "edit") {
-      try {
-        this.preset = await getPresetAsync(this.id);
-      } catch (e) {
-      }
-    }
+    this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
+    console.log(this.preset)
   },
 
   methods: {
+
     async onSubmit(event) {
       event.preventDefault();
-      debugger;
       var errors = [];
 
       if (!this.preset.name) errors.push("Name");
@@ -119,20 +115,19 @@ export default {
       if (!this.preset.song) errors.push("Song");
       // if (!this.preset.activationFlag) errors.push("ActivationFlag");
       if (!this.preset.challenge) errors.push("Challenge");
-      if (!this.preset.alarmPresetId) errors.push("AlarmPresetId");
-      if (!this.preset.clockId) errors.push("ClockId");
+          debugger;
 
       this.errors = errors;
-
       if (errors.length == 0) {
-        try {
-          if (this.mode == "edit") await updatePresetAsync(this.preset);
+        try {          
+          if (this.$route.fullPath.split('/')[1] == "EditPreset") await updatePresetAsync(this.preset);
           else await createPresetAsync(this.preset);
           this.$router.replace("");
         } catch (e) {
           console.error(e);
         }
       }
+      this.$router.push('/clock/'+this.$route.params.id+'/Presets')
     }
   }
 };

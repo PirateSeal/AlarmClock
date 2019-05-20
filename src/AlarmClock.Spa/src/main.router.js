@@ -25,7 +25,9 @@ const routes = [
         component: ClockRegister,
         beforeEnter: requireAuth
     },
-    { path: "/PresetForm", component: PresetForm, beforeEnter: requireAuth },
+    { path: "/EditPreset/:id/:presetId", component: PresetForm, beforeEnter: requireAuth },
+    { path: "/NewPreset/:id", component: PresetForm, beforeEnter: requireAuth },
+
     { path: "/Clock/:id", component: ClockPreset, beforeEnter: requireAuth },
     {
         path: "/Clock/:id/Presets",

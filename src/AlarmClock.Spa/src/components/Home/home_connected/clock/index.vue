@@ -1,5 +1,5 @@
 <template>
-  <div class="Clock" @click="$router.push('/Clock/'+clock.clockId+'/Presets')">
+  <div class="Clock" @click="$router.push('/Clock/'+index+'/Presets')">
     <div class="clock-img"></div>
     <div class="text-info">
       <div class="name">{{clock.clockName}}</div>
@@ -16,6 +16,10 @@ export default {
   props: {
     clock: {
       type: Object,
+      required: true
+    },
+    index: {
+      type: Number,
       required: true
     }
   },
@@ -61,5 +65,12 @@ export default {
     width: 128px;
     flex-shrink: 0;
   }
+      transition: all 0.5s;
+      position: relative;
+      &:hover {
+        opacity: 0.6;
+        transform: scale(1.4);
+        cursor: pointer;
+      }
 }
 </style>
