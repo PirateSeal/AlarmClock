@@ -3,14 +3,14 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.name" value="preset.PresetName" required>
+        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
 
         <label class="required">Waking Time</label>
-        <input type="time" v-model="preset.wakingTime" value="preset.WakingTime" required>
+        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
 
         <label class="required">Song</label>
 
-        <input type="text" v-model="preset.song" value="preset.song" required>
+        <input type="text" v-model="preset.Song" value="preset.Song" required>
       </div>
 
       <label class="required">Activation Flag</label>
@@ -42,7 +42,7 @@
       <div class="box-vertical">
         <label class="required">Challenge</label>
 
-        <select type="select" v-model="preset.challenge">
+        <select type="select" v-model="preset.Challenge">
           <option value="0">BlindTest</option>
           <option value="1">Joke</option>
           <option value="2">Snake</option>
@@ -97,7 +97,18 @@ export default {
 
   async mounted() {
     //this.id = this.$route.params.id;
-   if(this.$route.params.presetId != null)this.preset.PresetId = this.$route.params.presetId;
+    
+    if(this.$route.params.presetId != null) {
+      debugger;
+      this.preset.PresetId = this.$route.params.presetId;
+      this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+      
+      //this.challenges = this.getUserInfo.challenges;
+   }
     
 
     this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
