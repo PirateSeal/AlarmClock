@@ -51,6 +51,7 @@ namespace AlarmClock.MQTT
             Console.WriteLine( "Press any key to exit." );
             Console.ReadLine();
 
+            
         }
     }
 
@@ -66,6 +67,8 @@ namespace AlarmClock.MQTT
             Console.WriteLine();
 
             return Task.CompletedTask;
+
+            
         }
     }
 }
