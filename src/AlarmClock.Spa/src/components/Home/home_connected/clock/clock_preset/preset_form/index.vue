@@ -3,39 +3,42 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
+        <input type="text" v-model="preset.PresetName" required>
 
         <label class="required">Waking Time</label>
-        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
+        <input type="time" v-model="preset.WakingTime" required>
 
         <label class="required">Song</label>
 
-        <input type="text" v-model="preset.Song" value="preset.Song" required>
+        <input type="text" v-model="preset.Song" required>
       </div>
 
       <label class="required">Activation Flag</label>
 
       <div class="box-vertical">
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[0]" value="1">Sunday
+          <input type="checkbox" v-model="days[0]" value="1">Activé
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[1]" value="1">Monday
+          <input type="checkbox" v-model="days[1]" value="1">Lundi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[2]" value="1">Tuesday
+          <input type="checkbox" v-model="days[2]" value="1">Mardi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[3]" value="1">Wednesday
+          <input type="checkbox" v-model="days[3]" value="1">Mercredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[4]" value="1">Thursday
+          <input type="checkbox" v-model="days[4]" value="1">Jeudi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[5]" value="1">Friday
+          <input type="checkbox" v-model="days[5]" value="1">Vendredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[6]" value="1">Saturday
+          <input type="checkbox" v-model="days[6]" value="1">Samedi
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="days[7]" value="1">Dimanche
         </div>
       </div>
 
@@ -89,17 +92,33 @@ export default {
   data() {
     return {
       preset: {
+        // PresetId: this.$route.params.presetId,
+        // PresetName: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName,
+        // WakingTime: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime,
+        // Song: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].song,
+        // ActivationFlag: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag,
+        // Challenge: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge
       },
       days: [true, false, true, true, false, true, false],
       errors: [],
+      info: {}
     };
   },
-
+created(){
+  if(this.$route.params.presetId != null) {
+    this.preset.PresetId = this.$route.params.presetId;
+    this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+    this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+    this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+    this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+    this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+      
+    this.challenges = this.getUserInfo.challenges;
+  }
+},
   async mounted() {
     //this.id = this.$route.params.id;
-    
     if(this.$route.params.presetId != null) {
-      debugger;
       this.preset.PresetId = this.$route.params.presetId;
       this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
       this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
@@ -107,7 +126,7 @@ export default {
       this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
       this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
       
-      //this.challenges = this.getUserInfo.challenges;
+      this.challenges = this.getUserInfo.challenges;
    }
     
 
