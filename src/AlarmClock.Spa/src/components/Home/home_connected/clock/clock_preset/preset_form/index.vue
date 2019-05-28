@@ -3,7 +3,7 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
+        <input type="text" v-model="preset.Name" value="preset.Name" required>
 
         <label class="required">Waking Time</label>
         <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
@@ -17,28 +17,28 @@
 
       <div class="box-vertical">
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[0]" value="1">Activé
+          <input type="checkbox" v-model="days[0]" value="1">Lundi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[1]" value="1">Lundi
+          <input type="checkbox" v-model="days[1]" value="1">Mardi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[2]" value="1">Mardi
+          <input type="checkbox" v-model="days[2]" value="1">Mercredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[3]" value="1">Mercredi
+          <input type="checkbox" v-model="days[3]" value="1">Jeudi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[4]" value="1">Jeudi
+          <input type="checkbox" v-model="days[4]" value="1">Vendredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[5]" value="1">Vendredi
+          <input type="checkbox" v-model="days[5]" value="1">Samedi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[6]" value="1">Samedi
+          <input type="checkbox" v-model="days[6]" value="1">Dimanche
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[7]" value="1">Dimanche
+          <input type="checkbox" v-model="days[7]" value="1">ACTIVE
         </div>
       </div>
 
@@ -57,7 +57,7 @@
         <br>
         <br>
 
-        <label type="text">Alarm Preset Id : {{preset.PresetId}}</label>
+        <label type="text">Alarm Preset Id : {{this.preset.AlarmPresetId}}</label>
 
         <br>
         <br>
@@ -82,6 +82,7 @@ import {
 
 import { mapGetters } from "vuex";
 import Vuex from "vuex";
+import { formatActivationFlag, reformActivationFlag } from "@/api/formatActivationFlag.js";
 
 export default {
   computed: {
@@ -99,43 +100,49 @@ export default {
         // ActivationFlag: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag,
         // Challenge: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge
       },
-      days: [true, false, true, true, false, true, false],
+      days: [],
       errors: [],
       info: {}
     };
   },
-created(){
-  if(this.$route.params.presetId != null) {
-    this.preset.PresetId        = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
-    this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
-    this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
-    this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
-    this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
-    this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+  created() {
+    if(this.$route.params.presetId != null) {
+      this.preset.AlarmPresetId   = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
+      this.preset.Name            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
       
-    this.challenges = this.getUserInfo.challenges;
-  }
-  this.days = [false, false, false, false, false, false, false, false]
-},
+      this.challenges = this.getUserInfo.challenges;
+    }
+    this.days = formatActivationFlag(this.preset.ActivationFlag);
+    if(this.preset.ActivationFlag & 1 != 0) {
+      this.days[7] = true;
+    } 
+    else {
+      this.days[7] = false;
+    }
+  },
   async mounted() {
     //this.id = this.$route.params.id;
     
     this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
-    console.log(this.preset)
+    console.log(this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
   },
 
   methods: {
-
+    
     async onSubmit(event) {
       event.preventDefault();
       var errors = [];
+      this.preset.ActivationFlag = reformActivationFlag(this.days);
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
       if (!this.preset.Song) errors.push("Song");
       // if (!this.preset.activationFlag) errors.push("ActivationFlag");
-      if (!this.preset.Challenge) errors.push("Challenge");
-          debugger;
+      // if (!this.preset.Challenge) errors.push("Challenge");
 
       this.errors = errors;
       if (errors.length == 0) {
@@ -147,7 +154,7 @@ created(){
           console.error(e);
         }
       }
-      this.$router.push('/clock/' + this.$route.params.presetId + '/Presets')
+      this.$router.push('/clock/' + this.$route.params.id + '/Presets')
     }
   }
 };

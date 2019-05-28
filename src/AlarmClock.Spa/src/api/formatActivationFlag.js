@@ -14,3 +14,14 @@ export function formatActivationFlag(flag) {
    else flagArray.push(false); 
   return flagArray;
 }
+
+export function reformActivationFlag(flagArray) {
+  var j = 7;
+  var flag = 0;
+
+  for( var i = 0 ; i < 8 ; i++ & j--) {
+    if(flagArray[i] == true) { flag += ( Math.pow(2, j))}
+  }
+
+  return flag;
+}
