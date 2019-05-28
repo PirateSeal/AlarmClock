@@ -3,14 +3,14 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.PresetName" required>
+        <input type="text" v-model="preset.PresetName" value="preset.PresetName" required>
 
         <label class="required">Waking Time</label>
-        <input type="time" v-model="preset.WakingTime" required>
+        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
 
         <label class="required">Song</label>
 
-        <input type="text" v-model="preset.Song" required>
+        <input type="text" v-model="preset.Song" value="preset.Song" required>
       </div>
 
       <label class="required">Activation Flag</label>
@@ -106,7 +106,7 @@ export default {
   },
 created(){
   if(this.$route.params.presetId != null) {
-    this.preset.PresetId = this.$route.params.presetId;
+    this.preset.PresetId        = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
     this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
     this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
     this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
@@ -115,21 +115,11 @@ created(){
       
     this.challenges = this.getUserInfo.challenges;
   }
+  this.days = [false, false, false, false, false, false, false, false]
 },
   async mounted() {
     //this.id = this.$route.params.id;
-    if(this.$route.params.presetId != null) {
-      this.preset.PresetId = this.$route.params.presetId;
-      this.preset.PresetName      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
-      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
-      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
-      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
-      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
-      
-      this.challenges = this.getUserInfo.challenges;
-   }
     
-
     this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
     console.log(this.preset)
   },
@@ -140,11 +130,11 @@ created(){
       event.preventDefault();
       var errors = [];
 
-      if (!this.preset.name) errors.push("Name");
-      if (!this.preset.wakingTime) errors.push("WakingTime");
-      if (!this.preset.song) errors.push("Song");
+      if (!this.preset.Name) errors.push("Name");
+      if (!this.preset.WakingTime) errors.push("WakingTime");
+      if (!this.preset.Song) errors.push("Song");
       // if (!this.preset.activationFlag) errors.push("ActivationFlag");
-      if (!this.preset.challenge) errors.push("Challenge");
+      if (!this.preset.Challenge) errors.push("Challenge");
           debugger;
 
       this.errors = errors;
@@ -157,7 +147,7 @@ created(){
           console.error(e);
         }
       }
-      this.$router.push('/clock/'+this.$route.params.id+'/Presets')
+      this.$router.push('/clock/' + this.$route.params.presetId + '/Presets')
     }
   }
 };

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="CreatePreset"></div>
     <div class="presetlist">
-      <PresetList v-for="preset in Presets" :key="preset.presetId" :preset="preset"></PresetList>
+      <PresetList v-for="(preset, index) in Presets" :key="preset.presetId" :preset="preset" :index="index"></PresetList>
     </div>
     <div class="CreatePreset" @click="$router.push('/NewPreset/'+$route.params.id)" >Creer un preset</div>    
 

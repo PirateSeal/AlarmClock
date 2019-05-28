@@ -1,5 +1,5 @@
 <template>
-  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+preset.presetId)" >
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+index)" >
     <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
       <div class="time" v-for="(wakingTime, index) in getTime(preset.wakingTime)" :key="wakingTime + index">{{wakingTime}}</div>
@@ -25,6 +25,10 @@ export default {
   name: "clock_preset",
   props: {
     preset: {
+      type: Object,
+      required: true
+    },
+    index: {
       type: Object,
       required: true
     }
