@@ -1,7 +1,9 @@
 <template>
-  <div class="displayed">
-    <img src="../../../../public/assets/Clock/SVG/Asset 1.svg">
-    <img src="../../../../public/assets/Clock/homeDisconnect.png" class="img">
+  <div class="home_disconnected">
+    Welcome To
+    <div class="title">
+      <div class="slide-left">AlarmClock</div>
+    </div>
   </div>
 </template>
 
