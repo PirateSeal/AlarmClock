@@ -4,7 +4,7 @@ namespace AlarmClock.Device.MQTT
     {
         static void Main()
         {
-            var client = new MqttApplicationClient();
+            MqttApplicationClient client = new MqttApplicationClient();
         }
      
     }

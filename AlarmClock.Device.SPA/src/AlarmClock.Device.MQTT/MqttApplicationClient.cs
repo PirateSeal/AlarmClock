@@ -5,6 +5,7 @@ using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
+using SimpleMsgPack;
 
 namespace AlarmClock.Device.MQTT
 {
@@ -29,6 +30,15 @@ namespace AlarmClock.Device.MQTT
         async Task EnsureIsConnected()
         {
             if( !Client.IsConnected ) await Client.ConnectAsync( Options );
+        }
+
+        private MsgPack InitMsgPack()
+        {
+            MsgPack msgPack = new MsgPack();
+
+            
+
+            return msgPack;
         }
 
         public async Task Init()
