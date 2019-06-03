@@ -10,17 +10,11 @@ namespace AlarmClock.Device.WebApp.Controllers
     [ApiController]
     public class PresetController : Controller
     {
-        public PresetController( PresetGateway gateway )
-        {
-            Gateway = gateway;
-        }
+        public PresetController( PresetGateway gateway ) => Gateway = gateway;
 
         private PresetGateway Gateway { get; }
 
         [HttpGet]
-        public Task<IEnumerable<PresetData>> ShowPresets()
-        {
-            return Gateway.GetAllPresets();
-        }
+        public Task<IEnumerable<PresetData>> ShowPresets() => Gateway.GetAllPresetsAsync();
     }
 }

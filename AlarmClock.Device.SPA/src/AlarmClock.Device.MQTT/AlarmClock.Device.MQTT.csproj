@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="MQTTnet" Version="3.0.2" />
+    <PackageReference Include="SimpleMsgPack" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
