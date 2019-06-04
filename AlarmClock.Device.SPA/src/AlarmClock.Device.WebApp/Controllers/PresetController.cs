@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AlarmClock.Device.DAL;
 using AlarmClock.Device.DAL.Data;
 using AlarmClock.Device.DAL.Gateways;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,9 @@ namespace AlarmClock.Device.WebApp.Controllers
         private PresetGateway Gateway { get; }
 
         [HttpGet]
-        public Task<IEnumerable<PresetData>> ShowPresets() => Gateway.GetAllPresetsAsync();
+        public async Task<Result<List<PresetData>>> ShowPresets() => await Gateway.GetAllPresetsAsync();
+
+        [HttpGet]
+        public async Task<Result<PresetData>> FindPresetById( int id ) => await Gateway.GetPresetByIdAsync( id );
     }
 }

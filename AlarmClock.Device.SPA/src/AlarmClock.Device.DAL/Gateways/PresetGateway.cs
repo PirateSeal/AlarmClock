@@ -20,16 +20,16 @@ namespace AlarmClock.Device.DAL.Gateways
 
         private JsonHandler JsonHandler { get; }
 
-        private async Task UpdateClockInfo( ClockData data )
+        public async Task UpdateClockInfo( ClockData data )
         {
             await JsonHandler.UpdateJson( data );
         }
 
-        public async Task<IEnumerable<PresetData>> GetAllPresetsAsync()
+        public async Task<Result<List<PresetData>>> GetAllPresetsAsync()
         {
             var result = await JsonHandler.OpenJsonAsync();
             ClockData data = result.Content;
-            return data.Presets.ToList();
+            return Result.Success(data.Presets);
         }
 
         public async Task<Result<PresetData>> GetPresetByIdAsync( int id )
