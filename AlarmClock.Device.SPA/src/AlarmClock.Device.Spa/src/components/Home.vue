@@ -1,6 +1,10 @@
 <template>
   <section class="jumbotron text-center">
     <div class="container">
+      <div class="text">
+        <h1>Welcome to AlarmClock</h1>
+        <h2>This is the {{this.Name}} clock</h2>
+      </div>
       <div class="clock">
         <div class="column">
           <div class="num">0</div>
@@ -62,69 +66,100 @@
           <div class="num">9</div>
         </div>
       </div>
+      <div class="text" @click="MainMenu">
+        <h1 class="link">Go to Presets</h1>
+      </div>
     </div>
   </section>
 </template>
 
-
-
-
 <script>
-import {} from "../api/clockScript.js";
-export default {};
+import { runClock } from "../api/clockScript.js";
+import { getClockName } from "../api/clockApi.js";
+
+export default {
+  data() {
+    return {
+      Name: "Test"
+    };
+  },
+  mounted() {
+    this.Name = getClockName();
+
+    let columns = Array.from(document.getElementsByClassName("column"));
+    runClock(columns);
+  },
+  methods: {
+    MainMenu() {
+      this.$router.replace("/MainMenu");
+    }
+  }
+};
 </script>
 
-<style scoped>
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300");
-.clock {
+<style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+
+.container {
   text-align: center;
-  background-color: #0e141b;
-  color: rgba(224, 230, 235, 0.89);
-  font-family: "Roboto", sans-serif;
+  color: #0e141b;
+  font-family: "Josefin Sans";
   font-weight: 300;
-  overflow: hidden;
-}
 
-.column,
-.colon {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 86px;
-  line-height: 86px;
-}
+  .text {
+    font-size: 25px;
+    .link {
+      text-decoration-line: underline;
+    }
+  }
 
-.column {
-  transition: -webkit-transform 300ms;
-  transition: transform 300ms;
-  transition: transform 300ms, -webkit-transform 300ms;
-}
+  .clock {
+    margin-top: -10%;
+    max-height: 700px;
+    overflow: hidden;
 
-.colon {
-  transition: -webkit-transform 300ms;
-  transition: transform 300ms;
-  transition: transform 300ms, -webkit-transform 300ms;
-  -webkit-transform: translateY(calc(50vh - 43px));
-  transform: translateY(calc(50vh - 43px));
-}
-.colon:after {
-  content: ":";
-}
+    .column,
+    .colon {
+      display: inline-block;
+      vertical-align: top;
+      font-size: 86px;
+      line-height: 86px;
+    }
 
-.num {
-  transition: opacity 500ms, text-shadow 100ms;
-  opacity: 0.025;
-}
-.num.visible {
-  opacity: 1;
-  text-shadow: 1px 1px 0px #336699;
-}
-.num.close {
-  opacity: 0.35;
-}
-.num.far {
-  opacity: 0.15;
-}
-.num.distant {
-  opacity: 0.1;
+    .column {
+      transition: -webkit-transform 300ms;
+      transition: transform 300ms;
+      transition: transform 300ms, -webkit-transform 300ms;
+    }
+
+    .colon {
+      transition: -webkit-transform 300ms;
+      transition: transform 300ms;
+      transition: transform 300ms, -webkit-transform 300ms;
+      -webkit-transform: translateY(calc(50vh - 43px));
+      transform: translateY(calc(50vh - 43px));
+    }
+    .colon:after {
+      content: ":";
+    }
+
+    .num {
+      transition: opacity 1000ms, text-shadow 100ms;
+      opacity: 0;
+    }
+    .num.visible {
+      opacity: 1;
+      text-shadow: 1px 1px 0px #336699;
+    }
+    .num.close {
+      opacity: 0.35;
+    }
+    .num.far {
+      opacity: 0;
+    }
+    .num.distant {
+      opacity: 0;
+    }
+  }
 }
 </style>
