@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <ClockPreset></ClockPreset>
-    <div class="NewPreset"></div>
   </div>
 </template>
 
@@ -12,7 +10,6 @@ import ClockPreset from "@/components/Home/home_connected/clock/clock_preset/";
 
 export default {
   components: {
-    ClockPreset
 
   },
   data() {

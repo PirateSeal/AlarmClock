@@ -1,15 +1,283 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"] - Primary school</title>
-
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] - AlarmClock</title>
     @Html.Partial("_AppStyles")
 </head>
 <body>
-<div>
-    @RenderBody()
-</div>
+    <div>
+        @RenderBody()
+    </div>
+    <script language="javascript">
+        function animatedForm() {
+            const chevronsR = document.querySelectorAll(".fa-chevron-right");
+
+            chevronsR.forEach(chevron => {
+                chevron.addEventListener("click", () => {
+                    const input = chevron.previousElementSibling;
+                    const parent = chevron.parentElement;
+                    const nextForm = parent.nextElementSibling;
+
+                    switch (input.type) {
+                        case "text":
+                            validateUser(input, parent, nextForm);
+                            break;
+                        case "email":
+                            validateEmail(input, parent, nextForm);
+                            break;
+                        case "password":
+                            validateUser(input, parent, nextForm);
+                            break;
+                        case "date":
+                            ChangeSlide(parent, nextForm);
+                            break;
+                    }
+
+                    parent.addEventListener("animationend", () => {
+                        parent.style.animation = "";
+                    });
+                });
+            });
+
+            const chevronsL = document.querySelectorAll(".fa-chevron-left");
+
+            chevronsL.forEach(chevron => {
+                chevron.addEventListener("click",
+                    () => {
+                        const parent = chevron.parentElement;
+                        const previousForm = parent.previousElementSibling;
+
+                        ChangeSlide(parent, previousForm);
+                    });
+            });
+        }
+
+        function validateUser(user, parent, nextForm) {
+            if (user.value.length >= 3) {
+                ChangeBgColor("rgb(87,189,130)");
+                ChangeSlide(parent, nextForm);
+                return true;
+            } else {
+                {
+                    ChangeBgColor("rgb(189,87,87)");
+                    parent.style.animation = "shake 0.4s ease";
+                }
+                return false;
+            }
+        }
+
+        function validateEmail(email, parent, nextForm) {
+            const validation = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (validation.test(email.value)) {
+                ChangeBgColor("rgb(87,189,130)");
+                ChangeSlide(parent, nextForm);
+                return true;
+            } else {
+                {
+                    ChangeBgColor("rgb(189,87,87)");
+                    parent.style.animation = "shake 0.4s ease";
+                }
+                return false;
+            }
+        }
+
+        function validateDate(date, parent, nextForm) {
+
+        }
+
+        function ChangeSlide(parent, nextForm) {
+            parent.classList.add("inactive");
+            parent.classList.remove("active");
+            nextForm.classList.remove("inactive");
+            nextForm.classList.add("active");
+        }
+
+        function ChangeBgColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+
+        animatedForm();
+
+
+    </script>
 </body>
+<style>
+    * {
+        font-family: sans-serif;
+        margin: 0;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    .Title {
+        top: 35%;
+        left: 50%;
+        position: absolute;
+        display: flex;
+        -ms-transform: translate(-50%);
+        -webkit-transform: translate(-50%);
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        background-color: rgb(87, 189, 130);
+        -ms-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        -webkit-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+        position: relative;
+    }
+
+    .field-email,
+    .field-pseudo,
+    .field-firstname,
+    .field-lastname,
+    .field-passwordcheck,
+    .field-birthdate,
+    .field-password,
+    .field-send {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background: white;
+        height: 50px;
+        width: 400px;
+        display: flex;
+        -o-justify-content: space-between;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -ms-align-items: center;
+        -o-align-items: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+    .register, .Connect {
+        position: absolute;
+        top: 5%;
+        left: 10%;
+        display: flex;
+        -ms-transform: translate(-50%);
+        -webkit-transform: translate(-50%);
+        transform: translate(-50%);
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        background: white;
+        border-color: white;
+        width: 150px;
+        height: 25px;
+    }
+
+    .Connect {
+        height: 75px;
+    }
+
+        .register a,
+        .Connect a {
+            font-weight: bold;
+            text-decoration: none;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            color: black;
+            display: flex;
+            position: relative;
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%,-25%);
+        }
+
+    .field-email input,
+    .field-password input,
+    .field-firstname input,
+    .field-lastname input,
+    .field-pseudo input,
+    .field-passwordcheck input,
+    .field-birthdate input,
+    .field-send button {
+        background: none;
+        border: none;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        -o-flex: 1;
+        flex: 1;
+        height: 100%;
+        outline: none;
+    }
+
+    .field-email i,
+    .field-firstname i,
+    .field-lastname i,
+    .field-pseudo i,
+    .field-birthdate i,
+    .field-passwordcheck i,
+    .field-password i {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .field-send label {
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+    }
+
+    div.inactive {
+        -ms-opacity: 0;
+        opacity: 0;
+        pointer-events: none;
+        -ms-transform: translate(-50%, 50%);
+        -webkit-transform: translate(-50%, 50%);
+        transform: translate(-50%, 50%);
+    }
+
+    div.active {
+        -ms-opacity: 1;
+        opacity: 1;
+        pointer-events: all;
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    @@keyframes shake {
+        0% {
+            -ms-transform: translate(-50%, -50%) rotate(0);
+            -webkit-transform: translate(-50%, -50%) rotate(0);
+        }
+
+        15% {
+            -ms-transform: translate(-50%, -50%) rotate(-5deg);
+            -webkit-transform: translate(-50%, -50%) rotate(-5deg);
+        }
+
+        35% {
+            -ms-transform: translate(-50%, -50%) rotate(5deg);
+            -webkit-transform: translate(-50%, -50%) rotate(5deg);
+        }
+
+        65% {
+            -ms-transform: translate(-50%, -50%) rotate(-5deg);
+            -webkit-transform: translate(-50%, -50%) rotate(-5deg);
+        }
+
+        100% {
+            -ms-transform: translate(-50%, -50%) rotate(0);
+            -webkit-transform: translate(-50%, -50%) rotate(0);
+        }
+    }
+</style>
 </html>

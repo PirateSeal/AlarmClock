@@ -8,7 +8,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "luxon": "^1.12.1",
+    "luxon": "^1.13.2",
     "popper.js": "^1.15.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",

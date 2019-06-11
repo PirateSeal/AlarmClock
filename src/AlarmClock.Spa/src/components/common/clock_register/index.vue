@@ -1,5 +1,6 @@
 <template>
   <div class="clock_register_form">
+    <img src="../../../../public/assets/Clock/newClock.png">
     <input type="text" v-model="item.Name" class="clockName">
     <div class="sub" @click="submit()">register</div>
   </div>
@@ -28,3 +29,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+.clock_register_form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+</style>

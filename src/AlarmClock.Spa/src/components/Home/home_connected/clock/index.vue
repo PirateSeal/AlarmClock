@@ -1,5 +1,5 @@
 <template>
-  <div class="Clock" @click="$router.push('/Clock/'+clock.clockId)">  
+  <div class="Clock" @click="$router.push('/Clock/'+index+'/Presets')">
     <div class="clock-img"></div>
     <div class="text-info">
       <div class="name">{{clock.clockName}}</div>
@@ -19,14 +19,18 @@ export default {
     clock: {
       type: Object,
       required: true
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   mounted() {
-      if(this.clock.clockName == "") this.clock.clockName ='defaultname' 
+    if (this.clock.clockName == "") this.clock.clockName = "defaultname";
   },
   data() {
     return {
-       clocks_preset: [],
+      clocks_preset: []
     };
   },
   methods: {
@@ -40,7 +44,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.Clock{
+.Clock {
   background-repeat: no-repeat;
   min-height: 256px;
   height: 256px;
