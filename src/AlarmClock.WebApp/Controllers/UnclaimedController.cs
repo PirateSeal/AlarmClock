@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime;
 
 namespace Alarmclock.WebApp.Controllers
 {
@@ -27,12 +29,21 @@ namespace Alarmclock.WebApp.Controllers
         public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
             
-            var result = await verneGateway.CreateClockAsync( model.Name, model.UserId );
+            var result = await _verneGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid , model.Password);
+            var result2 = await _clockGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid);
+            var results = (result, result2);
+
+
             return this.CreateResult( result, options =>
             {
                 options.RouteName = "GetClock";
                 options.RouteValues = id => new { id };
             } );
+
+
+
+
+
         }
     }
     }

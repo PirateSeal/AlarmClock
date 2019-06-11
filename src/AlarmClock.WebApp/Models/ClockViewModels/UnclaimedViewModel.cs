@@ -10,3 +10,4 @@ namespace Alarmclock.WebApp.Models.ClockViewModels
         public int Password { get; set; }
         public string Username { get; set; }
     }
+}
