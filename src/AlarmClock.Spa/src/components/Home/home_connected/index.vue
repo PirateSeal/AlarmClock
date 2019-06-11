@@ -1,7 +1,14 @@
 <template>
   <div class="Homeloged">
     <div class="title">Vos clock</div>
-    <clock v-for="(clock, index) in globalInfo.clocks" :key="`${clock.title}${index}`" :clock="clock"/>
+    <div class="clocks-container">
+    <clock
+      v-for="(clock, index) in globalInfo.clocks"
+      :key="`${clock.title}${index}`"
+      :clock="clock"
+      :index="index"
+    />
+    </div>
   </div>
 </template>
 
@@ -44,8 +51,21 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  flex-wrap: wrap;
+  flex-direction: column;
+
+
+  .title{
+    font-size: 30px;
+  }
   //overflow-y: scroll;
   // overflow: hidden;
+  .clocks-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+
+  }
 }
 </style>
