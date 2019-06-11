@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
+using AlarmClock.WebApp.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime;
 
 namespace Alarmclock.WebApp.Controllers
 {
@@ -13,23 +15,35 @@ namespace Alarmclock.WebApp.Controllers
 
     public class UnclaimedController : Controller
     {
-        public UnclaimedController( VernemqGateway vernemqGateway )
+        public UnclaimedController( VernemqGateway vernemqGateway , ClockGateway clockGateway )
         {
-            Gateway = vernemqGateway;
+            _verneGateway = vernemqGateway;
+            _clockGateway = clockGateway;
         }
 
-        private VernemqGateway Gateway { get; }
+        private VernemqGateway _verneGateway { get; }
+        private ClockGateway _clockGateway { get; }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
-            model.Guid = int.Parse( User.Claims.ElementAt( 0 ).Value );
-            var result = await Gateway.CreateClockAsync( model.Name, model.UserId );
+            
+            var result = await _verneGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid , model.Password);
+            var result2 = await _clockGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid);
+            var results = (result, result2);
+
+
             return this.CreateResult( result, options =>
             {
                 options.RouteName = "GetClock";
                 options.RouteValues = id => new { id };
             } );
+
+
+
+
+
         }
     }
     }

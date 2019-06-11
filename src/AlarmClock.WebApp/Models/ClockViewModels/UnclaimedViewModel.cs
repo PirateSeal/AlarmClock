@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Alarmclock.WebApp.Models.ClockViewModels
 {
-    public class AclViewModel
+    class UnclaimedClockData
     {
         public string Guid { get; set; }
         public int Password { get; set; }
-        public string Name { get; set; }
+        public string Username { get; set; }
     }
 }
