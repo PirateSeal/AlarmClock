@@ -15,7 +15,7 @@ namespace Alarmclock.WebApp.Controllers
 
     public class UnclaimedController : Controller
     {
-        public UnclaimedController( VernemqGateway vernemqGateway , ClockGateway clockGateway )
+        public UnclaimedController( VernemqGateway vernemqGateway, ClockGateway clockGateway )
         {
             _verneGateway = vernemqGateway;
             _clockGateway = clockGateway;
@@ -26,24 +26,29 @@ namespace Alarmclock.WebApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
+        public async Task<(IActionResult, IActionResult)> CreateAcl( [FromBody] AclViewModel model )
         {
-            
-            var result = await _verneGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid , model.Password);
-            var result2 = await _clockGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid);
-            var results = (result, result2);
+
+            var result = await _verneGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid, model.Password );
+            var result2 = await _clockGateway.CreateUnclaimedClockAclAsync( model.Name, model.Guid );
 
 
-            return this.CreateResult( result, options =>
-            {
-                options.RouteName = "GetClock";
-                options.RouteValues = id => new { id };
-            } );
-
-
-
-
-
+            return (
+                this.CreateResult(
+                    result, options =>
+                    {
+                        options.RouteName = "GetClock";
+                        options.RouteValues = id => new { id };
+                    }
+                ),
+                this.CreateResult(
+                    result2, options =>
+                    {
+                        options.RouteName = "GetClock";
+                        options.RouteValues = id => new { id };
+                    }
+                )
+            );
         }
     }
-    }
+}
