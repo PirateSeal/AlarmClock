@@ -37,7 +37,6 @@ namespace AlarmClock.Device.MQTT
         {
             MsgPack msgPack = new MsgPack();
 
-
             return msgPack;
         }
 

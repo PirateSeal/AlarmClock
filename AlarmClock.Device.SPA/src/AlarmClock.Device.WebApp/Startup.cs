@@ -1,8 +1,12 @@
 using AlarmClock.Device.DAL.Gateways;
+using AlarmClock.Device.WebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Net.Http;
 
 namespace AlarmClock.Device.WebApp
 {
@@ -44,6 +48,12 @@ namespace AlarmClock.Device.WebApp
             } );
 
             app.UseStaticFiles();
+
+            InitializeClock initialize = new InitializeClock();
+            initialize.CreateIfNotExist();
         }
+
+
     }
+    
 }

@@ -23,7 +23,7 @@ namespace AlarmClock.Device.DAL.Services
                 {
                     string data = await ReadTextAsync( JsonPath );
                     ClockData clockData = JsonConvert.DeserializeObject<ClockData>( data );
-                    return Result.Success( clockData );
+                    return Result.Success( Status.Ok, clockData );
                 }
                 catch( Exception exception )
                 {
@@ -45,8 +45,7 @@ namespace AlarmClock.Device.DAL.Services
                     json = JsonConvert.SerializeObject( clockData );
                     break;
                 default:
-                    dataJson.Name = clockData.Name;
-                    dataJson.Presets = clockData.Presets;
+                    dataJson.Username = clockData.Username;
                     json = JsonConvert.SerializeObject( dataJson );
                     break;
             }

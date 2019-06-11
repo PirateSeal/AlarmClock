@@ -12,7 +12,7 @@ namespace AlarmClock.MQTT
         static void Main( string[] args )
         {
 
-            Sample.Test().Wait(); ;
+            Sample.MqttClientBuilder().Wait(); ;
 
             
         }
