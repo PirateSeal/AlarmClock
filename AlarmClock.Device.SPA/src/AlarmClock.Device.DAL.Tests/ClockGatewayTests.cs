@@ -20,9 +20,9 @@ namespace AlarmClock.Device.DAL.Tests
         {
             ClockData content = clockData.Content;
             Assert.That( clockData.Status, Is.EqualTo( Status.Created ) );
-            Assert.That( content.Guid, Is.EqualTo( guid ) );
-            Assert.That( content.Name, Is.EqualTo( name ) );
-            Assert.That( content.Password, Is.EqualTo( password ) );
+            Assert.That( content.Acl.Guid, Is.EqualTo( guid ) );
+            Assert.That( content.Acl.Name, Is.EqualTo( name ) );
+            Assert.That( content.Acl.Password, Is.EqualTo( password ) );
             Assert.That( content.Presets, Is.EqualTo( presetList ) );
         }
 
@@ -35,7 +35,7 @@ namespace AlarmClock.Device.DAL.Tests
 
             ClockData clock = clockStatus.Content;
 
-            CheckClockData( clockStatus, "Test", clock.Guid, clock.Password, clock.Presets );
+            CheckClockData( clockStatus, "Test", clock.Acl.Guid, clock.Acl.Password, clock.Presets );
         }
     }
 }

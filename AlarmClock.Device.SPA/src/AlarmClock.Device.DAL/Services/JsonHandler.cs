@@ -33,7 +33,7 @@ namespace AlarmClock.Device.DAL.Services
             return Result.Failure<ClockData>( Status.NotFound, "File not found" );
         }
 
-        public async Task<Result> UpdateJson( ClockData clockData )
+        public async Task UpdateJson( ClockData clockData )
         {
             if( !File.Exists( JsonPath ) ) await WriteTextAsync( JsonPath, "" );
 
@@ -45,14 +45,15 @@ namespace AlarmClock.Device.DAL.Services
                     json = JsonConvert.SerializeObject( clockData );
                     break;
                 default:
-                    dataJson.Username = clockData.Username;
+                    dataJson.Acl.Name = clockData.Acl.Name;
+                    dataJson.Presets = clockData.Presets;
                     json = JsonConvert.SerializeObject( dataJson );
                     break;
             }
 
             await WriteTextAsync( JsonPath, json );
 
-            return Result.Success();
+            Result.Success();
         }
 
         private async Task<string> ReadTextAsync( string filePath )

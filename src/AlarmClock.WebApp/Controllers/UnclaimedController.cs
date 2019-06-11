@@ -21,9 +21,9 @@ namespace Alarmclock.WebApp.Controllers
         private VernemqGateway Gateway { get; }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAcl( [FromBody] UnclaimedViewModel model )
+        public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
-            model.UserId = int.Parse( User.Claims.ElementAt( 0 ).Value );
+            model.Guid = int.Parse( User.Claims.ElementAt( 0 ).Value );
             var result = await Gateway.CreateClockAsync( model.Name, model.UserId );
             return this.CreateResult( result, options =>
             {

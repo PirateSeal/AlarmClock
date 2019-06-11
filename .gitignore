@@ -264,3 +264,5 @@ src/AlarmClock\.DB/appsettings\.json
 src/AlarmClock\.WebApp/appsettings\.json
 
 src/AlarmClock\.Spa/eslint\.rc
+
+AlarmClock\.Device\.SPA/src/AlarmClock\.Device\.WebApp/ClockData\.json

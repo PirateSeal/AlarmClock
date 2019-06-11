@@ -20,9 +20,7 @@ namespace AlarmClock.Device.DAL.Gateways
             Random random = new Random();
             ClockData clockData = new ClockData
             {
-                Guid = Guid.NewGuid().ToString(),
-                Name = name,
-                Password = random.Next( 1000, 9999 ),
+                Acl = new Acl(Guid.NewGuid().ToString(),random.Next( 1000, 9999 ), name),
                 Presets = new List<PresetData>()
             };
             await JsonHandler.UpdateJson( clockData );
