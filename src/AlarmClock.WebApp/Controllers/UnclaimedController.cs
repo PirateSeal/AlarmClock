@@ -13,18 +13,21 @@ namespace Alarmclock.WebApp.Controllers
 
     public class UnclaimedController : Controller
     {
-        public UnclaimedController( VernemqGateway vernemqGateway )
+        public UnclaimedController( VernemqGateway vernemqGateway , ClockGateway clockGateway )
         {
-            Gateway = vernemqGateway;
+            _verneGateway = vernemqGateway;
+            _clockGateway = clockGateway;
         }
 
-        private VernemqGateway Gateway { get; }
+        private VernemqGateway _verneGateway { get; }
+        private ClockGateway _clockGateway { get; }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
-            model.Guid = int.Parse( User.Claims.ElementAt( 0 ).Value );
-            var result = await Gateway.CreateClockAsync( model.Name, model.UserId );
+            
+            var result = await verneGateway.CreateClockAsync( model.Name, model.UserId );
             return this.CreateResult( result, options =>
             {
                 options.RouteName = "GetClock";
