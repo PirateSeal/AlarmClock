@@ -13,13 +13,12 @@ namespace AlarmClock.Device.DAL.Services
         {
             JsonPath = jsonPath;
         }
+
         private string JsonPath { get; }
 
         public async Task<Result<ClockData>> OpenJsonAsync()
         {
-
             if( File.Exists( JsonPath ) )
-            {
                 try
                 {
                     string data = await ReadTextAsync( JsonPath );
@@ -30,7 +29,6 @@ namespace AlarmClock.Device.DAL.Services
                 {
                     Console.WriteLine( exception );
                 }
-            }
 
             return Result.Failure<ClockData>( Status.NotFound, "File not found" );
         }
@@ -41,7 +39,7 @@ namespace AlarmClock.Device.DAL.Services
 
             string json;
             ClockData dataJson = OpenJsonAsync().Result.Content;
-            switch (dataJson)
+            switch( dataJson )
             {
                 case null:
                     json = JsonConvert.SerializeObject( clockData );
@@ -60,7 +58,7 @@ namespace AlarmClock.Device.DAL.Services
 
         private async Task<string> ReadTextAsync( string filePath )
         {
-            using(FileStream source = File.OpenRead(filePath))
+            using( FileStream source = File.OpenRead( filePath ) )
             using( TextReader tr = new StreamReader( source, Encoding.UTF8, true ) )
             {
                 return await tr.ReadToEndAsync();
@@ -69,14 +67,11 @@ namespace AlarmClock.Device.DAL.Services
 
         private async Task WriteTextAsync( string filePath, string text )
         {
-            using( FileStream source = File.Open(filePath,FileMode.Create,FileAccess.Write) )
-            using( TextWriter streamWriter = new StreamWriter(source, Encoding.UTF8))
+            using( FileStream source = File.Open( filePath, FileMode.Create, FileAccess.Write ) )
+            using( TextWriter streamWriter = new StreamWriter( source, Encoding.UTF8 ) )
             {
-                await streamWriter.WriteAsync(text);
+                await streamWriter.WriteAsync( text );
             }
-
         }
-
-
     }
 }

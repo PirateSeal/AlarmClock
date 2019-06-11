@@ -31,17 +31,9 @@ namespace AlarmClock.Device.DAL.Tests
         [Test]
         public async Task Create_Update_Delete_Preset()
         {
-            await ClockGateway.CreateClockData( "Test" );
-            var presetStatus = await PresetGateway.CreatePreset( new PresetData
-            {
-                Name = "TestPreset",
-                ActivationFlag = 128,
-                AlarmPresetId = 0,
-                Challenge = 0,
-                WakingTime = new TimeSpan( 15, 30, 0 ),
-                Song = "oui",
-                ClockId = 0
-            } );
+            await ClockGateway.CreateOrUpdateClockData( "Test" );
+            var presetStatus =
+                await PresetGateway.CreatePreset( 128, "TestPreset", 0, 0, "oui", new TimeSpan( 15, 30, 0 ) );
 
             Assert.That( presetStatus.Status, Is.EqualTo( Status.Created ) );
 

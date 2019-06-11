@@ -15,18 +15,23 @@ namespace AlarmClock.Device.DAL.Gateways
 
         private JsonHandler JsonHandler { get; }
 
-        public async Task<Result<ClockData>> CreateClockData(string name)
+        public async Task<Result<ClockData>> CreateOrUpdateClockData( string name )
         {
             Random random = new Random();
             ClockData clockData = new ClockData
             {
                 Guid = Guid.NewGuid().ToString(),
                 Name = name,
-                Password = random.Next(1000,9999),
+                Password = random.Next( 1000, 9999 ),
                 Presets = new List<PresetData>()
             };
             await JsonHandler.UpdateJson( clockData );
-            return Result.Success(Status.Created, clockData);
+            return Result.Success( Status.Created, clockData );
+        }
+
+        public async Task<Result<ClockData>> GetClockData()
+        {
+            return await JsonHandler.OpenJsonAsync();
         }
     }
 }

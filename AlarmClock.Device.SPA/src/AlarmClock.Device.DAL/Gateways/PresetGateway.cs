@@ -29,7 +29,7 @@ namespace AlarmClock.Device.DAL.Gateways
         {
             var result = await JsonHandler.OpenJsonAsync();
             ClockData data = result.Content;
-            return Result.Success(data.Presets);
+            return Result.Success( data.Presets );
         }
 
         public async Task<Result<PresetData>> GetPresetByIdAsync( int id )
@@ -42,14 +42,26 @@ namespace AlarmClock.Device.DAL.Gateways
                 var r = Result.Success( Status.Ok, data.Presets.First( preset => preset.AlarmPresetId == id ) );
                 return r;
             }
-            catch( Exception)
+            catch( Exception )
             {
                 return Result.Failure<PresetData>( Status.NotFound, "Preset not found" );
             }
         }
 
-        public async Task<Result<PresetData>> CreatePreset( PresetData preset )
+        public async Task<Result<PresetData>> CreatePreset( byte activationFlag, string name, int presetId,
+            int challenge, string song, TimeSpan wakingTime )
         {
+            PresetData preset = new PresetData
+            {
+                ActivationFlag = activationFlag,
+                Name = name,
+                AlarmPresetId = presetId,
+                Challenge = challenge,
+                WakingTime = wakingTime,
+                Song = song,
+                ClockId = presetId
+            };
+
             var result = await JsonHandler.OpenJsonAsync();
             ClockData data = result.Content;
 

@@ -1,10 +1,9 @@
 namespace AlarmClock.Device.MQTT
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
         }
-     
     }
 }

@@ -1,9 +1,19 @@
+/*
+ * File: Home.vue                                                              *
+ * Project: alarmclock                                                         *
+ * File Created: Tuesday,2nd June 2019 02:22:06 pm                             *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Thursday, 6th June 2019 9:52:12 am                           *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 <template>
-  <section class="jumbotron text-center">
+  <section>
     <div class="container">
       <div class="text">
         <h1>Welcome to AlarmClock</h1>
-        <h2>This is the {{this.Name}} clock</h2>
+        <h2>This is the {{ClockData.name}} clock</h2>
       </div>
       <div class="clock">
         <div class="column">
@@ -80,11 +90,11 @@ import { getClockName } from "../api/clockApi.js";
 export default {
   data() {
     return {
-      Name: "Test"
+      ClockData: {}
     };
   },
-  mounted() {
-    this.Name = getClockName();
+  async mounted() {
+    this.ClockData = await getClockName();
 
     let columns = Array.from(document.getElementsByClassName("column"));
     runClock(columns);

@@ -8,6 +8,5 @@ namespace AlarmClock.Device.DAL.Data
         public int Password { get; set; }
         public string Name { get; set; }
         public List<PresetData> Presets { get; set; }
-
     }
 }

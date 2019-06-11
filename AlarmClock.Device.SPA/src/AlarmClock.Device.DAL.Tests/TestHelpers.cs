@@ -6,9 +6,15 @@ namespace AlarmClock.Device.DAL.Tests
     {
         public static Random Random { get; } = new Random();
 
-        public static string RandomTestName() => $"Test-{Guid.NewGuid().ToString().Substring( 24 )}";
+        public static string RandomTestName()
+        {
+            return $"Test-{Guid.NewGuid().ToString().Substring( 24 )}";
+        }
 
-        public static DateTime RandomBirthDate( int age ) => DateTime.UtcNow.AddYears( -age ).AddMonths( Random.Next( -11, 0 ) ).Date;
+        public static DateTime RandomBirthDate( int age )
+        {
+            return DateTime.UtcNow.AddYears( -age ).AddMonths( Random.Next( -11, 0 ) ).Date;
+        }
 
         public static string RandomLevel()
         {

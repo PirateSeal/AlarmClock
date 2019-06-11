@@ -12,7 +12,7 @@ namespace AlarmClock.Device.MQTT
     public class MqttApplicationClient
     {
         /// <summary>
-        /// Mqtt client configuration
+        ///     Mqtt client configuration
         /// </summary>
         public MqttApplicationClient()
         {
@@ -22,12 +22,13 @@ namespace AlarmClock.Device.MQTT
                 .WithTcpServer( "localhost", 1883 )
                 .Build();
         }
+
         private MqttFactory Factory { get; }
         private IMqttClient Client { get; }
         private IMqttClientOptions Options { get; }
         private string ClientTopic { get; set; }
 
-        async Task EnsureIsConnected()
+        private async Task EnsureIsConnected()
         {
             if( !Client.IsConnected ) await Client.ConnectAsync( Options );
         }
@@ -36,7 +37,6 @@ namespace AlarmClock.Device.MQTT
         {
             MsgPack msgPack = new MsgPack();
 
-            
 
             return msgPack;
         }
@@ -55,7 +55,7 @@ namespace AlarmClock.Device.MQTT
         }
 
         /// <summary>
-        /// Check for any message incoming in the subscribed topic
+        ///     Check for any message incoming in the subscribed topic
         /// </summary>
         public class MessageReceivedHandler : IMqttApplicationMessageReceivedHandler
         {
@@ -75,4 +75,3 @@ namespace AlarmClock.Device.MQTT
         }
     }
 }
-
