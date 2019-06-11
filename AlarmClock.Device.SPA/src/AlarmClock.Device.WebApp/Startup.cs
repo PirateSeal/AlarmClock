@@ -1,4 +1,5 @@
 using AlarmClock.Device.DAL.Gateways;
+using AlarmClock.Device.WebApp.services;
 using AlarmClock.Device.WebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

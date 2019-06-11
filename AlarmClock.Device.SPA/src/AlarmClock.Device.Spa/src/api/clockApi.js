@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd June 2019 11:27:24 am                           *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 6th June 2019 9:40:41 am                           *
+ * Last Modified: Tuesday, 11th June 2019 12:23:52 pm                          *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -16,6 +16,8 @@ export async function getPresetList() {
     return await getAsync(`${endpoint}/preset`);
 }
 
-export async function getClockName() {
-    return await getAsync(`${endpoint}/clock`);
+export async function getClockInfo() {
+    let clock = await getAsync(`${endpoint}/clock`);
+    clock = clock.acl.name;
+    return clock;
 }

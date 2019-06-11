@@ -9,4 +9,8 @@
     <PackageReference Include="SimpleMsgPack" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AlarmClock.Device.DAL\AlarmClock.Device.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

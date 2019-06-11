@@ -16,6 +16,7 @@ namespace AlarmClock.Device.WebApp
         {
             return new WebHostBuilder()
                 .UseKestrel()
+                .UseUrls("http://localhost:5002")
                 .UseContentRoot( Directory.GetCurrentDirectory() )
                 .ConfigureAppConfiguration( ( hostingContext, config ) =>
                 {

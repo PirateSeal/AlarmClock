@@ -4,23 +4,15 @@
  * File Created: Wednesday,3rd June 2019 01:56:58 pm                           *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 6th June 2019 9:57:37 am                           *
+ * Last Modified: Tuesday, 11th June 2019 12:18:11 pm                          *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
 <template>
   <div class="clock_preset">
-    <div class="title">{{clock.title}}</div>
-    <div class="time-container">
-      <div class="time" v-for="(time, index) in getTime(clock.time)" :key="time + index">{{time}}</div>
-    </div>
-    <div class="days-container">
-      <div
-        class="day"
-        v-for="(day, index) in days()"
-        :key="day.key"
-        :class="{ active: isDayActive(clock, index)}"
-      >{{formatDay(day)[0]}}</div>
+    <div class="Presets"></div>
+    <div class="text" @click="Home">
+      <h1 class="link">Go to Clock</h1>
     </div>
   </div>
 </template>
@@ -36,6 +28,11 @@ export default {
   },
   async mounted() {
     this.PresetList = await getPresetList();
+  },
+  methods: {
+    Home() {
+      this.$router.replace("/");
+    }
   }
 };
 </script>

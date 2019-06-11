@@ -4,7 +4,7 @@
  * File Created: Tuesday,2nd June 2019 02:22:06 pm                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 6th June 2019 9:52:12 am                           *
+ * Last Modified: Tuesday, 11th June 2019 12:24:43 pm                          *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -13,7 +13,7 @@
     <div class="container">
       <div class="text">
         <h1>Welcome to AlarmClock</h1>
-        <h2>This is the {{ClockData.name}} clock</h2>
+        <h2>This is the {{ClockName}} clock</h2>
       </div>
       <div class="clock">
         <div class="column">
@@ -85,16 +85,16 @@
 
 <script>
 import { runClock } from "../api/clockScript.js";
-import { getClockName } from "../api/clockApi.js";
+import { getClockInfo } from "../api/clockApi.js";
 
 export default {
   data() {
     return {
-      ClockData: {}
+      ClockName: ""
     };
   },
   async mounted() {
-    this.ClockData = await getClockName();
+    this.ClockName = await getClockInfo();
 
     let columns = Array.from(document.getElementsByClassName("column"));
     runClock(columns);

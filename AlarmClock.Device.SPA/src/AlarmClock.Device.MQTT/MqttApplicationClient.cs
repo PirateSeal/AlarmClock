@@ -1,10 +1,13 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AlarmClock.Device.DAL;
+using AlarmClock.Device.DAL.Data;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
+using Newtonsoft.Json;
 
 namespace AlarmClock.Device.MQTT
 {
@@ -25,6 +28,7 @@ namespace AlarmClock.Device.MQTT
         private MqttFactory Factory { get; }
         private IMqttClient Client { get; }
         private IMqttClientOptions Options { get; }
+        private Acl Acl { get;  }
         private string ClientTopic { get; set; }
 
         private async Task EnsureIsConnected()
@@ -32,19 +36,18 @@ namespace AlarmClock.Device.MQTT
             if( !Client.IsConnected ) await Client.ConnectAsync( Options );
         }
 
-        //private MsgPack InitMsgPack()
-        //{
-        //    MsgPack msgPack = new MsgPack();
+        private string FabricateMessage(Acl acl)
+        {
+            return JsonConvert.SerializeObject( acl ) ;
+        }
 
-        //    return msgPack;
-        //}
-
-        public async Task Init()
+        public async Task SendMessage(string topic)
         {
             await EnsureIsConnected();
+
             MqttApplicationMessage message = new MqttApplicationMessageBuilder()
-                .WithTopic( ClientTopic )
-                .WithPayload( "Message" )
+                .WithTopic( topic )
+                .WithPayload( FabricateMessage(Acl) )
                 .WithExactlyOnceQoS()
                 .WithRetainFlag()
                 .Build();
