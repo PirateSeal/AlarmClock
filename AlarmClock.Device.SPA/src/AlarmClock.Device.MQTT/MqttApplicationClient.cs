@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using AlarmClock.Device.DAL;
 using AlarmClock.Device.DAL.Data;
 using MQTTnet;
 using MQTTnet.Client;
