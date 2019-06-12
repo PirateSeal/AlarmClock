@@ -21,3 +21,5 @@ export async function updatePresetAsync(model) {
 export async function deletePresetAsync(Id) {
     return await deleteAsync(`${endpoint}/${Id}`);
 }
+
+

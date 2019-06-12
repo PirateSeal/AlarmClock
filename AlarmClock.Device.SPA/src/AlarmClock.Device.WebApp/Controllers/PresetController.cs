@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AlarmClock.Device.DAL;
 using AlarmClock.Device.DAL.Data;
 using AlarmClock.Device.DAL.Gateways;
+using AlarmClock.Device.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlarmClock.Device.WebApp.Controllers
@@ -10,17 +12,30 @@ namespace AlarmClock.Device.WebApp.Controllers
     [ApiController]
     public class PresetController : Controller
     {
-        public PresetController( PresetGateway gateway )
+        public PresetController( PresetGateway presetGateway )
         {
-            Gateway = gateway;
+            PresetGateway = presetGateway;
         }
 
-        private PresetGateway Gateway { get; }
+        private PresetGateway PresetGateway { get; }
 
         [HttpGet]
-        public Task<IEnumerable<PresetData>> ShowPresets()
+        public async Task<List<PresetData>> ShowPresets()
         {
-            return Gateway.GetAllPresets();
+            var presets = await PresetGateway.GetAllPresetsAsync();
+            return presets.Content;
+        }
+
+        [HttpPost]
+        public async Task<Result<PresetData>> CreatePreset( [FromBody] PresetViewModel presetData )
+        {
+            return await PresetGateway.CreatePreset(
+                presetData.ActivationFlag,
+                presetData.Name,
+                presetData.AlarmPresetId,
+                presetData.Challenge,
+                presetData.Song,
+                presetData.WakingTime );
         }
     }
 }

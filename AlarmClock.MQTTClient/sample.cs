@@ -6,7 +6,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-//client端
+//client
 namespace AlarmClock.MQTT
 {
 
@@ -14,7 +14,7 @@ namespace AlarmClock.MQTT
     public class Sample
     {
 
-        public static async Task Test()
+        public static async Task MqttClientBuilder()
         {
             var factory = new MqttFactory();
 
@@ -22,13 +22,17 @@ namespace AlarmClock.MQTT
 
             var options = new MqttClientOptionsBuilder()
                 .WithTcpServer( "localhost", 1883 ) // Port is optional
+                .WithClientId( "ConfigurationServerId" )
+                .WithCredentials( "configurationServer", "vernemq" )
                 .Build();
+
 
             await mqttClient.ConnectAsync( options );
             int count = 0;
             var t = DateTime.Now;
 
-            await mqttClient.SubscribeAsync( "toto" );
+            await mqttClient.SubscribeAsync( "clock/#" );
+
             mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandler();
 
             for( int i = 0; i < 100; i++ )

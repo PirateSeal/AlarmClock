@@ -12,23 +12,27 @@ namespace AlarmClock.Device.WebApp
             BuildWebHost( args ).Run();
         }
 
-        private static IWebHost BuildWebHost( string[] args ) =>
-            new WebHostBuilder()
+        private static IWebHost BuildWebHost( string[] args )
+        {
+            return new WebHostBuilder()
                 .UseKestrel()
+                .UseUrls("http://localhost:5002")
                 .UseContentRoot( Directory.GetCurrentDirectory() )
                 .ConfigureAppConfiguration( ( hostingContext, config ) =>
                 {
                     config.AddJsonFile( "appsettings.json", false, true );
                     config.AddEnvironmentVariables();
                     if( args != null ) config.AddCommandLine( args );
-                })
+                } )
                 .ConfigureLogging( ( hostingContext, logging ) =>
                 {
-                    logging.AddConfiguration( hostingContext.Configuration.GetSection( "Logging" ) );
+                    logging.AddConfiguration(
+                        hostingContext.Configuration.GetSection( "Logging" ) );
                     logging.AddConsole();
                     logging.AddDebug();
-                })
+                } )
                 .UseStartup<Startup>()
                 .Build();
+        }
     }
 }

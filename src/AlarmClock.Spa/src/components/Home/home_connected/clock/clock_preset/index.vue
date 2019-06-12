@@ -19,6 +19,7 @@
 import days from "@/components/enums/days";
 import { deleteClockAsync } from "@/api/clockApi";
 import { mapGetters } from 'vuex'
+import { formatActivationFlag } from "@/api/formatActivationFlag"
 
 
 export default {
@@ -27,14 +28,10 @@ export default {
     preset: {
       type: Object,
       required: true
-    },
-    index: {
-      type: Object,
-      required: true
     }
   }, 
-  async mounted() {
-
+   mounted() {
+      console.log(formatActivationFlag(this.preset.activationFlag))
   },
   data() {
     return {
@@ -70,10 +67,12 @@ export default {
 .clock_preset {
   min-height: 256px;
   height: 256px;
-  width: 256px;
+  min-width: 256px;
   max-width: 512px;
   flex-grow: 1;
-  margin: 2.5%;
+  margin-left: 1%;
+  margin-right: 1%;
+
   background: rgb(1, 1, 133);
   display: flex;
   align-items: center;
@@ -101,6 +100,7 @@ export default {
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    
 
     .time {
       display: flex;

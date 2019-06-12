@@ -1,17 +1,19 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AlarmClock.Device.DAL.Data;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
+using Newtonsoft.Json;
 
 namespace AlarmClock.Device.MQTT
 {
     public class MqttApplicationClient
     {
         /// <summary>
-        /// Mqtt client configuration
+        ///     Mqtt client configuration
         /// </summary>
         public MqttApplicationClient()
         {
@@ -21,22 +23,30 @@ namespace AlarmClock.Device.MQTT
                 .WithTcpServer( "localhost", 1883 )
                 .Build();
         }
+
         private MqttFactory Factory { get; }
         private IMqttClient Client { get; }
         private IMqttClientOptions Options { get; }
+        private Acl Acl { get;  }
         private string ClientTopic { get; set; }
 
-        async Task EnsureIsConnected()
+        private async Task EnsureIsConnected()
         {
             if( !Client.IsConnected ) await Client.ConnectAsync( Options );
         }
 
-        public async Task Init()
+        private string FabricateMessage(Acl acl)
+        {
+            return JsonConvert.SerializeObject( acl ) ;
+        }
+
+        public async Task SendMessage(string topic)
         {
             await EnsureIsConnected();
+
             MqttApplicationMessage message = new MqttApplicationMessageBuilder()
-                .WithTopic( ClientTopic )
-                .WithPayload( "Message" )
+                .WithTopic( topic )
+                .WithPayload( FabricateMessage(Acl) )
                 .WithExactlyOnceQoS()
                 .WithRetainFlag()
                 .Build();
@@ -45,7 +55,7 @@ namespace AlarmClock.Device.MQTT
         }
 
         /// <summary>
-        /// Check for any message incoming in the subscribed topic
+        ///     Check for any message incoming in the subscribed topic
         /// </summary>
         public class MessageReceivedHandler : IMqttApplicationMessageReceivedHandler
         {
@@ -65,4 +75,3 @@ namespace AlarmClock.Device.MQTT
         }
     }
 }
-

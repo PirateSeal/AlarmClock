@@ -1,22 +1,175 @@
+/*
+ * File: Home.vue                                                              *
+ * Project: alarmclock                                                         *
+ * File Created: Tuesday,2nd June 2019 02:22:06 pm                             *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Tuesday, 11th June 2019 12:24:43 pm                          *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 <template>
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Bienvenue sur ITI.PrimarySchool</h1>
-            <p class="lead text-muted">Cette application est réalisée à l'aide du framework Vue 2.</p>
-            <p>
-                <a href="http://vuejs.org/v2/guide/" class="btn btn-primary my-2">Guide Vue 2</a>
-                <a href="http://vuejs.org/v2/api/" class="btn btn-secondary my-2">Documentation API Vue 2</a>
-            </p>
+  <section>
+    <div class="container">
+      <div class="text">
+        <h1>Welcome to AlarmClock</h1>
+        <h2>This is the {{ClockName}} clock</h2>
+      </div>
+      <div class="clock">
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
         </div>
-    </section>
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
+          <div class="num">3</div>
+          <div class="num">4</div>
+          <div class="num">5</div>
+          <div class="num">6</div>
+          <div class="num">7</div>
+          <div class="num">8</div>
+          <div class="num">9</div>
+        </div>
+        <div class="colon"></div>
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
+          <div class="num">3</div>
+          <div class="num">4</div>
+          <div class="num">5</div>
+        </div>
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
+          <div class="num">3</div>
+          <div class="num">4</div>
+          <div class="num">5</div>
+          <div class="num">6</div>
+          <div class="num">7</div>
+          <div class="num">8</div>
+          <div class="num">9</div>
+        </div>
+        <div class="colon"></div>
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
+          <div class="num">3</div>
+          <div class="num">4</div>
+          <div class="num">5</div>
+        </div>
+        <div class="column">
+          <div class="num">0</div>
+          <div class="num">1</div>
+          <div class="num">2</div>
+          <div class="num">3</div>
+          <div class="num">4</div>
+          <div class="num">5</div>
+          <div class="num">6</div>
+          <div class="num">7</div>
+          <div class="num">8</div>
+          <div class="num">9</div>
+        </div>
+      </div>
+      <div class="text" @click="MainMenu">
+        <h1 class="link">Go to Presets</h1>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-export default {
+import { runClock } from "../api/clockScript.js";
+import { getClockInfo } from "../api/clockApi.js";
 
-}
+export default {
+  data() {
+    return {
+      ClockName: ""
+    };
+  },
+  async mounted() {
+    this.ClockName = await getClockInfo();
+
+    let columns = Array.from(document.getElementsByClassName("column"));
+    runClock(columns);
+  },
+  methods: {
+    MainMenu() {
+      this.$router.replace("/MainMenu");
+    }
+  }
+};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
 
+.container {
+  text-align: center;
+  color: #0e141b;
+  font-family: "Josefin Sans";
+  font-weight: 300;
+
+  .text {
+    font-size: 25px;
+    .link {
+      text-decoration-line: underline;
+    }
+  }
+
+  .clock {
+    margin-top: -10%;
+    max-height: 700px;
+    overflow: hidden;
+
+    .column,
+    .colon {
+      display: inline-block;
+      vertical-align: top;
+      font-size: 86px;
+      line-height: 86px;
+    }
+
+    .column {
+      transition: -webkit-transform 300ms;
+      transition: transform 300ms;
+      transition: transform 300ms, -webkit-transform 300ms;
+    }
+
+    .colon {
+      transition: -webkit-transform 300ms;
+      transition: transform 300ms;
+      transition: transform 300ms, -webkit-transform 300ms;
+      -webkit-transform: translateY(calc(50vh - 43px));
+      transform: translateY(calc(50vh - 43px));
+    }
+    .colon:after {
+      content: ":";
+    }
+
+    .num {
+      transition: opacity 1000ms, text-shadow 100ms;
+      opacity: 0;
+    }
+    .num.visible {
+      opacity: 1;
+      text-shadow: 1px 1px 0px #336699;
+    }
+    .num.close {
+      opacity: 0.35;
+    }
+    .num.far {
+      opacity: 0;
+    }
+    .num.distant {
+      opacity: 0;
+    }
+  }
+}
 </style>
