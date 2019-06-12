@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "luxon": "^1.13.2",
+    "pixi.js": "^5.0.3",
     "popper.js": "^1.15.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
