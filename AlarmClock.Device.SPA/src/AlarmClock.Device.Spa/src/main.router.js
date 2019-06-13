@@ -15,10 +15,12 @@ Vue.use(VueRouter);
 
 import Home from "./components/Home";
 import MainMenu from "./components/MainMenu";
+import Snake from "./components/Snake";
 
 const routes = [
     { path: "", component: Home },
-    { path: "/MainMenu", component: MainMenu }
+    { path: "/MainMenu", component: MainMenu },
+    { path: "/Snake", component: Snake }
 ];
 
 export default new VueRouter({
