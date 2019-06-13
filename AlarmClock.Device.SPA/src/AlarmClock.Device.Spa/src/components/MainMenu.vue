@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd June 2019 01:56:58 pm                           *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Tuesday, 11th June 2019 1:13:02 pm                           *
+ * Last Modified: Tuesday, 11th June 2019 3:30:50 pm                           *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -24,8 +24,12 @@
 
 <script>
 import { getPresetList } from "../api/clockApi";
+import Preset from "./Preset";
 
 export default {
+  components: {
+    PresetList: Preset
+  },
   data() {
     return {
       PresetList: []

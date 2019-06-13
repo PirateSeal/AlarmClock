@@ -1,3 +1,13 @@
+/*
+ * File: 0024.Install-Insert-TestPreset.sql                                    *
+ * Project: Scripts                                                            *
+ * File Created: Thursday,4th May 2019 09:07:47 am                             *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Thursday, 13th June 2019 9:18:07 am                          *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 -- Insert rows into table 'spi.tAlarmPreset'
 INSERT INTO spi.tAlarmPreset
     (

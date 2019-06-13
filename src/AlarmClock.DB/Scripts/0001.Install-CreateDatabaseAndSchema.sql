@@ -1,17 +1,12 @@
--- -- Drop the database 'AlarmClock'
--- -- Connect to the 'master' database to run this snippet
--- USE master
--- GO
--- -- Uncomment the ALTER DATABASE statement below to set the database to SINGLE_USER mode if the drop database command fails because the database is in use.
--- -- ALTER DATABASE AlarmClock SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
--- -- Drop the database if it exists
--- IF EXISTS (
---   SELECT name
--- FROM sys.databases
--- WHERE name = N'AlarmClock'
--- )
--- DROP DATABASE AlarmClock
--- GO
+/*
+ * File: 0001.Install-CreateDatabaseAndSchema.sql                              *
+ * Project: Scripts                                                            *
+ * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Thursday, 13th June 2019 9:20:56 am                          *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
 
 -- Create a new database called 'AlarmClock'
 -- Connect to the 'master' database to run this snippet

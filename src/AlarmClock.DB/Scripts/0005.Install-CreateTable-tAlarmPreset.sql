@@ -1,3 +1,13 @@
+/*
+ * File: 0005.Install-CreateTable-tAlarmPreset.sql                             *
+ * Project: Scripts                                                            *
+ * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Thursday, 13th June 2019 9:19:54 am                          *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 -- Create a new table called 'tAlarmPreset' in schema 'spi'
 CREATE TABLE spi.tAlarmPreset
 (
@@ -25,5 +35,5 @@ INSERT INTO spi.tAlarmPreset
     )
 VALUES
     (
-        '00010101','RandomName', 'randomString', 0, 0, 0
+        '00010101', 'RandomName', 'randomString', 0, 0, 0
     )

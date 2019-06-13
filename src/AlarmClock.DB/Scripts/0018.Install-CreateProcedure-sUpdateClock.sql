@@ -1,3 +1,13 @@
+/*
+ * File: 0018.Install-CreateProcedure-sUpdateClock.sql                         *
+ * Project: Scripts                                                            *
+ * File Created: Thursday,4th May 2019 09:07:47 am                             *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Thursday, 13th June 2019 9:18:50 am                          *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 -- Create a new stored procedure called 'sUpdateClock' in schema 'spi'
 CREATE PROCEDURE spi.sUpdateClock
 
