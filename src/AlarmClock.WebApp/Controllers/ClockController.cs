@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;

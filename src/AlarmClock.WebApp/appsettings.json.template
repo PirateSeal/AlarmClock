@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "PrimarySchoolDB": "<connection string>"
+    "AlarmClockDB": "<connection string>"
   },
   "JwtBearer": {
     "SigningKey": "<signing key>",

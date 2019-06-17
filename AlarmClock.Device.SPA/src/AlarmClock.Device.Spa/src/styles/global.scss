@@ -1,0 +1,9 @@
+@import "./config.scss";
+
+/* -------- Forms -------- */
+.required:after {
+    content: " *";
+    font-weight: bold;
+    font-size: 18px;
+    color: red;
+}

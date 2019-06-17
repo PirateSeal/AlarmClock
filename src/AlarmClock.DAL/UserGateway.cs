@@ -55,22 +55,24 @@ namespace AlarmClock.DAL
                     Clocks = clocks
                 };
 
-                foreach( UserFlatDetails detail in userFlatDetails )
+                if( tempoDetails.ClockId != 0 )
                 {
-                    switch( clocks.Count )
+                    foreach( UserFlatDetails detail in userFlatDetails )
                     {
-                        case 0:
-                            clocks.Add(
-                                new Clock
-                                {
-                                    ClockId = detail.ClockId,
-                                    ClockName = detail.ClockName,
-                                    ClockGuid = detail.ClockGuid,
-                                    LastSeenDate = detail.LastSeenDate,
-                                    Presets = new List<Preset>()
-                                } );
-                            break;
-                        default:
+                        switch( clocks.Count )
+                        {
+                            case 0:
+                                clocks.Add(
+                                    new Clock
+                                    {
+                                        ClockId = detail.ClockId,
+                                        ClockName = detail.ClockName,
+                                        ClockGuid = detail.ClockGuid,
+                                        LastSeenDate = detail.LastSeenDate,
+                                        Presets = new List<Preset>()
+                                    } );
+                                break;
+                            default:
                             {
                                 if( clocks.Last().ClockId != detail.ClockId )
                                     clocks.Add(
@@ -83,23 +85,33 @@ namespace AlarmClock.DAL
                                         } );
                                 break;
                             }
-                    }
+                        }
 
-                    Clock clock = clocks.Find( pClock => pClock.ClockId == detail.ClockId );
-                    Preset findPreset = clock.Presets.AsList().Find( pPreset => pPreset.PresetId == detail.PresetId && pPreset.PresetClockId == detail.PresetClockId );
-                    if( findPreset == null ) clock.Presets.AsList().Add( new Preset
-                    {
-                        PresetId = detail.PresetId,
-                        PresetName = detail.PresetName,
-                        WakingTime = detail.WakingTime,
-                        ActivationFlag = detail.ActivationFlag,
-                        Song = detail.Song,
-                        Challenge = detail.Challenge,
-                        PresetClockId = detail.PresetClockId
-                    } );
+                        if( detail.PresetId != 0 )
+                        {
+                            Clock clock = clocks.Find( pClock => pClock.ClockId == detail.ClockId );
+                            Preset findPreset = clock.Presets.AsList().Find( pPreset =>
+                                pPreset.PresetId == detail.PresetId
+                                && pPreset.PresetClockId == detail.PresetClockId );
+
+                            if( findPreset == null )
+                            {
+                                clock.Presets.AsList().Add( new Preset
+                                {
+                                    PresetId = detail.PresetId,
+                                    PresetName = detail.PresetName,
+                                    WakingTime = detail.WakingTime,
+                                    ActivationFlag = detail.ActivationFlag,
+                                    Song = detail.Song,
+                                    Challenge = detail.Challenge,
+                                    PresetClockId = detail.PresetClockId
+                                } );
+                            }
+                        }
+                    }
                 }
 
-                return Result.Success( userDetails );
+                return  Result.Success(Status.Ok, userDetails);
             }
         }
 
@@ -194,9 +206,9 @@ namespace AlarmClock.DAL
                       where u.UserId = @UserId;",
                     new { UserId = userId } );
 
-                if( user == null ) return Result.Failure<UserData>( Status.NotFound, "User not found." );
-
-                return Result.Success( user );
+                return user == null
+                    ? Result.Failure<UserData>( Status.NotFound, "User not found." )
+                    : Result.Success( user );
             }
         }
 

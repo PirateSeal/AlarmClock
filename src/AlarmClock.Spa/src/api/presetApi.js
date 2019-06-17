@@ -15,9 +15,11 @@ export async function createPresetAsync(model) {
 }
 
 export async function updatePresetAsync(model) {
-    return await putAsync(`${endpoint}/${model.studentId}`, model);
+    return await putAsync(`${endpoint}/${model.AlarmPresetId}`, model);
 }
 
 export async function deletePresetAsync(Id) {
     return await deleteAsync(`${endpoint}/${Id}`);
 }
+
+

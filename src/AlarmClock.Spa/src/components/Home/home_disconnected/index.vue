@@ -1,6 +1,9 @@
 <template>
-  <div>
-    YOU ARE lOG OUT
+  <div class="home_disconnected">
+    Welcome To
+    <div class="title">
+      <div class="Logo">AlarmClock</div>
+    </div>
   </div>
 </template>
 
@@ -16,3 +19,13 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.Logo{
+    background: url("~/assets/logo.png");
+  //  background-repeat: no-repeat;
+    background-size: 100%;
+    height: 500px;
+    width: 500px;
+   border-radius: 10px;
+}
+</style>

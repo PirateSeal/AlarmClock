@@ -1,16 +1,30 @@
+/*
+ * File: index.vue                                                             *
+ * Project: alarm-clock                                                        *
+ * File Created: Thursday,4th May 2019 09:07:47 am                             *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Tuesday, 11th June 2019 3:19:17 pm                           *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 <template>
-  <div class="clock_preset">
-    <div class="title">{{clock.title}}</div>
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+index)">
+    <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
-      <div class="time" v-for="(time, index) in getTime(clock.time)" :key="time + index">{{time}}</div>
+      <div
+        class="time"
+        v-for="(wakingTime, index) in getTime(preset.wakingTime)"
+        :key="wakingTime + index"
+      >{{wakingTime}}</div>
     </div>
     <div class="days-container">
-      <div
+      <!-- <div
         class="day"
         v-for="(day, index) in days()"
         :key="day.key"
         :class="{ active: isDayActive(clock, index)}"
-      >{{formatDay(day)[0]}}</div>
+      >{{formatDay(day)[0]}}</div>-->
     </div>
   </div>
 </template>
@@ -18,45 +32,36 @@
 <script>
 import days from "@/components/enums/days";
 import { deleteClockAsync } from "@/api/clockApi";
-import { mapGetters } from 'vuex'
-
+import { mapGetters } from "vuex";
+import { formatActivationFlag } from "@/api/formatActivationFlag";
 
 export default {
   name: "clock_preset",
- 
-  async mounted() {
-    this.globalInfo =  this.getUserInfo
-    console.log(this.globalInfo)
+  props: {
+    preset: {
+      type: Object,
+      required: true
+    }
+  },
+  mounted() {
+    console.log(formatActivationFlag(this.preset.activationFlag));
   },
   data() {
-    return {
-      PresetInfo: this.globalInfo.clocks[this.$root.params.id]
-    };
+    return {};
   },
-computed: {
-    ...mapGetters({
-      getUserInfo: 'getUserInfo'
-    })
-  },
+
   methods: {
     days() {
       return days;
     },
     getTime(time) {
-      return time.split("");
+      return time.split("").splice(0, 5);
     },
     formatDay(day) {
       return Object.keys(day)[0];
     },
     isDayActive(clock, index) {
       return clock.days.find(e => e === index + 1);
-    },
-    async refreshList() {
-      try {
-        this.studentList = await getStudentListAsync();
-      } catch (e) {
-        console.error(e);
-      }
     }
   }
 };
@@ -65,11 +70,12 @@ computed: {
 .clock_preset {
   min-height: 256px;
   height: 256px;
-  min-width: 128px;
-  width: 512px;
+  min-width: 256px;
   max-width: 512px;
   flex-grow: 1;
-  margin: 2.5%;
+  margin-left: 1%;
+  margin-right: 1%;
+
   background: rgb(1, 1, 133);
   display: flex;
   align-items: center;

@@ -3,46 +3,49 @@
     <div class="box-horizon">
       <div class="box-vertical">
         <label class="required">Preset Name</label>
-        <input type="text" v-model="preset.name" value="preset.PresetName" required>
+        <input type="text" v-model="preset.Name" value="preset.Name" required>
 
         <label class="required">Waking Time</label>
-        <input type="time" v-model="preset.wakingTime" value="preset.WakingTime" required>
+        <input type="time" v-model="preset.WakingTime" value="preset.WakingTime" required>
 
         <label class="required">Song</label>
 
-        <input type="text" v-model="preset.song" value="preset.song" required>
+        <input type="text" v-model="preset.Song" value="preset.Song" required>
       </div>
 
       <label class="required">Activation Flag</label>
 
       <div class="box-vertical">
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[0]" value="1">Sunday
+          <input type="checkbox" v-model="days[0]" value="1">Lundi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[1]" value="1">Monday
+          <input type="checkbox" v-model="days[1]" value="1">Mardi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[2]" value="1">Tuesday
+          <input type="checkbox" v-model="days[2]" value="1">Mercredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[3]" value="1">Wednesday
+          <input type="checkbox" v-model="days[3]" value="1">Jeudi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[4]" value="1">Thursday
+          <input type="checkbox" v-model="days[4]" value="1">Vendredi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[5]" value="1">Friday
+          <input type="checkbox" v-model="days[5]" value="1">Samedi
         </div>
         <div class="box-horizon">
-          <input type="checkbox" v-model="days[6]" value="1">Saturday
+          <input type="checkbox" v-model="days[6]" value="1">Dimanche
+        </div>
+        <div class="box-horizon">
+          <input type="checkbox" v-model="days[7]" value="1">ACTIVE
         </div>
       </div>
 
       <div class="box-vertical">
         <label class="required">Challenge</label>
 
-        <select type="select" v-model="preset.challenge">
+        <select type="select" v-model="preset.Challenge">
           <option value="0">BlindTest</option>
           <option value="1">Joke</option>
           <option value="2">Snake</option>
@@ -54,12 +57,12 @@
         <br>
         <br>
 
-        <label type="text">Alarm Preset Id : {{preset.alarmPresetId}}</label>
+        <label type="text">Alarm Preset Id : {{this.preset.AlarmPresetId}}</label>
 
         <br>
         <br>
 
-        <label type="text">Clock Id : {{preset.clockId}}</label>
+        <label type="text">Clock Id : {{getUserInfo.clocks[$route.params.id].clockId}}</label>
       </div>
     </div>
 
@@ -73,55 +76,85 @@
 <script>
 import {
   createPresetAsync,
-  updatePresetAsync,
-  getPresetAsync
+ getPresetAsync,
+ updatePresetAsync
 } from "@/api/presetApi.js";
+
+import { mapGetters } from "vuex";
+import Vuex from "vuex";
+import { formatActivationFlag, reformActivationFlag } from "@/api/formatActivationFlag.js";
+
 export default {
+  computed: {
+    ...mapGetters({
+      getUserInfo: "getUserInfo"
+    })
+  },
   data() {
     return {
-      id: 3,
-      preset: {},
-      days: [true, false, true, true, false, true, false],
-      mode: "edit",
-      errors: []
+      preset: {
+        // PresetId: this.$route.params.presetId,
+        // PresetName: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName,
+        // WakingTime: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime,
+        // Song: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].song,
+        // ActivationFlag: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag,
+        // Challenge: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge
+      },
+      days: [],
+      errors: [],
+      info: {}
     };
   },
-
+  created() {
+    if(this.$route.params.presetId != null) {
+      this.preset.AlarmPresetId   = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
+      this.preset.Name            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+      
+      this.challenges = this.getUserInfo.challenges;
+    }
+    this.days = formatActivationFlag(this.preset.ActivationFlag);
+    if(this.preset.ActivationFlag & 1 != 0) {
+      this.days[7] = true;
+    } 
+    else {
+      this.days[7] = false;
+    }
+  },
   async mounted() {
     //this.id = this.$route.params.id;
-    if (this.mode == "edit") {
-      try {
-        this.preset = await getPresetAsync(this.id);
-      } catch (e) {
-      }
-    }
+    
+    this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
+    console.log(this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
   },
 
   methods: {
+    
     async onSubmit(event) {
       event.preventDefault();
-      debugger;
       var errors = [];
+      this.preset.ActivationFlag = reformActivationFlag(this.days);
 
-      if (!this.preset.name) errors.push("Name");
-      if (!this.preset.wakingTime) errors.push("WakingTime");
-      if (!this.preset.song) errors.push("Song");
+      if (!this.preset.Name) errors.push("Name");
+      if (!this.preset.WakingTime) errors.push("WakingTime");
+      if (!this.preset.Song) errors.push("Song");
       // if (!this.preset.activationFlag) errors.push("ActivationFlag");
-      if (!this.preset.challenge) errors.push("Challenge");
-      if (!this.preset.alarmPresetId) errors.push("AlarmPresetId");
-      if (!this.preset.clockId) errors.push("ClockId");
+      // if (!this.preset.Challenge) errors.push("Challenge");
 
       this.errors = errors;
-
       if (errors.length == 0) {
-        try {
-          if (this.mode == "edit") await updatePresetAsync(this.preset);
+        try {          
+          if (this.$route.fullPath.split('/')[1] == "EditPreset") await updatePresetAsync(this.preset);
           else await createPresetAsync(this.preset);
           this.$router.replace("");
         } catch (e) {
           console.error(e);
         }
       }
+      this.$router.push('/clock/' + this.$route.params.id + '/Presets')
     }
   }
 };
