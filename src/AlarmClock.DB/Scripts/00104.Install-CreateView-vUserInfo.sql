@@ -4,7 +4,7 @@
  * File Created: Thursday,4th May 2019 09:07:47 am                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 13th June 2019 9:18:01 am                          *
+ * Last Modified: Monday, 17th June 2019 9:16:24 am                            *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -13,26 +13,26 @@ AS
     SELECT
 
         -- User Data
-        [UserId] = u.UserId,
-        [Pseudo] = u.Pseudo,
-        [Email] = u.Email,
-        [FirstName] = u.FirstName,
-        [LastName] = u.LastName,
-        [BirthDate] = u.BirthDate,
+        [UserId]        = u.UserId,
+        [Pseudo]        = u.Pseudo,
+        [Email]         = u.Email,
+        [FirstName]     = u.FirstName,
+        [LastName]      = u.LastName,
+        [BirthDate]     = u.BirthDate,
 
         -- Clock Data
-        [ClockId] = c.ClockId,
-        [ClockName] = c.Name,
-        [ClockGuid] = d.GUID,
-        [LastSeenDate] = d.LastSeenDate,
+        [ClockId]       = c.ClockId,
+        [ClockName]     = c.Name,
+        [ClockGuid]     = d.GUID,
+        [LastSeenDate]  = d.LastSeenDate,
 
         -- Preset Data
-        [PresetId] = a.AlarmPresetId,
-        [PresetName] = a.Name,
-        [WakingTime]= a.WakingTime,
-        [ActivationFlag] = a.ActivationFlag,
-        [Challenge] = a.Challenge,
-        [Song] = a.Song,
+        [PresetId]      = a.AlarmPresetId,
+        [PresetName]    = a.Name,
+        [WakingTime]    = a.WakingTime,
+        [ActivationFlag]= a.ActivationFlag,
+        [Challenge]     = a.Challenge,
+        [Song]          = a.Song,
         [PresetClockId] = a.ClockId
 
     FROM
