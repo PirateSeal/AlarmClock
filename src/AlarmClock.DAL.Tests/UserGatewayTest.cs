@@ -101,7 +101,7 @@ namespace AlarmClock.DAL.Tests
             {
                 WakingTime = new TimeSpan( 15, 0, 0 ),
                 ActivationFlag = 0,
-                Challenge = 0,
+                Challenge = TestHelpers.RandomTestName(),
                 Name = TestHelpers.RandomTestName(),
                 ClockId = clockId,
                 Song = TestHelpers.RandomTestName()

@@ -30,7 +30,7 @@ namespace AlarmClock.DAL
         }
 
         public async Task<Result<int>> CreatePreset( TimeSpan wakingTime, string name, string song, byte activationFlag,
-            int challenge, int clockId )
+            string challenge, int clockId )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
@@ -59,7 +59,7 @@ namespace AlarmClock.DAL
 
         public async Task<Result> UpdatePreset( int alarmPresetId, TimeSpan wakingTime, string name, string song,
             byte activationFlag,
-            int challenge )
+            string challenge )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {

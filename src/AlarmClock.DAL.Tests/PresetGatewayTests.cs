@@ -17,7 +17,7 @@ namespace AlarmClock.DAL.Tests
         }
 
         private void CheckPreset( Result<PresetData> preset, TimeSpan wakingTime, string song, byte activationFlag,
-            int challenge, int clockId )
+            string challenge, int clockId )
         {
             Assert.That( preset.Status, Is.EqualTo( Status.Ok ) );
             Assert.That( preset.Content.WakingTime, Is.EqualTo( wakingTime ) );
@@ -34,7 +34,7 @@ namespace AlarmClock.DAL.Tests
             string name = TestHelpers.RandomTestName();
             string song = TestHelpers.RandomTestName();
             byte activationFlag = (byte) Random.Next( 255 );
-            int challenge = 0;
+            string challenge = "oui";
             int clockId = 0;
 
             var presetStatus =

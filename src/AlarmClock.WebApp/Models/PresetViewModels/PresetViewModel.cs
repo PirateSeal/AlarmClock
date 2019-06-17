@@ -7,7 +7,7 @@ namespace Alarmclock.WebApp.Models.PresetViewModels
         public int AlarmPresetId { get; set; }
         public TimeSpan WakingTime { get; set; }
         public string Name { get; set; }
-        public int Challenge { get; set; }
+        public string Challenge { get; set; }
         public byte ActivationFlag { get; set; }
         public string Song { get; set; }
         public int ClockId { get; set; }

@@ -29,8 +29,10 @@ namespace AlarmClock.DAL
         public string PresetName { get; set; }
         public TimeSpan WakingTime { get; set; }
         public byte ActivationFlag { get; set; }
-        public int Challenge { get; set; }
+        public string Challenge { get; set; }
+        public string ChallengePath { get; set; }
         public string Song { get; set; }
+        public string SongPath { get; set; }
         public int PresetClockId { get; set; }
     }
 }
