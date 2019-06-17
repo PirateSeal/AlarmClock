@@ -4,7 +4,7 @@
  * File Created: Thursday,4th May 2019 09:07:47 am                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 13th June 2019 9:18:07 am                          *
+ * Last Modified: Monday, 17th June 2019 10:02:52 am                           *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -15,18 +15,18 @@ INSERT INTO spi.tAlarmPreset
     )
 VALUES
     (
-        '00010101', 'RandomName-1' , 0, 0, 'TestSong', 1
+        '00010101', 'RandomName-1' , 0, 0, 0, 1
     
 ),
     (
-        '00010101', 'RandomName-2' , 0, 0, 'TestSong 2', 1
+        '00010101', 'RandomName-2' , 0, 0, 0, 1
     
 ),
     (
-        '00010101', 'RandomName-3' , 0, 0, 'TestSong 3', 2
+        '00010101', 'RandomName-3' , 0, 0, 0, 2
     
 ),
     (
-        '00010101', 'RandomName-4' , 0, 0, 'TestSong 4', 2
+        '00010101', 'RandomName-4' , 0, 0, 0, 2
     
 )
