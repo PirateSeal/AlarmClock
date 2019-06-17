@@ -1,12 +1,13 @@
 <template>
     <div id='Game'>
-        <!-- <div v-if="this.GameIsOn == false"><button v-on:click="StartUp()">Jouer</button></div> -->
+        Score : {{this.Score}}
+        <div v-if="this.GameIsOn == false"><button v-on:click="StartUp()">Jouer</button></div>
     </div>
 </template>
 
 <script>
 import * as PIXI from 'pixi.js';
-//import Vuex from "vuex";
+import vue from 'vue';
 
 export default {
   computed: {
@@ -17,97 +18,155 @@ export default {
 
       Score: 0,
       Arena: {},
-      i: 0,
-      GameIsOn: false,
       app: {},
-      textures: {}
+      container: {},
+      GameIsOn: false,
+      snake: [],
+      food: {}
     }
   },
 
   mounted() {
 
-      this.StartUp();
+    window.addEventListener("keydown", this.ChangeDirection);
+    console.log(this);
   },
+
+  destroy() {
+
+      window.removeEventListener("keydown", this.ChangeDirection);
+  },
+
   methods: {
 
     End: function() {
 
+        this.GameIsOn = false;
+        this.app.width = 0;
+        this.app.height = 0;
     },
 
     GameLoop: function(delta) {
 
-        while (this.IsDead() == false) {
+        this.Arena.LifeTime++;
 
-            this.MoveSnake();
+        for ( let i = 0 ; i < 10 ; i++) {
 
-            if (this.IsFoodEated() == true) {
+            if (this.snake[i] != null) {
 
-                this.GrowUp();
-                this.SpawnFood();
+                this.snake[i].x = (this.Arena.Snake.Tail[i].X + 1) * 20;
+                this.snake[i].y = (this.Arena.Snake.Tail[i].Y + 1) * 20;
             }
         }
+        this.food.x = (this.Arena.Food.X + 1) * 20;
+        this.food.y = (this.Arena.Food.Y + 1) * 20;
+        
+        if (this.Arena.LifeTime % this.Arena.WaitTime == 0) {
+            if (!this.IsDead()) {
 
-        this.End();
+                if (this.IsFoodEated()) {
+
+                    //debugger;
+                    if (!this.Arena.Snake.Tail[9].Exist) {
+
+                        this.GrowUp();
+                    }
+                    //debugger;
+                    this.SpawnFood();
+
+                    this.Arena.WaitTime -= 2;
+                }
+
+                this.MoveSnake();
+                if (this.Arena.Snake.Direction == 0) {
+
+                    this.Arena.Snake.Tail[0].Y--;
+                    this.snake[0].y -= 20;
+                }
+                else if (this.Arena.Snake.Direction == 1) {
+
+                    this.Arena.Snake.Tail[0].X++;
+                    this.snake[0].x += 20;
+                }
+                else if (this.Arena.Snake.Direction == 3) {
+
+                    this.Arena.Snake.Tail[0].Y++;
+                    this.snake[0].y += 20;
+                }
+                else if (this.Arena.Snake.Direction == 2) {
+
+                    this.Arena.Snake.Tail[0].X--;
+                    this.snake[0].x -= 20;
+                }
+            } 
+            else {
+
+                this.End();
+            } 
+        }
     },
 
     StartUp: function() {
 
-        //debugger;
+        
 
         this.Score = 0;
         this.GameIsOn = true;
 
-        const app = new PIXI.Application({
-            width: 800,
-            height: 600, 
+        this.app = new PIXI.Application({
+            width: 440,
+            height: 440, 
             backgroundColor: 0x1099bb, 
             resolution: window.devicePixelRatio || 1,
         });
 
-        document.querySelector("#Game").appendChild(app.view);
+        document.querySelector("#Game").appendChild(this.app.view);
 
-        app.loader.add('snake', '../games/Snake/snake.png').load((loader, resources) => {
-        
-            const snake = new PIXI.Sprite(resources.snake.texture);
+        this.container = new PIXI.Container();
 
-            snake.x = app.renderer.width / 2;
-            snake.y = app.renderer.height / 2;
+        this.app.loader.add('snake', '/snake/snake.png');
 
-            app.stage.addChild(snake);
-   
+        this.app.loader.add('food', '/snake/food.png');
+
+        this.app.loader.load((loader, resources) => {
+
+            this.snake[0] = new PIXI.Sprite(resources.snake.texture);
+
+            this.snake[0].width = 20;
+            this.snake[0].height = 20;
+            this.snake[0].z = 1;
+
+            this.food = new PIXI.Sprite(resources.food.texture);
+
+            this.food.width = 20;
+            this.food.height = 20;
+            this.food.z = 2;
+
+            this.container.addChild(this.snake[0]);
+            this.container.addChild(this.food);
+
+            this.Arena = {
+                Snake: {},
+                Food: {},
+                LifeTime : 0,
+                WaitTime: 20
+            }
+
+            this.SpawnSnake();
+            this.SpawnFood();
+
+            this.app.stage.addChild(this.container);
+
+            this.app.renderer.render(this.app.stage);
+
+            this.app.ticker.add(delta => this.GameLoop(delta));
         });
+        
 
-        app.renderer.render(app.stage);
+        
 
-        // Create a new texture
-        // const container = app.stage.addChild(new PIXI.Container())
-        // const texture = container.addChild(new PIXI.Graphics())
-        // texture.drawRect(10,10,10,10)
-
-
-        // this.Arena = {
-        //     Snake: {},
-        //     Food: {}
-        // }
-
-        // this.SpawnSnake();
-        // this.SpawnFood();
-
-        //this.app.ticker.add(delta => this.GameLoop(delta));
-    },
-
-    createSnake: function() {
-
-        let snake = PIXI.Sprite.from('assets/snake.png');
-        snake.x = 100;
-        snake.y = 100;
-        this.textures.addChild(snake);
-    },
-
-    createFood: function() {
-
-        let food = PIXI.Sprite.from('assets/food.png');
-        this.textures.addChild(food);
+        //debugger;
+        
     },
 
     SpawnFood: function() {
@@ -117,8 +176,6 @@ export default {
             X: Math.floor(Math.random()*10),
             Y: Math.floor(Math.random()*10)
         }
-        //this.textures.food.x = this.Arena.Food.X + 1;
-        //this.textures.food.y = this.Arena.Food.Y + 1;
     },
 
     SpawnSnake: function() {
@@ -127,8 +184,8 @@ export default {
             Direction: Math.floor(Math.random()*4),
             Tail: [
                 {
-                    X: Math.floor(Math.random()*10),
-                    Y: Math.floor(Math.random()*10),
+                    X: 10,
+                    Y: 10,
                     Exist: true
                 },
                 {
@@ -178,57 +235,39 @@ export default {
                 }
             ]
         }
-        //this.textures.snake.x = this.Arena.Snake.Tail[0].X + 1;
-        //this.textures.snake.y = this.Arena.Snake.Tail[0].Y + 1;
+        this.snake[0].x = this.Arena.Snake.Tail[0].X + 1;
+        this.snake[0].y = this.Arena.Snake.Tail[0].Y + 1;
+    },
+
+    ChangeDirection(e) {
+        console.log(e);
+        if (e.key == "ArrowUp" && this.Arena.Snake.Direction != 0 && this.Arena.Snake.Direction != 3) {
+
+            this.Arena.Snake.Direction = 0;
+        } 
+        else if (e.key == "ArrowRight" && this.Arena.Snake.Direction != 1 && this.Arena.Snake.Direction != 2) {
+
+            this.Arena.Snake.Direction = 1;
+        } 
+        else if (e.key == "ArrowLeft" && this.Arena.Snake.Direction != 1 && this.Arena.Snake.Direction != 2) {
+
+            this.Arena.Snake.Direction = 2;
+        } 
+        else if (e.key == "ArrowDown" && this.Arena.Snake.Direction != 0 && this.Arena.Snake.Direction != 3) {
+
+            this.Arena.Snake.Direction = 3;
+        }
     },
 
     MoveSnake: function() {
 
-        if (KeyboardEvent.up) {
+        for (let i = 9 ; i >= 0 ; i--) {
 
-            this.Arena.Snake.Direction = 0;
-        } 
-        else if (KeyboardEvent.right) {
+            if (this.Arena.Snake.Tail[i].Exist && i != 0) {
 
-            this.Arena.Snake.Direction = 1;
-        } 
-        else if (KeyboardEvent.left) {
-
-            this.Arena.Snake.Direction = 2;
-        } 
-        else if (KeyboardEvent.down) {
-
-            this.Arena.Snake.Direction = 3;
-        }
-
-        for (this.i=9; this.i >= 0; this.i--) {
-
-            if (this.Arena.Snake.Tail[this.i].Exist && this.i != 0) {
-
-                this.Arena.Snake.Tail[this.i].X = this.Arena.Snake.Tail[this.i-1].X;
-                this.Arena.Snake.Tail[this.i].Y = this.Arena.Snake.Tail[this.i-1].Y;
+                this.Arena.Snake.Tail[i].X = this.Arena.Snake.Tail[i-1].X;
+                this.Arena.Snake.Tail[i].Y = this.Arena.Snake.Tail[i-1].Y;
             }
-        }
-
-        if (this.Arena.Snake.Direction == 0) {
-
-            this.Arena.Snake.Tail[0].Y--;
-            //this.textures.snake.y--;
-        }
-        else if (this.Arena.Snake.Direction == 1) {
-
-            this.Arena.Snake.Tail[0].X++;
-            //this.textures.snake.x++;
-        }
-        else if (this.Arena.Snake.Direction == 2) {
-
-            this.Arena.Snake.Tail[0].Y++;
-            //this.textures.snake.y++;
-        }
-        else if (this.Arena.Snake.Direction == 3) {
-
-            this.Arena.Snake.Tail[0].X--;
-            //this.textures.snake.x--;
         }
     },
 
@@ -248,40 +287,52 @@ export default {
     IsDead: function() {
 
         if (this.Arena.Snake.Tail[0].X < 0
-        ||  this.Arena.Snake.Tail[0].X > 9
+        ||  this.Arena.Snake.Tail[0].X > 19
         ||  this.Arena.Snake.Tail[0].Y < 0
-        ||  this.Arena.Snake.Tail[0].Y > 9) {
+        ||  this.Arena.Snake.Tail[0].Y > 19) {
 
             return true;
         }
         else {
 
-            for (this.i = 1; this.i < 10; this.i++) {
+            for (let i = 1; i < 10; i++) {
 
-                if (this.Arena.Snake.Tail[this.i].Exist == true
-                &&  this.Arena.Snake.Tail[0].X == this.Arena.Snake.Tail[this.i].X
-                &&  this.Arena.Snake.Tail[0].Y == this.Arena.Snake.Tail[this.i].Y) {
+                if (this.Arena.Snake.Tail[i].Exist == true) {
+
+                    if (this.Arena.Snake.Tail[0].X == this.Arena.Snake.Tail[i].X
+                    &&  this.Arena.Snake.Tail[0].Y == this.Arena.Snake.Tail[i].Y) {
 
                     return true;
-                }
-                else {
-
-                    return false;
+                    }
                 }
             }
+            return false;
         }
     },
 
     GrowUp: function() {
 
-        this.i = 1;
-        while (this.Arena.Snake.Tail[this.i].Exist == true) {
+        let i = 1;
+        while (this.Arena.Snake.Tail[i].Exist == true) {
 
-            this.i++;
+            i++;
         }
 
         this.Score++;
-        this.Arena.Snake.Tail[this.i].Exist = true;
+        this.Arena.Snake.Tail[i].Exist = true;
+
+        this.app.loader.load((loader, resources) => {
+                   
+            this.snake[i] = new PIXI.Sprite(resources.snake.texture);
+            console.log(this.snake[i].x + ' : ' + this.snake[i].y );
+            this.snake[i].x = this.snake[0].x;
+            this.snake[i].y = this.snake[0].y;
+            console.log(this.snake[i].x + ' : ' + this.snake[i].y );
+            this.snake[i].width = 20;
+            this.snake[i].height = 20;
+
+            this.container.addChild(this.snake[i]);
+        });
     }
   }
 };
