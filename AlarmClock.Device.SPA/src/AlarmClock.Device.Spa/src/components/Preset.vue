@@ -4,20 +4,24 @@
  * File Created: Tuesday,2nd June 2019 12:49:47 pm                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Tuesday, 11th June 2019 12:58:10 pm                          *
+ * Last Modified: Tuesday, 11th June 2019 4:00:57 pm                           *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
 <template>
-  <div class="clock_preset">
-    <div class="title">{{clock.title}}</div>
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+index)">
+    <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
-      <div class="time" v-for="(time, index) in getTime(clock.time)" :key="time + index">{{time}}</div>
+      <div
+        class="time"
+        v-for="(wakingTime, index) in getTime(preset.wakingTime)"
+        :key="wakingTime + index"
+      >{{wakingTime}}</div>
     </div>
     <div class="days-container">
       <div
         class="day"
-        v-for="(day, index) in days()"
+        v-for="(day, index) in days"
         :key="day.key"
         :class="{ active: isDayActive(clock, index)}"
       >{{formatDay(day)[0]}}</div>
@@ -26,33 +30,29 @@
 </template>
 
 <script>
-import days from "@/components/api/days";
+import daysEnum from "@/api/days";
 import { formatActivationFlag } from "@/api/formatActivationFlag";
+import { getPresetList } from "../api/clockApi";
 
 export default {
-  name: "clock_preset",
+  name: "preset",
   props: {
     preset: {
       type: Object,
       required: true
     }
   },
+  data() {
+    return {
+      days: formatActivationFlag(this.preset.activationFlag)
+    };
+  },
   mounted() {
     console.log(formatActivationFlag(this.preset.activationFlag));
   },
-  data() {
-    return {
-      PresetInfo: this.globalInfo.clocks[this.$root.params.id]
-    };
-  },
-  computed: {
-    ...mapGetters({
-      getUserInfo: "getUserInfo"
-    })
-  },
   methods: {
     days() {
-      return days;
+      return this.days;
     },
     getTime(time) {
       return time.split("");
@@ -62,13 +62,6 @@ export default {
     },
     isDayActive(clock, index) {
       return clock.days.find(e => e === index + 1);
-    },
-    async refreshList() {
-      try {
-        this.studentList = await getStudentListAsync();
-      } catch (e) {
-        console.error(e);
-      }
     }
   }
 };
