@@ -1,6 +1,5 @@
 <template>
     <div id='Game'>
-        Score : {{this.Score}}
         <div v-if="this.GameIsOn == false"><button v-on:click="StartUp()">Jouer</button></div>
     </div>
 </template>
@@ -22,7 +21,8 @@ export default {
       container: {},
       GameIsOn: false,
       snake: [],
-      food: {}
+      food: {},
+      texte: ""
     }
   },
 
@@ -41,16 +41,14 @@ export default {
 
     End: function() {
 
-        this.GameIsOn = false;
-        this.app.width = 0;
-        this.app.height = 0;
+        this.$router.replace("/EndGame/" + this.Score + "/10");
     },
 
     GameLoop: function(delta) {
 
         this.Arena.LifeTime++;
 
-        for ( let i = 0 ; i < 10 ; i++) {
+        for ( let i = 0 ; i < 20 ; i++) {
 
             if (this.snake[i] != null) {
 
@@ -66,15 +64,10 @@ export default {
 
                 if (this.IsFoodEated()) {
 
-                    //debugger;
-                    if (!this.Arena.Snake.Tail[9].Exist) {
-
-                        this.GrowUp();
-                    }
-                    //debugger;
+                    this.GrowUp();
                     this.SpawnFood();
 
-                    this.Arena.WaitTime -= 2;
+                    if (this.Score > 6) this.Arena.WaitTime -= 1;
                 }
 
                 this.MoveSnake();
@@ -115,7 +108,7 @@ export default {
 
         this.app = new PIXI.Application({
             width: 440,
-            height: 440, 
+            height: 474, 
             backgroundColor: 0x1099bb, 
             resolution: window.devicePixelRatio || 1,
         });
@@ -127,6 +120,31 @@ export default {
         this.app.loader.add('snake', '/snake/snake.png');
 
         this.app.loader.add('food', '/snake/food.png');
+
+        let style = new PIXI.TextStyle({
+            fontFamily: "Arial",
+            fontSize: 25,
+            fill: "white",
+            stroke: '#ff3300',
+            strokeThickness: 4,
+            dropShadow: true,
+            dropShadowColor: "#000000",
+            dropShadowBlur: 4,
+            dropShadowAngle: Math.PI / 6,
+            dropShadowDistance: 6,
+        });
+
+        this.texte = new PIXI.Text("Score : " + this.Score, style);
+        this.texte.position.set(5, 442);
+
+        this.app.stage.addChild(this.texte);
+
+        let line = new PIXI.Graphics();
+        line.lineStyle(4, 0xFFFFFF, 1);
+        line.moveTo(0, 442);
+        line.lineTo(440, 442);
+
+        this.app.stage.addChild(line);
 
         this.app.loader.load((loader, resources) => {
 
@@ -149,7 +167,7 @@ export default {
                 Snake: {},
                 Food: {},
                 LifeTime : 0,
-                WaitTime: 20
+                WaitTime: 15
             }
 
             this.SpawnSnake();
@@ -183,56 +201,26 @@ export default {
         this.Arena.Snake = {
             Direction: Math.floor(Math.random()*4),
             Tail: [
-                {
-                    X: 10,
-                    Y: 10,
-                    Exist: true
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                },
-                {
-                    X: 0,
-                    Y: 0,
-                    Exist: false
-                }
+                {X: 10, Y: 10, Exist: true},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false},
+                {X: 0, Y: 0, Exist: false}
             ]
         }
         this.snake[0].x = this.Arena.Snake.Tail[0].X + 1;
@@ -261,7 +249,7 @@ export default {
 
     MoveSnake: function() {
 
-        for (let i = 9 ; i >= 0 ; i--) {
+        for (let i = 19 ; i >= 0 ; i--) {
 
             if (this.Arena.Snake.Tail[i].Exist && i != 0) {
 
@@ -312,27 +300,32 @@ export default {
 
     GrowUp: function() {
 
-        let i = 1;
-        while (this.Arena.Snake.Tail[i].Exist == true) {
+        if (!this.Arena.Snake.Tail[19].Exist) {
 
-            i++;
+            let i = 1;
+            while (this.Arena.Snake.Tail[i].Exist == true) {
+
+                i++;
+            }
+
+            this.Arena.Snake.Tail[i].Exist = true;
+
+            this.app.loader.load((loader, resources) => {
+                    
+                this.snake[i] = new PIXI.Sprite(resources.snake.texture);
+                console.log(this.snake[i].x + ' : ' + this.snake[i].y );
+                this.snake[i].x = this.snake[0].x;
+                this.snake[i].y = this.snake[0].y;
+                console.log(this.snake[i].x + ' : ' + this.snake[i].y );
+                this.snake[i].width = 20;
+                this.snake[i].height = 20;
+
+                this.container.addChild(this.snake[i]);
+            });
         }
 
         this.Score++;
-        this.Arena.Snake.Tail[i].Exist = true;
-
-        this.app.loader.load((loader, resources) => {
-                   
-            this.snake[i] = new PIXI.Sprite(resources.snake.texture);
-            console.log(this.snake[i].x + ' : ' + this.snake[i].y );
-            this.snake[i].x = this.snake[0].x;
-            this.snake[i].y = this.snake[0].y;
-            console.log(this.snake[i].x + ' : ' + this.snake[i].y );
-            this.snake[i].width = 20;
-            this.snake[i].height = 20;
-
-            this.container.addChild(this.snake[i]);
-        });
+        this.texte.text = "Score : " + this.Score;
     }
   }
 };

@@ -15,14 +15,15 @@ Vue.use(VueRouter);
 
 import Home from "./components/Home";
 import MainMenu from "./components/MainMenu";
+
 import Snake from "./components/Snake";
-import Example from "./components/App";
+import EndGame from "./components/EndGame";
 
 const routes = [
     { path: "", component: Home },
     { path: "/MainMenu", component: MainMenu },
     { path: "/Snake", component: Snake },
-    { path: "/Example", component: Example }
+    { path: "/EndGame/:Score/:Limite", component: EndGame }
 ];
 
 export default new VueRouter({
