@@ -22,7 +22,8 @@ export default {
       GameIsOn: false,
       snake: [],
       food: {},
-      texte: ""
+      texte: "",
+      Divisor: 0
     }
   },
 
@@ -67,7 +68,28 @@ export default {
                     this.GrowUp();
                     this.SpawnFood();
 
-                    if (this.Score > 6) this.Arena.WaitTime -= 1;
+                    if (this.Score > 20) {
+
+                        this.Divisor = 3;
+
+                    } else if (this.Score > 15) {
+
+                        this.Divisor = 2;
+
+                    } else if (this.Score > 10) {
+
+                        this.Divisor = 1;
+
+                    }  
+
+                    if (this.Score > 9) {
+
+                        if (this.Score%this.Divisor == 0) 
+                        {
+                            this.Arena.WaitTime -= 1;
+                        }
+                        this.Arena.LifeTime = 0;
+                    }
                 }
 
                 this.MoveSnake();
@@ -107,8 +129,8 @@ export default {
         this.GameIsOn = true;
 
         this.app = new PIXI.Application({
-            width: 440,
-            height: 474, 
+            width: 640,
+            height: 674, 
             backgroundColor: 0x1099bb, 
             resolution: window.devicePixelRatio || 1,
         });
@@ -135,14 +157,14 @@ export default {
         });
 
         this.texte = new PIXI.Text("Score : " + this.Score, style);
-        this.texte.position.set(5, 442);
+        this.texte.position.set(5, 642);
 
         this.app.stage.addChild(this.texte);
 
         let line = new PIXI.Graphics();
         line.lineStyle(4, 0xFFFFFF, 1);
-        line.moveTo(0, 442);
-        line.lineTo(440, 442);
+        line.moveTo(0, 642);
+        line.lineTo(640, 642);
 
         this.app.stage.addChild(line);
 
@@ -167,7 +189,7 @@ export default {
                 Snake: {},
                 Food: {},
                 LifeTime : 0,
-                WaitTime: 15
+                WaitTime: 12
             }
 
             this.SpawnSnake();
@@ -191,8 +213,8 @@ export default {
 
         this.Arena.Food = {
 
-            X: Math.floor(Math.random()*10),
-            Y: Math.floor(Math.random()*10)
+            X: Math.floor(Math.random()*30),
+            Y: Math.floor(Math.random()*30)
         }
     },
 
@@ -201,7 +223,7 @@ export default {
         this.Arena.Snake = {
             Direction: Math.floor(Math.random()*4),
             Tail: [
-                {X: 10, Y: 10, Exist: true},
+                {X: 15, Y: 15, Exist: true},
                 {X: 0, Y: 0, Exist: false},
                 {X: 0, Y: 0, Exist: false},
                 {X: 0, Y: 0, Exist: false},
@@ -275,15 +297,15 @@ export default {
     IsDead: function() {
 
         if (this.Arena.Snake.Tail[0].X < 0
-        ||  this.Arena.Snake.Tail[0].X > 19
+        ||  this.Arena.Snake.Tail[0].X > 29
         ||  this.Arena.Snake.Tail[0].Y < 0
-        ||  this.Arena.Snake.Tail[0].Y > 19) {
+        ||  this.Arena.Snake.Tail[0].Y > 29) {
 
             return true;
         }
         else {
 
-            for (let i = 1; i < 10; i++) {
+            for (let i = 1; i < 20; i++) {
 
                 if (this.Arena.Snake.Tail[i].Exist == true) {
 
