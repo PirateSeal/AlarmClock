@@ -34,7 +34,9 @@ namespace AlarmClock.Device.WebApp.Controllers
                 presetData.Name,
                 presetData.AlarmPresetId,
                 presetData.Challenge,
+                presetData.ChallengePath,
                 presetData.Song,
+                presetData.SongPath,
                 presetData.WakingTime );
         }
     }

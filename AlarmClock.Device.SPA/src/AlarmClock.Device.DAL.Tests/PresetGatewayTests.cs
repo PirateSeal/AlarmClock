@@ -18,7 +18,7 @@ namespace AlarmClock.Device.DAL.Tests
         private ClockGateway ClockGateway { get; }
 
         private void CheckPreset( Result<PresetData> preset, TimeSpan wakingTime, string song, byte activationFlag,
-            int challenge, int clockId )
+            string challenge, int clockId )
         {
             Assert.That( preset.Status, Is.EqualTo( Status.Ok ) );
             Assert.That( preset.Content.WakingTime, Is.EqualTo( wakingTime ) );
@@ -33,7 +33,7 @@ namespace AlarmClock.Device.DAL.Tests
         {
             await ClockGateway.CreateOrUpdateClockData( "Test" );
             var presetStatus =
-                await PresetGateway.CreatePreset( 128, "TestPreset", 0, 0, "oui", new TimeSpan( 15, 30, 0 ) );
+                await PresetGateway.CreatePreset( 128, "TestPreset", 0, "yes", "./challenge.js","yes","./song.mp3", new TimeSpan( 15, 30, 0 ) );
 
             Assert.That( presetStatus.Status, Is.EqualTo( Status.Created ) );
 
@@ -42,7 +42,7 @@ namespace AlarmClock.Device.DAL.Tests
 
             {
                 preset = await PresetGateway.GetPresetByIdAsync( presetId );
-                CheckPreset( preset, new TimeSpan( 15, 30, 0 ), "oui", 128, 0, 0 );
+                CheckPreset( preset, new TimeSpan( 15, 30, 0 ), "oui", 128, "yes", 0 );
             }
 
             {
@@ -50,10 +50,10 @@ namespace AlarmClock.Device.DAL.Tests
                 TimeSpan wakingTime = new TimeSpan( 9, 30, 0 );
                 string song = TestHelpers.RandomTestName();
 
-                var r = await PresetGateway.UpdatePreset( presetId, wakingTime, "NewTest", song, 129, 1 );
+                var r = await PresetGateway.UpdatePreset( presetId, wakingTime, "NewTest", song, 129, "yes" );
 
                 Assert.That( r.Status, Is.EqualTo( Status.Ok ) );
-                CheckPreset( r, wakingTime, song, 129, 1, r.Content.ClockId );
+                CheckPreset( r, wakingTime, song, 129, "yes", r.Content.ClockId );
             }
 
             {

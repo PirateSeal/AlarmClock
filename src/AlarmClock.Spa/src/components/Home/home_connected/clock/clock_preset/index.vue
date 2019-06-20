@@ -4,7 +4,7 @@
  * File Created: Thursday,4th May 2019 09:07:47 am                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Tuesday, 11th June 2019 3:19:17 pm                           *
+ * Last Modified: Wednesday, 19th June 2019 11:31:44 am                        *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    console.log(formatActivationFlag(this.preset.activationFlag));
+    this.$store.dispatch("setUserInfo", this.globalInfo);
   },
   data() {
     return {};

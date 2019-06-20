@@ -28,7 +28,6 @@ namespace AlarmClock.MQTT
 
 
             await mqttClient.ConnectAsync( options );
-            int count = 0;
             var t = DateTime.Now;
 
             await mqttClient.SubscribeAsync( "clock/#" );
@@ -38,7 +37,6 @@ namespace AlarmClock.MQTT
             for( int i = 0; i < 100; i++ )
             {
                 DateTime t1 = DateTime.Now;
-                count++;
                 var message = new MqttApplicationMessageBuilder()
                     .WithTopic( "toto" )
                     .WithPayload( t.ToString() + " " + t1.ToString() )

@@ -49,7 +49,7 @@ namespace AlarmClock.Device.DAL.Gateways
         }
 
         public async Task<Result<PresetData>> CreatePreset( byte activationFlag, string name, int presetId,
-            int challenge, string song, TimeSpan wakingTime )
+            string challenge, string challengePath, string song, string songPath, TimeSpan wakingTime )
         {
             PresetData preset = new PresetData
             {
@@ -57,8 +57,10 @@ namespace AlarmClock.Device.DAL.Gateways
                 Name = name,
                 AlarmPresetId = presetId,
                 Challenge = challenge,
+                ChallengePath = challengePath,
                 WakingTime = wakingTime,
                 Song = song,
+                SongPath = songPath,
                 ClockId = presetId
             };
 
@@ -75,7 +77,7 @@ namespace AlarmClock.Device.DAL.Gateways
         }
 
         public async Task<Result<PresetData>> UpdatePreset( int id, TimeSpan wakingTime, string name, string song,
-            byte activationFlag, int challenge )
+            byte activationFlag, string challenge )
         {
             var result = await JsonHandler.OpenJsonAsync();
             ClockData clockData = result.Content;

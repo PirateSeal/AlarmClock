@@ -27,7 +27,7 @@ namespace AlarmClock.Device.MQTT
         private MqttFactory Factory { get; }
         private IMqttClient Client { get; }
         private IMqttClientOptions Options { get; }
-        private Acl Acl { get;  }
+        private Acl Acl { get; }
         private string ClientTopic { get; set; }
 
         private async Task EnsureIsConnected()
@@ -35,18 +35,18 @@ namespace AlarmClock.Device.MQTT
             if( !Client.IsConnected ) await Client.ConnectAsync( Options );
         }
 
-        private string FabricateMessage(Acl acl)
+        private string FabricateMessage( Acl acl )
         {
-            return JsonConvert.SerializeObject( acl ) ;
+            return JsonConvert.SerializeObject( acl );
         }
 
-        public async Task SendMessage(string topic)
+        public async Task SendMessage( string topic )
         {
             await EnsureIsConnected();
 
             MqttApplicationMessage message = new MqttApplicationMessageBuilder()
                 .WithTopic( topic )
-                .WithPayload( FabricateMessage(Acl) )
+                .WithPayload( FabricateMessage( Acl ) )
                 .WithExactlyOnceQoS()
                 .WithRetainFlag()
                 .Build();

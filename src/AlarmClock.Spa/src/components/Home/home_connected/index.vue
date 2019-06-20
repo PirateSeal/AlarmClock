@@ -2,12 +2,12 @@
   <div class="Homeloged">
     <div class="title">Vos clock</div>
     <div class="clocks-container">
-    <clock
-      v-for="(clock, index) in globalInfo.clocks"
-      :key="`${clock.title}${index}`"
-      :clock="clock"
-      :index="index"
-    />
+      <clock
+        v-for="(clock, index) in globalInfo.clocks"
+        :key="`${clock.title}${index}`"
+        :clock="clock"
+        :index="index"
+      />
     </div>
   </div>
 </template>
@@ -27,8 +27,7 @@ export default {
   async mounted() {
     this.globalInfo = await getGlobalUserInfo();
     console.log(this.globalInfo);
-   this.$store.dispatch("setUserInfo", this.globalInfo);
-
+    this.$store.dispatch("setUserInfo", this.globalInfo);
   },
   computed: {
     ...mapGetters({
@@ -43,8 +42,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.displayed 
-{
+.displayed {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -58,19 +56,17 @@ export default {
   justify-content: space-around;
   flex-direction: column;
 
-
-  .title{
+  .title {
     font-size: 30px;
   }
   //overflow-y: scroll;
   // overflow: hidden;
-  .clocks-container{
+  .clocks-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     flex-direction: row;
-
   }
 }
 </style>
