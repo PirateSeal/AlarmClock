@@ -10,6 +10,7 @@
   "dependencies": {
     "pixi.js": "^5.0.4",
     "vue": "^2.6.10",
+    "vue-cast-props": "0.0.5",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {

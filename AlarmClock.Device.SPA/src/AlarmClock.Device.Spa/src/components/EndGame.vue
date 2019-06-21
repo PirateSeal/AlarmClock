@@ -1,10 +1,14 @@
 <template>
     <div id='Screen'>
+        <audio controls autoplay="autoplay" style="display:none" id="myAudio" loop>
+          <source :src="Time" type="audio/mpeg">
+        </audio>
     </div>
 </template>
 
 <script>
 import * as PIXI from 'pixi.js';
+import VueCastProps from 'vue-cast-props';
 import vue from 'vue';
 
 export default {
@@ -19,7 +23,8 @@ export default {
       Limite: this.$route.params.Limite,
       ImButton: {},
       ImButtonDown: {},
-      Button: {}
+      Button: {},
+      Time: "../../../C2C- Appy.mp3#t=00:00:" + this.$route.params.Time
     }
   },
 
@@ -31,7 +36,7 @@ export default {
 
       StartUp() {
 
-        if (this.Score < this.Limite) {
+        if (Number(this.Score) < Number(this.Limite)) {
             this.app = new PIXI.Application({
                 width: 400,
                 height: 400, 
@@ -177,8 +182,15 @@ export default {
 
       Replay() {
         console.log("Replay");
+        
+        this.EndTime = document.getElementById("myAudio").currentTime.toFixed(2);
+        if (this.EndTime < 10) {
 
-        this.$router.replace("/Snake");
+          this.EndTime = "0" + this.EndTime;
+        }
+        var temp = this.EndTime.split(".");
+        this.EndTime = temp[0];
+        this.$router.replace("/Snake/" + this.EndTime);
       },
 
       GoClock() {

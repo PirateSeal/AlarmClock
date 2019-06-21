@@ -76,6 +76,15 @@
           <div class="num">9</div>
         </div>
       </div>
+      <div v-if="!this.RingOn" class="text" @click="RingBell">
+        Faire sonner le réveil
+      </div>
+      <div v-else> 
+        <audio controls autoplay="autoplay" style="display:none" id="myAudio" loop>
+          <source :src="Time" type="audio/mpeg">
+        </audio>
+        <button @click="Snake">Jouer</button>
+      </div>
       <div class="text" @click="MainMenu">
         <h1 class="link">Go to Presets</h1>
       </div>
@@ -86,11 +95,15 @@
 <script>
 import { runClock } from "../api/clockScript.js";
 import { getClockInfo } from "../api/clockApi.js";
+import vue from 'vue';
 
 export default {
   data() {
     return {
-      ClockName: ""
+      ClockName: "",
+      RingOn: false,
+      Time: "C2C- Appy.mp3#t=" + "00:00:00",
+      EndTime: ""
     };
   },
   async mounted() {
@@ -101,7 +114,25 @@ export default {
   },
   methods: {
     MainMenu() {
+
       this.$router.replace("/MainMenu");
+    },
+
+    RingBell() {
+
+      this.RingOn = true;
+    },
+
+    Snake() {
+
+      this.EndTime = document.getElementById("myAudio").currentTime.toFixed(2);
+      if (this.EndTime < 10) {
+
+        this.EndTime = "0" + this.EndTime;
+      }
+      var temp = this.EndTime.split(".");
+      this.EndTime = temp[0];
+      this.$router.replace("/Snake/" + this.EndTime);
     }
   }
 };

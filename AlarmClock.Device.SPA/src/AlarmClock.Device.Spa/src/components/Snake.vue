@@ -23,7 +23,8 @@ export default {
       snake: [],
       food: {},
       texte: "",
-      Divisor: 0
+      Divisor: 0,
+      Time: this.$route.params.Time
     }
   },
 
@@ -42,7 +43,8 @@ export default {
 
     End: function() {
 
-        this.$router.replace("/EndGame/" + this.Score + "/10");
+        this.$router.replace("/EndGame/" + this.Score + "/10/" + this.Time);
+        GameIsOn = false;
     },
 
     GameLoop: function(delta) {
@@ -139,9 +141,9 @@ export default {
 
         this.container = new PIXI.Container();
 
-        this.app.loader.add('snake', '/snake/snake.png');
+        this.app.loader.add('snake', '/Snake/snake.png');
 
-        this.app.loader.add('food', '/snake/food.png');
+        this.app.loader.add('food', '/Snake/food.png');
 
         let style = new PIXI.TextStyle({
             fontFamily: "Arial",
