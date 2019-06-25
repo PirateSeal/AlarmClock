@@ -17,12 +17,14 @@ import Home from "./components/Home";
 import MainMenu from "./components/MainMenu";
 
 import Snake from "./components/Snake";
+import MathGame from "./components/Math";
 import EndGame from "./components/EndGame";
 
 const routes = [
     { path: "", component: Home },
     { path: "/MainMenu", component: MainMenu },
     { path: "/Snake/:Time", component: Snake },
+    { path: "/Math/:Time", component: MathGame },
     { path: "/EndGame/:Score/:Limite/:Time", component: EndGame }
 ];
 

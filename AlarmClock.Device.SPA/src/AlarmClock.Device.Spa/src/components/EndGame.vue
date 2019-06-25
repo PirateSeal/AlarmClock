@@ -1,7 +1,7 @@
 <template>
     <div id='Screen'>
         <audio controls autoplay="autoplay" style="display:none" id="myAudio" loop>
-          <source :src="Time" type="audio/mpeg">
+          <source :src="Name + Time" type="audio/mpeg">
         </audio>
     </div>
 </template>
@@ -24,7 +24,8 @@ export default {
       ImButton: {},
       ImButtonDown: {},
       Button: {},
-      Time: "../../../C2C- Appy.mp3#t=00:00:" + this.$route.params.Time
+      Name: "../../../Pharell Williams - Happy.mp3",
+      Time: "#t=00:00:" + this.$route.params.Time
     }
   },
 

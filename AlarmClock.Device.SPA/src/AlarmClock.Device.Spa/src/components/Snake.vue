@@ -1,6 +1,5 @@
 <template>
     <div id='Game'>
-        <div v-if="this.GameIsOn == false"><button v-on:click="StartUp()">Jouer</button></div>
     </div>
 </template>
 
@@ -28,10 +27,10 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
 
     window.addEventListener("keydown", this.ChangeDirection);
-    console.log(this);
+    this.StartUp();
   },
 
   destroy() {

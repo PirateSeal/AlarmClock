@@ -76,14 +76,13 @@
           <div class="num">9</div>
         </div>
       </div>
-      <div v-if="!this.RingOn" class="text" @click="RingBell">
-        Faire sonner le réveil
+      <div v-if="!this.RingOn"> 
       </div>
-      <div v-else> 
-        <audio controls autoplay="autoplay" style="display:none" id="myAudio" loop>
-          <source :src="Time" type="audio/mpeg">
+      <div v-else>
+        <audio controls autoplay style="display:none" id="myAudio" loop>
+          <source :src="Name + Time" type="audio/mpeg">
         </audio>
-        <button @click="Snake">Jouer</button>
+        <button @click="Game">Jouer</button>
       </div>
       <div class="text" @click="MainMenu">
         <h1 class="link">Go to Presets</h1>
@@ -102,8 +101,11 @@ export default {
     return {
       ClockName: "",
       RingOn: false,
-      Time: "C2C- Appy.mp3#t=" + "00:00:00",
-      EndTime: ""
+      Name: "Pharell Williams - Happy.mp3",
+      Time: "#t=00:00:00",
+      EndTime: "",
+      ClockTime: "",
+      Game: "Snake"
     };
   },
   async mounted() {
@@ -111,8 +113,21 @@ export default {
 
     let columns = Array.from(document.getElementsByClassName("column"));
     runClock(columns);
+    var date;
+    this.$nextTick(function () {
+      window.setInterval(() => {
+        date = new Date;
+        if (date.getSeconds() == 0) 
+        {
+          this.ClockTime = "13:44:00";
+          console.log(date.getSeconds());
+          this.TestClock();
+        }
+      },1000);
+    })
   },
   methods: {
+
     MainMenu() {
 
       this.$router.replace("/MainMenu");
@@ -121,9 +136,57 @@ export default {
     RingBell() {
 
       this.RingOn = true;
+      console.log("test true")
     },
 
-    Snake() {
+    async TestClock() {
+
+      //debugger;
+      var d = new Date;
+      var n;
+      if (d.getHours() < 10) 
+      {
+        n = "0" + d.getHours();
+      }
+      else 
+      {
+        n = d.getHours();
+      }
+
+      n = n + ":";
+
+      if (d.getMinutes() < 10) 
+      {
+        n = n + "0" + d.getMinutes();
+      }
+      else 
+      {
+        n = n + d.getMinutes();
+      }
+
+      n = n + ":";
+
+      if (d.getSeconds() < 10) 
+      {
+        n = n + "0" + d.getSeconds();
+      }
+      else 
+      {
+        n = n + d.getSeconds();
+      }
+
+      console.log(n);
+      console.log(this.ClockTime);
+      if(n == this.ClockTime) {
+        console.log(true)
+        this.RingBell()
+      }
+      else {
+        return false;
+      }
+    },
+
+    Game() {
 
       this.EndTime = document.getElementById("myAudio").currentTime.toFixed(2);
       if (this.EndTime < 10) {
@@ -132,7 +195,7 @@ export default {
       }
       var temp = this.EndTime.split(".");
       this.EndTime = temp[0];
-      this.$router.replace("/Snake/" + this.EndTime);
+      this.$router.replace("/" + this.Game + "/" + this.EndTime);
     }
   }
 };
