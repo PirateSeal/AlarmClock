@@ -25,7 +25,8 @@ export default {
       ImButtonDown: {},
       Button: {},
       Name: "../../../Pharell Williams - Happy.mp3",
-      Time: "#t=00:00:" + this.$route.params.Time
+      Time: "#t=00:00:" + this.$route.params.Time,
+      GameName: "Math"
     }
   },
 
@@ -191,7 +192,7 @@ export default {
         }
         var temp = this.EndTime.split(".");
         this.EndTime = temp[0];
-        this.$router.replace("/Snake/" + this.EndTime);
+        this.$router.replace("/" + this.GameName + "/" + this.EndTime);
       },
 
       GoClock() {

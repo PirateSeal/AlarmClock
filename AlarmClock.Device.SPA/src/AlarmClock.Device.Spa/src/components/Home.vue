@@ -105,7 +105,8 @@ export default {
       Time: "#t=00:00:00",
       EndTime: "",
       ClockTime: "",
-      Game: "Snake"
+      GameName: "Math",
+      Loop: {}
     };
   },
   async mounted() {
@@ -114,17 +115,15 @@ export default {
     let columns = Array.from(document.getElementsByClassName("column"));
     runClock(columns);
     var date;
-    this.$nextTick(function () {
-      window.setInterval(() => {
+      this.Loop = window.setInterval(() => {
         date = new Date;
         if (date.getSeconds() == 0) 
         {
-          this.ClockTime = "13:44:00";
+          this.ClockTime = "09:01:00";
           console.log(date.getSeconds());
           this.TestClock();
         }
       },1000);
-    })
   },
   methods: {
 
@@ -175,8 +174,8 @@ export default {
         n = n + d.getSeconds();
       }
 
-      console.log(n);
-      console.log(this.ClockTime);
+      console.log("Actual hour : " + n);
+      console.log("Alarm hour : " + this.ClockTime);
       if(n == this.ClockTime) {
         console.log(true)
         this.RingBell()
@@ -188,6 +187,8 @@ export default {
 
     Game() {
 
+      window.clearInterval(this.Loop);
+      console.log("Stop Loop");
       this.EndTime = document.getElementById("myAudio").currentTime.toFixed(2);
       if (this.EndTime < 10) {
 
@@ -195,7 +196,7 @@ export default {
       }
       var temp = this.EndTime.split(".");
       this.EndTime = temp[0];
-      this.$router.replace("/" + this.Game + "/" + this.EndTime);
+      this.$router.replace("/" + this.GameName + "/" + this.EndTime);
     }
   }
 };

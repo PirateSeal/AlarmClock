@@ -58,6 +58,7 @@ export default {
 
     End: function() {
 
+      this.app.ticker.stop();
       console.log("exit test");
       this.$router.replace("/EndGame/" + this.Score + "/5/" + this.Time);
       GameIsOn = false;
@@ -130,7 +131,6 @@ export default {
         // this.ImQ.height = 20;
         this.ImQ.x = 125;
         this.ImQ.y = 80;
-        this.ImQ.z = 1;
 
         this.ImA1 = new PIXI.Sprite(resources.answer.texture);
 
@@ -138,7 +138,9 @@ export default {
         // this.ImA1.height = 20;
         this.ImA1.x = 20;
         this.ImA1.y = 230;
-        this.ImA1.z = 1;
+        this.ImA1.interactive = true;
+        this.ImA1
+                  .on('mousedown', this.Match1)
 
         this.ImA2 = new PIXI.Sprite(resources.answer.texture);
 
@@ -146,7 +148,9 @@ export default {
         // this.ImA2.height = 20;
         this.ImA2.x = 120;
         this.ImA2.y = 400;
-        this.ImA2.z = 1;
+        this.ImA2.interactive = true;
+        this.ImA2
+                  .on('mousedown', this.Match2)
 
         this.ImA3 = new PIXI.Sprite(resources.answer.texture);
 
@@ -154,7 +158,9 @@ export default {
         // this.ImA3.height = 20;
         this.ImA3.x = 320;
         this.ImA3.y = 400;
-        this.ImA3.z = 1;
+        this.ImA3.interactive = true;
+        this.ImA3
+                  .on('mousedown', this.Match3)
 
         this.ImA4 = new PIXI.Sprite(resources.answer.texture);
 
@@ -162,7 +168,9 @@ export default {
         // this.ImA4.height = 20;
         this.ImA4.x = 415;
         this.ImA4.y = 230;
-        this.ImA4.z = 1;
+        this.ImA4.interactive = true;
+        this.ImA4
+                  .on('mousedown', this.Match4)
 
         this.container.addChild(this.ImQ);
         this.container.addChild(this.ImA1);
@@ -219,6 +227,8 @@ export default {
     GameLoop: function(delta) {
 
       this.LifeTime++;
+      this.score.text = "Score : " + this.Score + " pts";
+      this.uncount.text = this.Uncount;
       //console.log(this.LifeTime);
       this.question.text = "Calcul : " + this.Q;
       this.answer1.text = this.R1;
@@ -243,6 +253,78 @@ export default {
       }
     },
 
+    Match1: function() {
+
+      console.log("Click : " + 1);
+
+      if (this.Pivot == 1) {
+
+        this.Score++;
+        this.MaxUncount--;
+        this.Uncount = this.MaxUncount;
+        this.LifeTime = 0;
+        this.NewQR();
+      }
+      else {
+
+        this.End();
+      }
+    },
+
+    Match2: function() {
+
+      console.log("Click : " + 2);
+
+      if (this.Pivot == 2) {
+
+        this.Score++;
+        this.MaxUncount--;
+        this.Uncount = this.MaxUncount;
+        this.LifeTime = 0;
+        this.NewQR();
+      }
+      else {
+
+        this.End();
+      }
+    },
+
+    Match3: function() {
+
+      console.log("Click : " + 3);
+
+      if (this.Pivot == 3) {
+
+        this.Score++;
+        this.MaxUncount--;
+        this.Uncount = this.MaxUncount;
+        this.LifeTime = 0;
+        this.NewQR();
+      }
+      else {
+
+        this.End();
+      }
+    },
+
+    Match4: function() {
+
+      console.log("Click : " + 4);
+
+      if (this.Pivot == 4) {
+
+        this.Score++;
+        this.MaxUncount--;
+        this.Uncount = this.MaxUncount;
+        this.LifeTime = 0;
+        this.NewQR();
+      }
+      else {
+
+        this.End();
+      }
+    },
+
     NewQR: function() {
 
       let x;
@@ -257,7 +339,7 @@ export default {
 
       this.Q = x + " x " + y + " ?";
 
-      if (Pivot == 1) {
+      if (this.Pivot == 1) {
 
         this.R1 = z;
         this.R2 = Math.floor(Math.random()*99) + 1;
@@ -277,7 +359,7 @@ export default {
           this.R4 += 2;
         }
       }
-      else if (Pivot == 2) {
+      else if (this.Pivot == 2) {
 
         this.R1 = Math.floor(Math.random()*99) + 1;
         this.R2 = z;
@@ -297,7 +379,7 @@ export default {
           this.R4 += 2;
         }
       }
-      else if (Pivot == 3) {
+      else if (this.Pivot == 3) {
 
         this.R1 = Math.floor(Math.random()*99) + 1;
         this.R2 = Math.floor(Math.random()*99) + 1;
@@ -317,7 +399,7 @@ export default {
           this.R4 += 2;
         }
       }
-      else if (Pivot == 4) {
+      else if (this.Pivot == 4) {
 
         this.R1 = Math.floor(Math.random()*99) + 1;
         this.R2 = Math.floor(Math.random()*99) + 1;
