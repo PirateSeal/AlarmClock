@@ -9,6 +9,7 @@
 <script>
 import * as PIXI from 'pixi.js';
 import VueCastProps from 'vue-cast-props';
+import PresetFile from "../../public/presets.json";
 import vue from 'vue';
 
 export default {
@@ -24,9 +25,9 @@ export default {
       ImButton: {},
       ImButtonDown: {},
       Button: {},
-      Name: "../../../Pharell Williams - Happy.mp3",
+      Name: "../../../" + PresetFile.Preset.Music,
       Time: "#t=00:00:" + this.$route.params.Time,
-      GameName: "Math"
+      GameName: PresetFile.Preset.Game
     }
   },
 
