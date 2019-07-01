@@ -85,6 +85,13 @@ import Vuex from "vuex";
 import { formatActivationFlag, reformActivationFlag } from "@/api/formatActivationFlag.js";
 
 export default {
+
+  props: {
+    presetData: {
+      type: Object,
+      required: true
+    },
+  },
   computed: {
     ...mapGetters({
       getUserInfo: "getUserInfo"

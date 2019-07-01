@@ -48,7 +48,7 @@ export default {
     overflow: hidden;
     overflow-y: scroll;
     text-align: center;
-    height: 94vh;
+    height: 98vh;
     width: 100%;
     z-index: 0;
     background: #2E85BF;
