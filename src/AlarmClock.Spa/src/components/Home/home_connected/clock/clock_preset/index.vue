@@ -9,7 +9,7 @@
  */
 
 <template>
-  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+index)">
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+idx)">
     <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
       <div
@@ -40,6 +40,10 @@ export default {
   props: {
     preset: {
       type: Object,
+      required: true
+    },
+     idx: {
+      type: Number,
       required: true
     }
   },

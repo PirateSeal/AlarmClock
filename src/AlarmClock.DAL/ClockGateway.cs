@@ -134,28 +134,28 @@ namespace AlarmClock.DAL
             }
         }
 
-        //public async Task<Result<ClockData>> ClaimClock( string guid, string id )
-        //{
-        //    using( SqlConnection connection = new SqlConnection( ConnectionString ) )
-        //    {
-        //        DynamicParameters parameters = new DynamicParameters();
+        public async Task<Result> ClaimClock( string guid, string id )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                DynamicParameters parameters = new DynamicParameters();
 
-        //        parameters.Add( "@ClockId", guid );
-        //        parameters.Add( "@UserId", id );
+                parameters.Add( "@ClockId", guid );
+                parameters.Add( "@UserId", id );
 
 
-        //        parameters.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
+                parameters.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
 
-        //        await connection.ExecuteAsync( "spi.sClaimClock", parameters,
-        //            commandType: CommandType.StoredProcedure );
+                await connection.ExecuteAsync( "spi.sClaimClock", parameters,
+                    commandType: CommandType.StoredProcedure );
 
-        //        int status = parameters.Get<int>( "@Status" );
-        //        //if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "Can't find this clock." );
+                int status = parameters.Get<int>( "@Status" );
+                if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "Can't find this clock." );
 
-        //        Debug.Assert( status == 0 );
-        //        return Result.Success( Status.Ok );
-        //    }
-        //}
+                Debug.Assert( status == 0 );
+                return Result.Success( Status.Ok );
+            }
+        }
 
     }
 }
