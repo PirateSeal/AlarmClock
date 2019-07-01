@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Monday, 1st July 2019 1:01:44 pm                             *
+ * Last Modified: Monday, 1st July 2019 1:18:05 pm                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -24,13 +24,7 @@ CREATE TABLE spi.tAlarmPreset
 
     CONSTRAINT FK_tAlarmPreset_tClock
         FOREIGN KEY (ClockId)
-        REFERENCES spi.tClock(ClockId),
-    CONSTRAINT FK_tAlarmPreset_tSong
-        FOREIGN KEY (Song)
-        REFERENCES spi.tSong(SongId),
-    CONSTRAINT FK_tAlarmPreset_tChallenge
-        FOREIGN KEY (Challenge)
-        REFERENCES spi.tChallenge(ChallengeId)
+        REFERENCES spi.tClock(ClockId)
 );
 
 
