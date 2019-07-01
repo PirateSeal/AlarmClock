@@ -23,9 +23,9 @@ import EndGame from "./components/EndGame";
 const routes = [
     { path: "", component: Home },
     { path: "/MainMenu", component: MainMenu },
-    { path: "/Snake/:Time", component: Snake },
-    { path: "/Math/:Time", component: MathGame },
-    { path: "/EndGame/:Score/:Limite/:Time", component: EndGame }
+    { path: "/Snake/:Time/:id", component: Snake },
+    { path: "/Math/:Time/:id", component: MathGame },
+    { path: "/EndGame/:Score/:Limite/:Time/:id", component: EndGame }
 ];
 
 export default new VueRouter({

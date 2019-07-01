@@ -60,8 +60,8 @@ export default {
 
       this.app.ticker.stop();
       console.log("exit test");
-      this.$router.replace("/EndGame/" + this.Score + "/5/" + this.Time);
-      GameIsOn = false;
+      this.$router.replace("/EndGame/" + this.Score + "/5/" + this.Time + "/" + this.$route.params.id);
+      this.GameIsOn = false;
     },
 
     StartUp: function() {
