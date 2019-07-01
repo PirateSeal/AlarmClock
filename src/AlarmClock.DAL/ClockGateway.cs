@@ -143,11 +143,8 @@ namespace AlarmClock.DAL
                             WHERE ClockId = @CloclId;",
                     new { ClockId = id } );
 
-                    if (data == null) Result.Failure( Status.NotFound, "Clock not found." );
-                    else
-                    {
-                        data = await UpdateClockAsync( data.Name, data.ClockId );
-                    }
+                if( data == null ) return Result.Failure( Status.NotFound, "Clock not found." );
+                return await UpdateClockAsync( data.Name, data.ClockId );
             }
         }
     }
