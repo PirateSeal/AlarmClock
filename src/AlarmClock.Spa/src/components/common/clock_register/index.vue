@@ -2,8 +2,7 @@
   <div class="clock_register_form">
     
      Enter Guid diplay on clock
-    <input type="text" v-model="item.Name" class="clockName">
-
+    <input type="text" v-model="item.StrGuid" class="clockName">
     <div class="sub" @click="submit()">register</div>
   </div>
 </template>
@@ -19,7 +18,8 @@ export default {
   name: "clock_register",
   data() {
     return {
-      item: {}
+      item: {
+      }
 
     }
   },

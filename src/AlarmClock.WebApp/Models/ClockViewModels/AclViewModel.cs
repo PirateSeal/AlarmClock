@@ -8,5 +8,6 @@ namespace Alarmclock.WebApp.Models.ClockViewModels
     {
         public string UserId { get; set; }
         public Guid Guid { get; set; }
+        public string StrGuid { get; set; }
     }
 }

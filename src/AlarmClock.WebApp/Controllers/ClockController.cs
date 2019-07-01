@@ -5,6 +5,7 @@ using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace AlarmClock.WebApp.Controllers
@@ -51,10 +52,11 @@ namespace AlarmClock.WebApp.Controllers
             return this.CreateResult( await Gateway.UpdateClockAsync( model.Name, id ) );
         }
 
-        [HttpPut( "{id}" )]
-        public async Task<IActionResult> claimClock( [FromBody] ClaimViewModel model )
+        [HttpPut]
+        public async Task<IActionResult> ClaimClock( [FromBody] AclViewModel model )
         {
-              return this.CreateResult( await Gateway.ClaimClock(model.Guid , model.UserId) );
+            int id = int.Parse( User.Claims.ElementAt<Claim>( 0 ).Value );
+            return this.CreateResult( await Gateway.ClaimClock(new System.Guid(model.StrGuid) , id) );
 
         }
 

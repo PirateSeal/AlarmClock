@@ -135,13 +135,13 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> ClaimClock( string guid, string id )
+        public async Task<Result> ClaimClock( Guid guid, int id )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
-                parameters.Add( "@ClockId", guid );
+                parameters.Add( "@Guid", guid );
                 parameters.Add( "@UserId", id );
 
 
