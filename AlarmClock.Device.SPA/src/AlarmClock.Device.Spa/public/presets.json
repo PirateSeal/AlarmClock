@@ -1,0 +1,37 @@
+{
+  "PresetList": [
+    {
+      "Music": "Pharell Williams - Happy.mp3",
+      "Game": "Math",
+      "ActivationFlag": {
+
+        "Monday": true,
+        "Tuesday": false,
+        "Wednesday": true,
+        "Thursday": false,
+        "Friday": true,
+        "Saturday": false,
+        "Sunday": true,
+        "Active": true
+      },
+      "AlarmTime": "14:30:00"
+    },
+
+    {
+      "Music": "Pharell Williams - Happy.mp3",
+      "Game": "Snake",
+      "ActivationFlag": {
+
+        "Monday": true,
+        "Tuesday": false,
+        "Wednesday": true,
+        "Thursday": false,
+        "Friday": false,
+        "Saturday": false,
+        "Sunday": true,
+        "Active": true
+      },
+      "AlarmTime": "14:29:00"
+    }
+  ]
+}

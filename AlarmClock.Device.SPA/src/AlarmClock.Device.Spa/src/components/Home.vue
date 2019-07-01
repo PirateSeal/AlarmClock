@@ -76,6 +76,14 @@
           <div class="num">9</div>
         </div>
       </div>
+      <div v-if="!this.RingOn"> 
+      </div>
+      <div v-else>
+        <audio controls autoplay style="display:none" id="myAudio" loop>
+          <source :src="MusicName + Time" type="audio/mpeg">
+        </audio>
+        <button @click="Game">Jouer</button>
+      </div>
       <div class="text" @click="MainMenu">
         <h1 class="link">Go to Presets</h1>
       </div>
@@ -86,22 +94,187 @@
 <script>
 import { runClock } from "../api/clockScript.js";
 import { getClockInfo } from "../api/clockApi.js";
+import PresetFile from "../../public/presets.json";
+import vue from 'vue';
 
 export default {
   data() {
     return {
-      ClockName: ""
+      ClockName: "",
+      RingOn: false,
+      MusicName: "",
+      Time: "#t=00:00:00",
+      EndTime: "",
+      ClockTime: "None",
+      GameName: "",
+      Loop: {},
+      PresetList: PresetFile.PresetList
     };
   },
   async mounted() {
+
     this.ClockName = await getClockInfo();
 
     let columns = Array.from(document.getElementsByClassName("column"));
     runClock(columns);
+    var date;
+      this.Loop = window.setInterval(() => {
+        date = new Date;
+        if (date.getSeconds() == 0) 
+        {
+          this.ClockUpdate(date);
+          console.log(date.getSeconds());
+          this.TestClock();
+        }
+      },1000);
   },
   methods: {
+
     MainMenu() {
+
       this.$router.replace("/MainMenu");
+    },
+
+    RingBell() {
+
+      this.RingOn = true;
+      console.log("test true")
+    },
+
+    async TestClock() {
+
+      var d = new Date;
+      var n = this.FormatHour(d);
+
+      console.log("Actual hour : " + n);
+      console.log("Alarm hour : " + this.ClockTime);
+      if(n == this.ClockTime) {
+        console.log(true)
+        this.RingBell()
+      }
+      else {
+        return false;
+      }
+    },
+
+    Game() {
+
+      window.clearInterval(this.Loop);
+      console.log("Stop Loop");
+      this.EndTime = document.getElementById("myAudio").currentTime.toFixed(2);
+      if (this.EndTime < 10) {
+
+        this.EndTime = "0" + this.EndTime;
+      }
+      var temp = this.EndTime.split(".");
+      this.EndTime = temp[0];
+      this.$router.replace("/" + this.GameName + "/" + this.EndTime);
+    },
+
+    ClockUpdate(date) {
+
+      var day = date.getDay();
+      for (var i = 0 ; i < this.PresetList.length ; i++) {
+        
+        if (day == 1 && 
+            this.PresetList[i].ActivationFlag.Monday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 2 && 
+            this.PresetList[i].ActivationFlag.Tuesday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 3 && 
+            this.PresetList[i].ActivationFlag.Wednesday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 4 && 
+            this.PresetList[i].ActivationFlag.Thursday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 5 && 
+            this.PresetList[i].ActivationFlag.Friday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 6 && 
+            this.PresetList[i].ActivationFlag.Saturday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+        else if (day == 0 && 
+            this.PresetList[i].ActivationFlag.Sunday && 
+            this.PresetList[i].ActivationFlag.Active) 
+        {
+
+          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+        }
+      }
+    },
+
+    AlarmUpdate(date, Alarm) {
+
+      var hour = this.FormatHour(date);
+      if (hour < Alarm) {
+
+        if (this.ClockTime == "None" || this.ClockTime > Alarm) {
+
+          this.ClockTime = Alarm;
+        }
+      }
+    },
+
+    FormatHour(date) {
+
+      var formatDate = "";
+      if (date.getHours() < 10) 
+      {
+        formatDate = "0" + date.getHours();
+      }
+      else 
+      {
+        formatDate = date.getHours();
+      }
+
+      formatDate += ":";
+
+      if (date.getMinutes() < 10) 
+      {
+        formatDate += "0" + date.getMinutes();
+      }
+      else 
+      {
+        formatDate += date.getMinutes();
+      }
+
+      formatDate += ":";
+
+      if (date.getSeconds() < 10) 
+      {
+        formatDate += "0" + date.getSeconds();
+      }
+      else 
+      {
+        formatDate += date.getSeconds();
+      }
+
+      return formatDate;
     }
   }
 };

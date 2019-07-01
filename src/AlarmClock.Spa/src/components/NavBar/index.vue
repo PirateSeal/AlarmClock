@@ -9,6 +9,12 @@
         @click="$router.push('/Clock/Register')"
       >Register Clock</div>
       <div class="UserMail">{{AuthService.email}}</div>
+      <div
+        v-if="AuthService.isConnected"
+        :class="{active: currentRoute === 'Game/Snake'}"
+        class="link"
+        @click="$router.push('/Game/Snake')"
+      >Snake</div>
     </div>
     <div class="right">
       <div
