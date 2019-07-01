@@ -108,7 +108,8 @@ export default {
       ClockTime: "None",
       GameName: "",
       Loop: {},
-      PresetList: PresetFile.PresetList
+      PresetList: PresetFile.PresetList,
+      PresetNumber: -1
     };
   },
   async mounted() {
@@ -168,76 +169,98 @@ export default {
       }
       var temp = this.EndTime.split(".");
       this.EndTime = temp[0];
-      this.$router.replace("/" + this.GameName + "/" + this.EndTime);
+      this.$router.replace("/" + this.GameName + "/" + this.EndTime + "/" + this.PresetNumber);
     },
 
     ClockUpdate(date) {
 
       var day = date.getDay();
+      var flagTab;
+
       for (var i = 0 ; i < this.PresetList.length ; i++) {
+
+        debugger;
+        flagTab = this.formatActivationFlag(this.PresetList[i].ActivationFlag);
         
         if (day == 1 && 
-            this.PresetList[i].ActivationFlag.Monday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[0] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 2 && 
-            this.PresetList[i].ActivationFlag.Tuesday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[1] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 3 && 
-            this.PresetList[i].ActivationFlag.Wednesday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[2] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 4 && 
-            this.PresetList[i].ActivationFlag.Thursday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[3] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 5 && 
-            this.PresetList[i].ActivationFlag.Friday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[4] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 6 && 
-            this.PresetList[i].ActivationFlag.Saturday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[5] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
         else if (day == 0 && 
-            this.PresetList[i].ActivationFlag.Sunday && 
-            this.PresetList[i].ActivationFlag.Active) 
+            flagTab[6] && 
+            flagTab[7]) 
         {
 
-          this.AlarmUpdate(date, this.PresetList[i].AlarmTime);
+          this.AlarmUpdate(date, this.PresetList[i], i);
         }
       }
     },
 
-    AlarmUpdate(date, Alarm) {
+    AlarmUpdate(date, Alarm, i) {
 
       var hour = this.FormatHour(date);
-      if (hour < Alarm) {
+      if (hour <= Alarm.AlarmTime) {
 
-        if (this.ClockTime == "None" || this.ClockTime > Alarm) {
+        if (this.ClockTime == "None" || this.ClockTime > Alarm.AlarmTime) {
 
-          this.ClockTime = Alarm;
+          this.ClockTime = Alarm.AlarmTime;
+          this.MusicName = Alarm.Music;
+          this.GameName = Alarm.Game;
+          this.PresetNumber = i;
         }
       }
+    },
+
+    formatActivationFlag(flag) {
+      let flagArray = [];
+      for (let i = 2; i <= 255; i = i << 1) {
+        if ((flag & i) !== 0) {
+          flagArray.push(true);
+        } else {
+          flagArray.push(false);
+        }
+      }
+      if ((flag & 1) != 0) flagArray.push(true);
+      else flagArray.push(false);
+      return flagArray;
     },
 
     FormatHour(date) {

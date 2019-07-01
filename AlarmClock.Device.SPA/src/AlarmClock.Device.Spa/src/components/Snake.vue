@@ -42,8 +42,8 @@ export default {
 
     End: function() {
 
-        this.$router.replace("/EndGame/" + this.Score + "/10/" + this.Time);
-        GameIsOn = false;
+        this.$router.replace("/EndGame/" + this.Score + "/10/" + this.Time + "/" + this.$route.params.id);
+        this.GameIsOn = false;
     },
 
     GameLoop: function(delta) {

@@ -22,12 +22,13 @@ export default {
       Score: this.$route.params.Score,
       app: {},
       Limite: this.$route.params.Limite,
+      PresetList: PresetFile.PresetList,
       ImButton: {},
       ImButtonDown: {},
       Button: {},
-      Name: "../../../" + PresetFile.Preset.Music,
+      Name: "../../../../" + PresetFile.PresetList[this.$route.params.id].Music,
       Time: "#t=00:00:" + this.$route.params.Time,
-      GameName: PresetFile.Preset.Game
+      GameName: PresetFile.PresetList[this.$route.params.id].Game
     }
   },
 
@@ -193,7 +194,7 @@ export default {
         }
         var temp = this.EndTime.split(".");
         this.EndTime = temp[0];
-        this.$router.replace("/" + this.GameName + "/" + this.EndTime);
+        this.$router.replace("/" + this.GameName + "/" + this.EndTime + "/" + this.$route.params.id);
       },
 
       GoClock() {

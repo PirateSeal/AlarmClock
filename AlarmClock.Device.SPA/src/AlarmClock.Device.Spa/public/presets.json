@@ -3,35 +3,15 @@
     {
       "Music": "Pharell Williams - Happy.mp3",
       "Game": "Math",
-      "ActivationFlag": {
-
-        "Monday": true,
-        "Tuesday": false,
-        "Wednesday": true,
-        "Thursday": false,
-        "Friday": true,
-        "Saturday": false,
-        "Sunday": true,
-        "Active": true
-      },
-      "AlarmTime": "14:30:00"
+      "ActivationFlag": 63,
+      "AlarmTime": "11:31:00"
     },
 
     {
       "Music": "Pharell Williams - Happy.mp3",
       "Game": "Snake",
-      "ActivationFlag": {
-
-        "Monday": true,
-        "Tuesday": false,
-        "Wednesday": true,
-        "Thursday": false,
-        "Friday": false,
-        "Saturday": false,
-        "Sunday": true,
-        "Active": true
-      },
-      "AlarmTime": "14:29:00"
+      "ActivationFlag": 45,
+      "AlarmTime": "10:30:00"
     }
   ]
 }
