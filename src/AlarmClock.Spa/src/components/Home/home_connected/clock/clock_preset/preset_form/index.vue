@@ -49,8 +49,8 @@
         <label class="required">Challenge</label>
 
         <select type="select" v-model="preset.Challenge">
-          <option value="0">Snake</option>
-          <option value="1">Math</option>
+          <option value="Snake">Snake</option>
+          <option value="Math">Math</option>
         </select>
 
         <br>
