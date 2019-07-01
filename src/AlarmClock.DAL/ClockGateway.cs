@@ -23,7 +23,7 @@ namespace AlarmClock.DAL
                 return await connection.QueryAsync<ClockData>(
                     "SELECT ClockId, [Name], [GUID], UserId" +
                     "FROM spi.vClock " +
-                    "WHERE UserId = @UserId", new {UserId = userId} );
+                    "WHERE UserId = @UserId", new { UserId = userId } );
             }
         }
 
@@ -51,7 +51,7 @@ namespace AlarmClock.DAL
         }
 
 
-        public async Task<Result<int>> CreateUnclaimedClockAclAsync( string id, string name)
+        public async Task<Result<int>> CreateUnclaimedClockAclAsync( string id, string name )
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
@@ -125,11 +125,29 @@ namespace AlarmClock.DAL
                     @"SELECT ClockId, [Name], UserId
                             FROM spi.vClock
                             WHERE ClockId = @ClockId;",
-                    new {ClockId = id} );
+                    new { ClockId = id } );
 
                 return data != null
                     ? Result.Success( data )
                     : Result.Failure<ClockData>( Status.NotFound, "Clock not found." );
+            }
+        }
+
+        public async Task<Result> ClaimClock( int id )
+        {
+            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+            {
+                ClockData data = await connection.QueryFirstOrDefaultAsync<ClockData>(
+                    @"Select ClockId, [Name], UserId
+                            FROM spi.tClock
+                            WHERE ClockId = @CloclId;",
+                    new { ClockId = id } );
+
+                    if (data == null) Result.Failure( Status.NotFound, "Clock not found." );
+                    else
+                    {
+                        data = await UpdateClockAsync( data.Name, data.ClockId );
+                    }
             }
         }
     }

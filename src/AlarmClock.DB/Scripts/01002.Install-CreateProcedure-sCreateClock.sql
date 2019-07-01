@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 13th June 2019 9:20:07 am                          *
+ * Last Modified: Monday, 1st July 2019 9:49:15 am                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -12,6 +12,7 @@
 CREATE PROCEDURE spi.sCreateClock
 
     @Name NVARCHAR(255),
+    @GUID UNIQUEIDENTIFIER,
     @UserId INT,
     @ClockId INT OUT
 
@@ -19,11 +20,11 @@ AS
 BEGIN
     DECLARE @DeviceId INT;
 
-    EXECUTE spi.sCreateDevice @DeviceId OUTPUT;
+    EXECUTE spi.sCreateDevice @GUID, @DeviceId OUTPUT;
 
     -- Insert rows into table 'spi.tClock'
     INSERT INTO spi.tClock
-        ( [Name],[UserId] )
+        ([Name],[UserId] )
     VALUES
         ( @Name, @UserId )
     SET @ClockId = SCOPE_IDENTITY();

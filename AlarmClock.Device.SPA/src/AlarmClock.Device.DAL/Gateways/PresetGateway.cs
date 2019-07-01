@@ -57,11 +57,8 @@ namespace AlarmClock.Device.DAL.Gateways
                 Name = name,
                 AlarmPresetId = presetId,
                 Challenge = challenge,
-                ChallengePath = challengePath,
                 WakingTime = wakingTime,
                 Song = song,
-                SongPath = songPath,
-                ClockId = presetId
             };
 
             var result = await JsonHandler.OpenJsonAsync();
