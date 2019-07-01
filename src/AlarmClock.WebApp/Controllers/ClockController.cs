@@ -56,6 +56,13 @@ namespace AlarmClock.WebApp.Controllers
             return this.CreateResult( await Gateway.UpdateClockAsync( model.Name, id ) );
         }
 
+        //[HttpPut( "{id}" )]
+        //public async Task<IActionResult> claimClock( [FromBody] ClaimViewModel model )
+        //{
+        //  //  return this.CreateResult( await Gateway.ClaimClock(model) );
+
+        //}
+
         [HttpDelete( "{id}" )]
         public async Task<IActionResult> DeleteClock( int id )
         {

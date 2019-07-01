@@ -51,14 +51,15 @@ namespace AlarmClock.DAL
         }
 
 
-        public async Task<Result<int>> CreateUnclaimedClockAclAsync( string id, string name )
+        public async Task<Result<int>> CreateUnclaimedClockAclAsync(string guid)
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
                 DynamicParameters parameters = new DynamicParameters();
 
-                parameters.Add( "@Name", name );
+                parameters.Add( "@Name", "unclaimed" );
                 parameters.Add( "@UserId", 0 );
+                parameters.Add( "@Guid", guid );
 
                 parameters.Add( "@ClockId", dbType: DbType.Int32, direction: ParameterDirection.Output );
                 parameters.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
@@ -133,22 +134,28 @@ namespace AlarmClock.DAL
             }
         }
 
-        public async Task<Result> ClaimClock( int id )
-        {
-            using( SqlConnection connection = new SqlConnection( ConnectionString ) )
-            {
-                ClockData data = await connection.QueryFirstOrDefaultAsync<ClockData>(
-                    @"Select ClockId, [Name], UserId
-                            FROM spi.tClock
-                            WHERE ClockId = @CloclId;",
-                    new { ClockId = id } );
+        //public async Task<Result<ClockData>> ClaimClock( string guid, string id )
+        //{
+        //    using( SqlConnection connection = new SqlConnection( ConnectionString ) )
+        //    {
+        //        DynamicParameters parameters = new DynamicParameters();
 
-                    if (data == null) Result.Failure( Status.NotFound, "Clock not found." );
-                    else
-                    {
-                        data = await UpdateClockAsync( data.Name, data.ClockId );
-                    }
-            }
-        }
+        //        parameters.Add( "@ClockId", guid );
+        //        parameters.Add( "@UserId", id );
+
+
+        //        parameters.Add( "@Status", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue );
+
+        //        await connection.ExecuteAsync( "spi.sClaimClock", parameters,
+        //            commandType: CommandType.StoredProcedure );
+
+        //        int status = parameters.Get<int>( "@Status" );
+        //        //if( status == 1 ) return Result.Failure<int>( Status.BadRequest, "Can't find this clock." );
+
+        //        Debug.Assert( status == 0 );
+        //        return Result.Success( Status.Ok );
+        //    }
+        //}
+
     }
 }

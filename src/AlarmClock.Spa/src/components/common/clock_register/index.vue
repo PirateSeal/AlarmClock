@@ -1,13 +1,16 @@
 <template>
   <div class="clock_register_form">
-    <img src="../../../../public/assets/Clock/newClock.png">
+    
+     Enter Guid diplay on clock
     <input type="text" v-model="item.Name" class="clockName">
+
     <div class="sub" @click="submit()">register</div>
   </div>
 </template>
 
 <script>
-import {createClockAsync } from "@/api/clockApi";
+import {claimClockAsync,createClockAsync } from "@/api/clockApi";
+
 import AuthService from '../../../services/AuthService';
 import {getUserIdByEmail} from  "@/api/UserApi";
 
@@ -24,7 +27,8 @@ export default {
   methods: {
     submit(){
  //     item.id = getUserIdByEmail(AuthService.email)
-      createClockAsync(this.item);
+     var res =  claimClockAsync(this.item);
+    console.log(res);
     }
   }
 }
@@ -36,6 +40,14 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+
+  .sub{
+    &:hover{
+      color: white;
+      
+    }
+  }
 }
+
 
 </style>

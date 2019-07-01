@@ -41,8 +41,8 @@ namespace AlarmClock.Device.WebApp.Services
         {
             try
             {
-                var clockdata = await _clockGateway.CreateOrUpdateClockData( "test" );
-                var url =  CreateAclAsync( clockdata.Content.Acl );
+                var clockdata = await _clockGateway.CreateOrUpdateClockData( "SmartClock" );
+                var url =  await CreateAclAsync( clockdata.Content.Acl );
                 Console.WriteLine( $"Created at {url}" );
             }
             catch( Exception e )
@@ -54,7 +54,7 @@ namespace AlarmClock.Device.WebApp.Services
         private async Task<Uri> CreateAclAsync( Acl acl )
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync(
-                "api/products", acl );
+                _client.BaseAddress, acl );
             response.EnsureSuccessStatusCode();
 
             return response.Headers.Location;
