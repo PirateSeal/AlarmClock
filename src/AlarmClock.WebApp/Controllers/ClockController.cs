@@ -32,12 +32,7 @@ namespace AlarmClock.WebApp.Controllers
             return this.CreateResult( await Gateway.FindClockById( id ) );
         }
 
-        [HttpGet( "{id}", Name = "ClaimClock" )]
-        public async Task<IActionResult> ClaimClock( int id )
-        {
-            return this.CreateResult( await Gateway.ClaimClock( id ) );
-        }
-
+     
         [HttpPost]
         public async Task<IActionResult> CreateClock( [FromBody] ClockViewModel model )
         {
@@ -54,6 +49,13 @@ namespace AlarmClock.WebApp.Controllers
         public async Task<IActionResult> UpdateClock( int id, [FromBody] ClockViewModel model )
         {
             return this.CreateResult( await Gateway.UpdateClockAsync( model.Name, id ) );
+        }
+
+        [HttpPut( "{id}" )]
+        public async Task<IActionResult> claimClock( [FromBody] ClaimViewModel model )
+        {
+              return this.CreateResult( await Gateway.ClaimClock(model.Guid , model.UserId) );
+
         }
 
         [HttpDelete( "{id}" )]

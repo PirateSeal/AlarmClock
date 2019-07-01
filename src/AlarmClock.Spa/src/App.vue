@@ -34,6 +34,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./styles/global.scss";
+
 </style>
 <style lang="scss" scoped>
 #app {
@@ -51,6 +52,9 @@ export default {
     width: 100%;
     z-index: 0;
     background: #2E85BF;
+	  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB); 
+    background-size: 200%;
+
 
   }
 }

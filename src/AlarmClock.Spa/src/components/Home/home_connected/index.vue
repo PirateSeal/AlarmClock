@@ -1,14 +1,18 @@
 <template>
   <div class="Homeloged">
-    <div class="title">Vos clock</div>
-    <div class="clocks-container">
-      <clock
-        v-for="(clock, index) in globalInfo.clocks"
-        :key="`${clock.title}${index}`"
-        :clock="clock"
-        :index="index"
-      />
+    <div v-if="globalInfo.clocks != ''">
+      <div class="title">Vos clock</div>
+      <div class="clocks-container">
+        <clock
+          v-for="(clock, index) in globalInfo.clocks"
+          :key="`${clock.title}${index}`"
+          :clock="clock"
+          :index="index"
+        />
+      </div>
     </div>
+    <div v-else>
+Register a new clock </div>
   </div>
 </template>
 

@@ -14,8 +14,12 @@ export async function createClockAsync(model) {
     return await postAsync(endpoint, model);
 }
 
+export async function claimClockAsync(model) {
+    return await putAsync(`${endpoint}`, model);
+}
+
 export async function updateClockAsync(model) {
-    return await putAsync(`${endpoint}/${model.studentId}`, model);
+    return await putAsync(`${endpoint}/${model}`, model);
 }
 
 export async function deleteClockAsync(Id) {

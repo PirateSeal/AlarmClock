@@ -14,7 +14,6 @@ import ClockRegister from "./views/ClockRegister.vue";
 import PresetForm from "./views/PresetForm.vue";
 import ClockPreset from "./views/ClockPreset.vue";
 import ClockPresetList from "./views/ClockPresetList.vue";
-import Snake from "./views/GamePage.vue";
 
 const routes = [
     { path: "", component: Home },
@@ -35,7 +34,6 @@ const routes = [
         component: ClockPresetList,
         beforeEnter: requireAuth
     },
-    { path: "/Game/Snake", component: Snake, beforeEnter: requireAuth }
 ];
 
 export default new VueRouter({

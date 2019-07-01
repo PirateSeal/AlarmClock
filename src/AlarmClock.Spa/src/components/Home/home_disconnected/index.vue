@@ -1,8 +1,7 @@
 <template>
   <div class="home_disconnected">
-    Welcome To
     <div class="title">
-      <div class="Logo">AlarmClock</div>
+      <div class="Logo"></div>
     </div>
   </div>
 </template>
@@ -27,5 +26,50 @@ export default {
     height: 500px;
     width: 500px;
    border-radius: 10px;
+}
+
+.home_disconnected {
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease-out ;
+	-moz-animation: Gradient 15s ease-out;
+	animation: Gradient 15s ease-out ;
+}
+
+@-webkit-keyframes Gradient {
+	0% {	
+	background-position: 100% 50%
+	}
+	50% {
+		background-position: 0% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 100% 50%
+
+	}
+	50% {
+		background-position: 0% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+    	background-position: 100% 50%
+	}
+	50% {
+		background-position: 0% 50%
+	
+	}
+	100% {
+		background-position: 0% 50%
+	}
 }
 </style>
