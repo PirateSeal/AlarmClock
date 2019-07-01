@@ -10,7 +10,10 @@
 
         <label class="required">Song</label>
 
-        <input type="text" v-model="preset.Song" value="preset.Song" required>
+        <select type="select" v-model="preset.Song">
+          <option value="Pharell Williams - Happy.mp3">Pharell Williams - Happy</option>
+          <option value="C2C- Appy.mp3">C2C - Happy</option>
+        </select>
       </div>
 
       <label class="required">Activation Flag</label>
@@ -46,12 +49,8 @@
         <label class="required">Challenge</label>
 
         <select type="select" v-model="preset.Challenge">
-          <option value="0">BlindTest</option>
-          <option value="1">Joke</option>
-          <option value="2">Snake</option>
-          <option value="3">Pacman</option>
-          <option value="4">Tetris</option>
-          <option value="5">Reflex Test</option>
+          <option value="0">Snake</option>
+          <option value="1">Math</option>
         </select>
 
         <br>
@@ -62,7 +61,7 @@
         <br>
         <br>
 
-        <label type="text">Clock Id : {{getUserInfo.clocks[$route.params.id].clockId}}</label>
+        <label type="text">Clock Id : {{globalInfo.clocks[$route.params.id].clockId}}</label>
       </div>
     </div>
 
@@ -81,6 +80,7 @@ import {
 } from "@/api/presetApi.js";
 
 import { mapGetters } from "vuex";
+import { getGlobalUserInfo } from "@/api/UserApi";
 import Vuex from "vuex";
 import { formatActivationFlag, reformActivationFlag } from "@/api/formatActivationFlag.js";
 
@@ -109,19 +109,24 @@ export default {
       },
       days: [],
       errors: [],
-      info: {}
+      info: {},
+      globalInfo: {}
     };
   },
-  created() {
+  async created() {
+    
+    this.globalInfo = await getGlobalUserInfo();
+    console.log("globalInfo : " + this.globalInfo);
+    this.$store.dispatch("setUserInfo", this.globalInfo);
     if(this.$route.params.presetId != null) {
-      this.preset.AlarmPresetId   = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
-      this.preset.Name            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
-      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
-      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
-      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
-      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+      this.preset.AlarmPresetId   = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
+      this.preset.Name            = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+      this.preset.WakingTime      = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+      this.preset.Song            = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+      this.preset.ActivationFlag  = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+      this.preset.Challenge       = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
       
-      this.challenges = this.getUserInfo.challenges;
+      this.challenges = this.globalInfo.challenges;
     }
     this.days = formatActivationFlag(this.preset.ActivationFlag);
     if(this.preset.ActivationFlag & 1 != 0) {
@@ -134,8 +139,8 @@ export default {
   async mounted() {
     //this.id = this.$route.params.id;
     
-    this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
-    console.log(this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
+    this.preset.clockId = this.globalInfo.clocks[this.$route.params.id].clockId 
+    console.log(this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
   },
 
   methods: {
@@ -147,9 +152,6 @@ export default {
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
-      if (!this.preset.Song) errors.push("Song");
-      // if (!this.preset.activationFlag) errors.push("ActivationFlag");
-      // if (!this.preset.Challenge) errors.push("Challenge");
 
       this.errors = errors;
       if (errors.length == 0) {
