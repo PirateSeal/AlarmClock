@@ -4,7 +4,7 @@
  * File Created: Thursday,4th May 2019 09:07:47 am                             *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Thursday, 13th June 2019 9:19:13 am                          *
+ * Last Modified: Monday, 1st July 2019 1:02:22 pm                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -16,7 +16,7 @@ CREATE PROCEDURE spi.sUpdatePreset
     @WakingTime TIME,
     @Song NVARCHAR(255),
     @ActivationFlag TINYINT,
-    @Challenge INT
+    @Challenge NVARCHAR(255)
 
 AS
 BEGIN
@@ -26,8 +26,10 @@ BEGIN
 
     IF NOT EXISTS (
         -- Select rows from a Table or View 'tAlarmPreset' in schema 'spi'
-        SELECT *
-    FROM spi.tAlarmPreset
+        SELECT
+        *
+    FROM
+        spi.tAlarmPreset
     WHERE AlarmPresetId = @AlarmPresetId
     )
     
