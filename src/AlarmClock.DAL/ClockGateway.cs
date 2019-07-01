@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -51,7 +52,7 @@ namespace AlarmClock.DAL
         }
 
 
-        public async Task<Result<int>> CreateUnclaimedClockAclAsync(string guid)
+        public async Task<Result<int>> CreateUnclaimedClockAclAsync(Guid guid)
         {
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {

@@ -28,7 +28,7 @@ namespace Alarmclock.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
-            var result = await _clockGateway.CreateUnclaimedClockAclAsync(model.Name);
+            var result = await _clockGateway.CreateUnclaimedClockAclAsync(model.Guid);
 
             return this.CreateResult(
                  result, options =>
