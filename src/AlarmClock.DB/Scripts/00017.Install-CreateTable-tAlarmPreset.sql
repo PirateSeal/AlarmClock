@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Monday, 1st July 2019 1:18:05 pm                             *
+ * Last Modified: Monday, 1st July 2019 1:29:28 pm                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -35,5 +35,5 @@ INSERT INTO spi.tAlarmPreset
     )
 VALUES
     (
-        '00010101', 'RandomName', "0", 0, "0", 0
+        '00010101', 'RandomName', 'C2C Appy.mp3', 0, 'Snake', 0
     )
