@@ -9,7 +9,7 @@
  */
 
 <template>
-  <div class="clock_preset" @click="$router.push('/EditPreset/'+$route.params.id+'/'+idx)">
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+ preset.presetClockId +'/'+ preset.presetId)">
     <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
       <div

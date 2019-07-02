@@ -33,7 +33,7 @@ namespace AlarmClock.Device.WebApp
                 c.AllowAnyHeader();
                 c.AllowAnyMethod();
                 c.AllowCredentials();
-                c.WithOrigins( "http://localhost:8080" );
+                c.WithOrigins( "http://10.8.111.222:8080" );
             } );
 
             app.UseMvc( routes =>

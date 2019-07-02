@@ -42,6 +42,7 @@ export default {
 
     End: function() {
 
+        this.app.ticker.stop();
         this.$router.replace("/EndGame/" + this.Score + "/10/" + this.Time + "/" + this.$route.params.id);
         this.GameIsOn = false;
     },

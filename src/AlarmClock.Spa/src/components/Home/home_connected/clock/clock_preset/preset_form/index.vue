@@ -49,8 +49,8 @@
         <label class="required">Challenge</label>
 
         <select type="select" v-model="preset.Challenge">
-          <option value="0">Snake</option>
-          <option value="1">Math</option>
+          <option value="Snake">Snake</option>
+          <option value="Math">Math</option>
         </select>
 
         <br>
@@ -149,6 +149,7 @@ export default {
       event.preventDefault();
       var errors = [];
       this.preset.ActivationFlag = reformActivationFlag(this.days);
+      this.preset.clockId = this.$route.params.id;
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
@@ -163,7 +164,7 @@ export default {
           console.error(e);
         }
       }
-      this.$router.push('/clock/' + this.$route.params.id + '/Presets')
+      this.$router.push('/clock/' + ( this.$route.params.id - 1 ) + '/Presets')
     }
   }
 };
