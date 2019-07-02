@@ -6,7 +6,7 @@ import { getGlobalUserInfo } from "@/api/UserApi";
 //gerer User obj with multi params
 
 const state = {
-    userInfo : getGlobalUserInfo
+    userInfo : null
 };
 
 export default {

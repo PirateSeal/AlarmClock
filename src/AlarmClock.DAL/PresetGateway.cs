@@ -68,7 +68,7 @@ namespace AlarmClock.DAL
                 parameters.Add( "@AlarmPresetId", alarmPresetId );
                 parameters.Add( "@WakingTime", wakingTime );
                 parameters.Add( "@Name", name );
-                parameters.Add( "@Song", song );
+                parameters.Add( "@Song", int.Parse(song) );
                 parameters.Add( "@ActivationFlag", activationFlag );
                 parameters.Add( "@Challenge", challenge );
 

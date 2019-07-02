@@ -48,7 +48,6 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("setUserInfo", this.globalInfo);
   },
   data() {
     return {};

@@ -11,7 +11,6 @@
 <script>
 import ClockPreset from "@/components/Home/home_connected/clock/clock_preset";
 import { mapGetters } from "vuex";
-import { getGlobalUserInfo } from "@/api/UserApi";
 
 export default {
   components: {
@@ -28,36 +27,23 @@ export default {
       getUserInfo: "getUserInfo"
     })
   },
- 
  async mounted() {
+    this.Presets = this.getUserInfo.clocks[this.$route.params.id].presets;
     this.NewPresetId = this.getUserInfo.clocks[this.$route.params.id].clockId;
-    this.Presets = await getGlobalUserInfo();
-    console.log(this.globalInfo);
-    this.$store.dispatch("setUserInfo", this.globalInfo);
-    this.NewPresetId = this.getUserInfo.clocks[this.$route.params.id].clockId;
-  },
+  }
 };
 </script>
-<style lang="scss" scoped>
-.container{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  .presetlist{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    
-  }
-}
-</style>
+
 
 <style lang="scss" scoped>
 .container {
   display: flex;
   flex-direction: column;
   align-content: center;
+
+
   .CreatePreset {
+    margin: 50px;
     background: url("~/assets/Plus.png");
     background-repeat: no-repeat;
     background-size: 100%;
@@ -70,6 +56,8 @@ export default {
   }
   }
   .presetlist {
+justify-content: center;
+
     display: flex;
     flex-direction: row;
     width: 100%;

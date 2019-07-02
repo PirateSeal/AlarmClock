@@ -1,10 +1,10 @@
 <template>
   <div class="Homeloged">
-    <div v-if="globalInfo.clocks != ''">
+    <div v-if="getUserInfo.clocks != ''">
       <div class="title">Vos clock</div>
       <div class="clocks-container">
         <clock
-          v-for="(clock, index) in globalInfo.clocks"
+          v-for="(clock, index) in getUserInfo.clocks"
           :key="`${clock.title}${index}`"
           :clock="clock"
           :index="index"
@@ -28,11 +28,7 @@ export default {
   components: {
     clock
   },
-  async mounted() {
-    this.globalInfo = await getGlobalUserInfo();
-    console.log(this.globalInfo);
-    this.$store.dispatch("setUserInfo", this.globalInfo);
-  },
+
   computed: {
     ...mapGetters({
       getUserInfo: "getUserInfo"
@@ -40,7 +36,6 @@ export default {
   },
   data() {
     return {
-      globalInfo: {}
     };
   }
 };

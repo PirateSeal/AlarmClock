@@ -84,6 +84,7 @@ export default {
     align-content: center;
 
   .delete{
+    margin: 15px;
     position: relative;
     width: 64px;
     height: 64px;
