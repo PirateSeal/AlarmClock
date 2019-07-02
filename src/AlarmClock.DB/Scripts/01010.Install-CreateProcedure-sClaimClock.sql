@@ -4,7 +4,7 @@
  * File Created: Friday,5th June 2019 03:30:31 pm                              *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Friday, 21st June 2019 3:54:12 pm                            *
+ * Last Modified: Monday, 1st July 2019 1:11:33 pm                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -36,6 +36,10 @@ BEGIN
             [UserId] = @UserId
         WHERE [ClockId] = (select DeviceId from spi.tDevice where [GUID] = @Guid)
 
+    UPDATE spi.tDevice
+        SET
+         [LastSeenDate] = GETDATE()
+        WHERE [DeviceId] = @ClockId
 
     COMMIT
     RETURN 0

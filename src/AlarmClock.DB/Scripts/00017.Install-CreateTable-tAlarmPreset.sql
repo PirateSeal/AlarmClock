@@ -4,7 +4,7 @@
  * File Created: Wednesday,3rd May 2019 04:02:52 pm                            *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Monday, 17th June 2019 9:18:04 am                            *
+ * Last Modified: Monday, 1st July 2019 1:29:28 pm                             *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -15,22 +15,16 @@ CREATE TABLE spi.tAlarmPreset
     -- primary key column
     [Name]         NVARCHAR(255) NOT NULL,
     WakingTime     TIME          NOT NULL,
-    Song           INT           NOT NULL,
+    Song           NVARCHAR(255) NOT NULL,
     ActivationFlag TINYINT       NOT NULL,
-    Challenge      INT           NOT NULL,
+    Challenge      NVARCHAR(255) NOT NULL,
     ClockId        INT           NOT NULL,
 
     CONSTRAINT PK_AlarmPresetId PRIMARY KEY (AlarmPresetId),
 
     CONSTRAINT FK_tAlarmPreset_tClock
         FOREIGN KEY (ClockId)
-        REFERENCES spi.tClock(ClockId),
-    CONSTRAINT FK_tAlarmPreset_tSong
-        FOREIGN KEY (Song)
-        REFERENCES spi.tSong(SongId),
-    CONSTRAINT FK_tAlarmPreset_tChallenge
-        FOREIGN KEY (Challenge)
-        REFERENCES spi.tChallenge(ChallengeId)
+        REFERENCES spi.tClock(ClockId)
 );
 
 
@@ -41,5 +35,5 @@ INSERT INTO spi.tAlarmPreset
     )
 VALUES
     (
-        '00010101', 'RandomName', 0, 0, 0, 0
+        '00010101', 'RandomName', 'C2C Appy.mp3', 0, 'Snake', 0
     )
