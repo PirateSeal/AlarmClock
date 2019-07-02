@@ -1,7 +1,7 @@
 <template>
   <div class="clock_register_form">
     
-     Enter Guid diplay on clock
+      <div class="title">Enter Guid displayed on clock</div>
     <input type="text" v-model="item.StrGuid" class="clockName">
     <div class="sub" @click="submit()">register</div>
   </div>
@@ -40,8 +40,12 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  .title{
+    font-size: 50px;
+  }
 
   .sub{
+    border: solid 1px ;
     &:hover{
       color: white;
       

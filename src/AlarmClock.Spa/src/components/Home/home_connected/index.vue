@@ -63,8 +63,8 @@ export default {
   .title {
     font-size: 30px;
   }
-  //overflow-y: scroll;
-  // overflow: hidden;
+  overflow-y: scroll;
+   overflow: hidden;
   .clocks-container {
     width: 100%;
     display: flex;

@@ -179,7 +179,6 @@ export default {
 
       for (var i = 0 ; i < this.PresetList.length ; i++) {
 
-        debugger;
         flagTab = this.formatActivationFlag(this.PresetList[i].ActivationFlag);
         
         if (day == 1 && 

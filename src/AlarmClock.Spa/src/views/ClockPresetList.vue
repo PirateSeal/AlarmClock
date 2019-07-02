@@ -30,6 +30,7 @@ export default {
   },
  
  async mounted() {
+    this.NewPresetId = this.getUserInfo.clocks[this.$route.params.id].clockId;
     this.Presets = await getGlobalUserInfo();
     console.log(this.globalInfo);
     this.$store.dispatch("setUserInfo", this.globalInfo);

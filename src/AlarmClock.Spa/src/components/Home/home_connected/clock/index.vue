@@ -1,10 +1,15 @@
 <template>
-  <div class="Clock" @click="$router.push('/Clock/'+index+'/Presets')">
+  <div class="Clock" >
     <div class="clock-img"></div>
-    <div class="text-info">
-      <div class="name">{{clock.clockName}}</div>
-      <div class="date">last seen date : {{clock.lastSeenDate}}</div>
-      <div class="delete" @click="delet()" ></div>
+    <div class="container">
+      <div class="text-info">
+        <div class="name">{{clock.clockName}}</div>
+        <div class="date">last seen date : {{clock.lastSeenDate}}</div>
+      </div>
+      <div class="buttons">
+          <div class="delete" @click="delet()" ></div>
+          <button class="fillSideToCenter" @click="$router.push('/Clock/'+index+'/Presets')">Presets</button>
+        </div>
     </div>
   </div>
 </template>
@@ -64,20 +69,35 @@ export default {
   background-color: #37A0E6;
   transition: all 0.5s;
   position: relative;
+  .container{
+
+    flex-direction: column;
+  }
   .text-info {
     display: flex;
     flex-direction: column;
     font-size: 25px;
   }
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+
   .delete{
+    position: relative;
     width: 64px;
     height: 64px;
     background: url("~/assets/delete.png");
     background-size: 64px;
     background-repeat: no-repeat;
     
-
+     &:hover {
+        opacity: 0.6;
+        transform: scale(1.4);
+        cursor: pointer;
+      }
   }
+}
 
   .clock-img {
     background: url("~/assets/Alarms_&_Clock_icon.png");
@@ -87,11 +107,7 @@ export default {
     width: 128px;
     flex-shrink: 0;
   }
-      &:hover {
-        opacity: 0.6;
-        transform: scale(1.4);
-        cursor: pointer;
-      }
+   
 
 }
 </style>

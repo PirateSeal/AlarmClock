@@ -12,6 +12,13 @@
       "Game": "Snake",
       "ActivationFlag": 45,
       "AlarmTime": "10:30:00"
+    },
+    
+    {
+      "Music": "Pharell Williams - Happy.mp3",
+      "Game": "Snake",
+      "ActivationFlag": 255,
+      "AlarmTime": "13:52:00"
     }
   ]
 }
