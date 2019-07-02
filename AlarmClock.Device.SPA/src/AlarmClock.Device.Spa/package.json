@@ -11,7 +11,8 @@
     "pixi.js": "^5.0.4",
     "vue": "^2.6.10",
     "vue-cast-props": "0.0.5",
-    "vue-router": "^3.0.6"
+    "vue-router": "^3.0.6",
+    "websocket-driver": "^0.7.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",

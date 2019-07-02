@@ -1,3 +1,13 @@
+/*
+ * File: AuthService.js                                                        *
+ * Project: alarmclock                                                         *
+ * File Created: Monday,1st June 2019 01:47:39 pm                              *
+ * Author: Le Phoque Pirate                                                    *
+ * --------------------                                                        *
+ * Last Modified: Monday, 1st July 2019 1:50:29 pm                             *
+ * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
+ */
+
 const host = process.env.VUE_APP_BACKEND;
 
 class AuthService {
@@ -10,7 +20,7 @@ class AuthService {
         this.signedOutCallbacks = [];
         this.identity = null;
 
-        window.addEventListener("message", (e) => this.onMessage(e), false);
+        window.addEventListener("message", e => this.onMessage(e), false);
     }
 
     get isConnected() {
@@ -49,14 +59,18 @@ class AuthService {
 
         var data = e.data;
 
-        if (data.type == 'authenticated') this.onAuthenticated(data.payload);
-        else if (data.type == 'signedOut') this.onSignedOut();
+        if (data.type == "authenticated") this.onAuthenticated(data.payload);
+        else if (data.type == "signedOut") this.onSignedOut();
     }
 
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
 
-        var popup = window.open(provider.endpoint, "Connexion à ITI.PrimarySchool", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
+        var popup = window.open(
+            provider.endpoint,
+            "Connexion à AlarmClock",
+            "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700"
+        );
     }
 
     registerAuthenticatedCallback(cb) {
@@ -64,7 +78,10 @@ class AuthService {
     }
 
     removeAuthenticatedCallback(cb) {
-        this.authenticatedCallbacks.splice(this.authenticatedCallbacks.indexOf(cb), 1);
+        this.authenticatedCallbacks.splice(
+            this.authenticatedCallbacks.indexOf(cb),
+            1
+        );
     }
 
     onAuthenticated(i) {
@@ -76,7 +93,11 @@ class AuthService {
     }
 
     logout() {
-        var popup = window.open(this.logoutEndpoint, "Déconnexion d'ITI.PrimarySchool", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600");
+        var popup = window.open(
+            this.logoutEndpoint,
+            "Déconnexion d'AlarmClock",
+            "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600"
+        );
     }
 
     registerSignedOutCallback(cb) {
@@ -96,12 +117,12 @@ class AuthService {
     }
 
     async getToken() {
-        let result = await fetch(host + '/api/token', {
-            credentials: 'include',
-            method: 'GET',
-            mode: 'cors',
+        let result = await fetch(host + "/api/token", {
+            credentials: "include",
+            method: "GET",
+            mode: "cors",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         });
         if (result.ok) {
