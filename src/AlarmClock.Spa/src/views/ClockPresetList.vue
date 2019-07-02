@@ -3,7 +3,7 @@
     <div class="presetlist">
       <PresetList v-for="(preset, index) in Presets" :key="preset.presetId" :preset="preset" :idx="index"></PresetList>
     </div>
-    <div class="CreatePreset" @click="$router.push('/NewPreset/'+$route.params.id)" ></div>    
+    <div class="CreatePreset" @click="$router.push('/NewPreset/'+ NewPresetId)" ></div>    
 
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
   },
   data() {
     return {
-      Presets: []
+      Presets: [],
+      NewPresetId: '0'
     };
   },
   computed: {
@@ -28,7 +29,7 @@ export default {
   },
  async mounted() {
     this.Presets = this.getUserInfo.clocks[this.$route.params.id].presets;
-
+    this.NewPresetId = this.getUserInfo.clocks[this.$route.params.id].clockId;
   }
 };
 </script>

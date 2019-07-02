@@ -142,6 +142,7 @@ export default {
       event.preventDefault();
       var errors = [];
       this.preset.ActivationFlag = reformActivationFlag(this.days);
+      this.preset.clockId = this.$route.params.id;
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
@@ -156,7 +157,7 @@ export default {
           console.error(e);
         }
       }
-      this.$router.push('/clock/' + this.$route.params.id + '/Presets')
+      this.$router.push('/clock/' + ( this.$route.params.id - 1 ) + '/Presets')
     }
   }
 };
