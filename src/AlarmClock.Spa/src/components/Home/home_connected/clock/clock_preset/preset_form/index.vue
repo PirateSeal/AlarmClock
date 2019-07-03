@@ -130,6 +130,7 @@ export default {
   async mounted() {
     this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
     console.log(this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
+    console.log(this.getUserInfo);
   },
 
   methods: {
@@ -138,7 +139,7 @@ export default {
       event.preventDefault();
       var errors = [];
       this.preset.ActivationFlag = reformActivationFlag(this.days);
-      this.preset.clockId = this.globalInfo.clocks[this.$route.params.id].clockId;
+      this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId;
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
