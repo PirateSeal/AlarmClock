@@ -3,7 +3,7 @@
     <div class="presetlist">
       <PresetList v-for="(preset, index) in Presets" :key="preset.presetId" :preset="preset" :idx="index"></PresetList>
     </div>
-    <div class="CreatePreset" @click="$router.push('/NewPreset/'+ NewPresetId)" ></div>    
+    <div class="CreatePreset" @click="$router.push('/NewPreset/'+ $route.params.id)" ></div>    
 
   </div>
 </template>

@@ -119,6 +119,7 @@ export default {
     console.log("globalInfo : " + this.globalInfo);
     this.$store.dispatch("setUserInfo", this.globalInfo);
     if(this.$route.params.presetId != null) {
+      this.preset.clockId                = this.globalInfo.clocks[this.$route.params.id].clockId;
       this.preset.AlarmPresetId   = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
       this.preset.Name            = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
       this.preset.WakingTime      = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
@@ -149,7 +150,7 @@ export default {
       event.preventDefault();
       var errors = [];
       this.preset.ActivationFlag = reformActivationFlag(this.days);
-      this.preset.clockId = this.$route.params.id;
+      this.preset.clockId = this.globalInfo.clocks[this.$route.params.id].clockId;
 
       if (!this.preset.Name) errors.push("Name");
       if (!this.preset.WakingTime) errors.push("WakingTime");
@@ -164,7 +165,7 @@ export default {
           console.error(e);
         }
       }
-      this.$router.push('/clock/' + ( this.$route.params.id - 1 ) + '/Presets')
+      this.$router.push('/clock/' + this.$route.params.id + '/Presets')
     }
   }
 };
