@@ -16,12 +16,12 @@ namespace AlarmClock.DAL
 
         private string ConnectionString { get; }
 
-        public async Task<Result> UpdateClock( Guid guid )
+        public async Task<List<PresetData>> UpdateClock( Guid guid )
         {
             var presets = new List<PresetData>();
             using( SqlConnection connection = new SqlConnection( ConnectionString ) )
             {
-                presets = await connection.QueryAsync<PresetData>(
+                return await connection.QueryAsync<PresetData>(
                     @"SELECT
                             p.*
                         FROM
@@ -34,10 +34,6 @@ namespace AlarmClock.DAL
                     new { Guid = guid } ) as List<PresetData>;
 
             }
-
-            return presets != null
-                ? Result.Success( Status.Ok, presets )
-                : Result.Failure( Status.NotFound, "Not Found" );
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alarmclock.WebApp.Controllers
 {
-        [Route( "api/[controller]" )]
+    [Route( "api/[controller]" )]
     public class UpdateController : Controller
     {
         public UpdateController( UpdateGateway gateway )
@@ -17,9 +17,9 @@ namespace Alarmclock.WebApp.Controllers
         private UpdateGateway Gateway { get; }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateClock([FromBody] DeviceDataViewModel model)
+        public async Task<IActionResult> UpdateClock( [FromBody] DeviceDataViewModel model )
         {
-            return this.CreateResult( await Gateway.UpdateClock( model.Acl.Guid ) );
+            return Ok( await Gateway.UpdateClock( model.Acl.Guid ) );
         }
     }
 }
