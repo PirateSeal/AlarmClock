@@ -52,7 +52,7 @@ namespace AlarmClock.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        public async Task<IActionResult> claimClock( [FromBody] ClaimViewModel model )
+        public async Task<IActionResult> ClaimClock( [FromBody] ClaimViewModel model )
         {
               return this.CreateResult( await Gateway.ClaimClock(model.Guid , model.UserId) );
 

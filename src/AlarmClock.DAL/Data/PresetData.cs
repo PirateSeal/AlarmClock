@@ -1,6 +1,6 @@
 using System;
 
-namespace AlarmClock.Device.DAL.Data
+namespace AlarmClock.DAL.Data
 {
     public class PresetData
     {
@@ -10,5 +10,6 @@ namespace AlarmClock.Device.DAL.Data
         public string Song { get; set; }
         public byte ActivationFlag { get; set; }
         public string Challenge { get; set; }
+        public int ClockId { get; set; }
     }
 }

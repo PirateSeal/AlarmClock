@@ -25,7 +25,7 @@ namespace AlarmClock.Device.WebApp.Services
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue( "application/json" ) );
-            _handler = new JsonHandler( "ClockData.json" );
+            _handler = new JsonHandler( "DeviceClockData.json" );
             _clockGateway = new ClockGateway();
         }
 

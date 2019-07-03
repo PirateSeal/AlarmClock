@@ -17,14 +17,14 @@ namespace AlarmClock.Device.WebApp.Controllers
         private ClockGateway ClockGateway { get; }
 
         [HttpGet]
-        public async Task<ClockData> GetClockInfo()
+        public async Task<DeviceClockData> GetClockInfo()
         {
             var clock = await ClockGateway.GetClockData();
             return clock.Content;
         }
 
         [HttpGet( "{name}", Name = "CreateClock" )]
-        public async Task<ClockData> CreateClock( string name )
+        public async Task<DeviceClockData> CreateClock( string name )
         {
             var clock = await ClockGateway.CreateOrUpdateClockData( name );
             return clock.Content;

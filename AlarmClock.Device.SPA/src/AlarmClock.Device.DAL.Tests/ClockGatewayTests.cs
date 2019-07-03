@@ -15,10 +15,10 @@ namespace AlarmClock.Device.DAL.Tests
 
         private ClockGateway Gateway { get; }
 
-        public void CheckClockData( Result<ClockData> clockData, string name, string guid, int password,
-            IEnumerable<PresetData> presetList )
+        public void CheckClockData( Result<DeviceClockData> clockData, string name, string guid, int password,
+            IEnumerable<DevicePresetData> presetList )
         {
-            ClockData content = clockData.Content;
+            DeviceClockData content = clockData.Content;
             Assert.That( clockData.Status, Is.EqualTo( Status.Created ) );
             Assert.That( content.Acl.Guid, Is.EqualTo( guid ) );
             Assert.That( content.Acl.Name, Is.EqualTo( name ) );
@@ -33,9 +33,9 @@ namespace AlarmClock.Device.DAL.Tests
 
             Assert.That( clockStatus.Status, Is.EqualTo( Status.Created ) );
 
-            ClockData clock = clockStatus.Content;
+            DeviceClockData deviceClock = clockStatus.Content;
 
-            CheckClockData( clockStatus, "Test", clock.Acl.Guid, clock.Acl.Password, clock.Presets );
+            CheckClockData( clockStatus, "Test", deviceClock.Acl.Guid, deviceClock.Acl.Password, deviceClock.Presets );
         }
     }
 }

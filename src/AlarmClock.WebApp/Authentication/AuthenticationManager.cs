@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AlarmClock.DAL;
+using AlarmClock.DAL.Data;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace AlarmClock.WebApp.Authentication

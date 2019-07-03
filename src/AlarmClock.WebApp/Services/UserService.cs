@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AlarmClock.DAL;
+using AlarmClock.DAL.Data;
 
 namespace AlarmClock.WebApp.Services
 {

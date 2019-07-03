@@ -1,6 +1,6 @@
 using System;
 
-namespace AlarmClock.DAL
+namespace AlarmClock.DAL.Data
 {
     public class UserData
     {
