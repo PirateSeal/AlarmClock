@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace AlarmClock.Device.DAL.Data
+namespace AlarmClock.DAL.Data
 {
-    public class ClockData
+    public class DeviceData
     {
         public Acl Acl { get; set; }
         public List<PresetData> Presets { get; set; }
@@ -10,7 +10,7 @@ namespace AlarmClock.Device.DAL.Data
 
     public class Acl
     {
-        public Acl(string guid, int pw, string name)
+        public Acl( string guid, int pw, string name )
         {
             Guid = guid;
             Password = pw;

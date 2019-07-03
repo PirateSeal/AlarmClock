@@ -1,10 +1,10 @@
+using System;
+using System.Text;
+using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 
 //client
 namespace AlarmClock.MQTT
@@ -16,11 +16,11 @@ namespace AlarmClock.MQTT
 
         public static async Task MqttClientBuilder()
         {
-            var factory = new MqttFactory();
+            MqttFactory factory = new MqttFactory();
 
-            var mqttClient = factory.CreateMqttClient();
+            IMqttClient mqttClient = factory.CreateMqttClient();
 
-            var options = new MqttClientOptionsBuilder()
+            IMqttClientOptions options = new MqttClientOptionsBuilder()
                 .WithTcpServer( "localhost", 1883 ) // Port is optional
                 .WithClientId( "ConfigurationServerId" )
                 .WithCredentials( "configurationServer", "vernemq" )
@@ -28,7 +28,7 @@ namespace AlarmClock.MQTT
 
 
             await mqttClient.ConnectAsync( options );
-            var t = DateTime.Now;
+            DateTime t = DateTime.Now;
 
             await mqttClient.SubscribeAsync( "clock/#" );
 
@@ -37,9 +37,9 @@ namespace AlarmClock.MQTT
             for( int i = 0; i < 100; i++ )
             {
                 DateTime t1 = DateTime.Now;
-                var message = new MqttApplicationMessageBuilder()
+                MqttApplicationMessage message = new MqttApplicationMessageBuilder()
                     .WithTopic( "toto" )
-                    .WithPayload( t.ToString() + " " + t1.ToString() )
+                    .WithPayload( t + " " + t1 )
                     .WithExactlyOnceQoS()
                     .WithRetainFlag()
                     .Build();

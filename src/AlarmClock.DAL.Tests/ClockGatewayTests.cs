@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AlarmClock.DAL.Data;
 using NUnit.Framework;
 
 namespace AlarmClock.DAL.Tests

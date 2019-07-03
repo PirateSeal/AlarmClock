@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AlarmClock.DAL.Data;
 using AlarmClock.WebApp;
 using NUnit.Framework;
 

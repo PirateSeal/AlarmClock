@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AlarmClock.DAL;
+using AlarmClock.DAL.Data;
 using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Models.AccountViewModels;
 using AlarmClock.WebApp.Services;

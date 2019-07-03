@@ -20,14 +20,14 @@ namespace AlarmClock.Device.WebApp.Controllers
         private PresetGateway PresetGateway { get; }
 
         [HttpGet]
-        public async Task<List<PresetData>> ShowPresets()
+        public async Task<List<DevicePresetData>> ShowPresets()
         {
             var presets = await PresetGateway.GetAllPresetsAsync();
             return presets.Content;
         }
 
         [HttpPost]
-        public async Task<Result<PresetData>> CreatePreset( [FromBody] PresetViewModel presetData )
+        public async Task<Result<DevicePresetData>> CreatePreset( [FromBody] PresetViewModel presetData )
         {
             return await PresetGateway.CreatePreset(
                 presetData.ActivationFlag,

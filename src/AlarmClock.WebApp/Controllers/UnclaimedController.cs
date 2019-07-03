@@ -1,13 +1,8 @@
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Alarmclock.WebApp.Models.ClockViewModels;
 using AlarmClock.DAL;
-using AlarmClock.WebApp.Authentication;
 using AlarmClock.WebApp.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime;
 
 namespace Alarmclock.WebApp.Controllers
 {
@@ -17,18 +12,18 @@ namespace Alarmclock.WebApp.Controllers
     {
         public UnclaimedController( VernemqGateway vernemqGateway, ClockGateway clockGateway )
         {
-            _verneGateway = vernemqGateway;
-            _clockGateway = clockGateway;
+            VerneGateway = vernemqGateway;
+            ClockGateway = clockGateway;
         }
 
-        private VernemqGateway _verneGateway { get; }
-        private ClockGateway _clockGateway { get; }
+        private VernemqGateway VerneGateway { get; }
+        private ClockGateway ClockGateway { get; }
 
 
         [HttpPost]
         public async Task<IActionResult> CreateAcl( [FromBody] AclViewModel model )
         {
-            var result = await _clockGateway.CreateUnclaimedClockAclAsync(model.Guid);
+            var result = await ClockGateway.CreateUnclaimedClockAclAsync(model.Guid);
 
             return this.CreateResult(
                  result, options =>

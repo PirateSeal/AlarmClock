@@ -4,13 +4,13 @@
  * File Created: Friday,5th June 2019 03:30:31 pm                              *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Monday, 1st July 2019 1:11:33 pm                             *
+ * Last Modified: Wednesday, 3rd July 2019 3:03:43 pm                          *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
 -- Create a new stored procedure called 'sClaimClock' in schema 'spi'
 CREATE PROCEDURE spi.sClaimClock
-    @ClockId INT ,
+    @Guid UNIQUEIDENTIFIER,
     @UserId INT
 
 AS
@@ -23,8 +23,8 @@ BEGIN
         SELECT
         *
     FROM
-        spi.tClock
-    WHERE [ClockId] = @ClockId)
+        spi.tDevice
+    WHERE [guid] = @Guid)
 
     BEGIN
         ROLLBACK
@@ -35,12 +35,15 @@ BEGIN
     UPDATE spi.tClock
         SET
             [UserId] = @UserId
-        WHERE [ClockId] = @ClockId
+        WHERE [ClockId] = (SELECT
+        DeviceId
+    FROM
+        spi.tDevice
+    WHERE [GUID] = @Guid)
 
     UPDATE spi.tDevice
-        SET
-         [LastSeenDate] = GETDATE()
-        WHERE [DeviceId] = @ClockId
+SET [LastSeenDate] = GETDATE()
+    WHERE [GUID] = @Guid
 
     COMMIT
     RETURN 0

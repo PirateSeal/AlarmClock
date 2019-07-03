@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AlarmClock.DAL;
 using AlarmClock.WebApp.Authentication;
@@ -22,7 +21,7 @@ namespace Alarmclock.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserInfo()
         {
-            int id = int.Parse( User.Claims.ElementAt<Claim>( 0 ).Value );
+            int id = int.Parse( User.Claims.ElementAt( 0 ).Value );
             return this.CreateResult(await Gateway.GetUserDetails( id ));
         }
 
