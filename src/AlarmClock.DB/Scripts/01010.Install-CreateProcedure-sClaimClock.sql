@@ -10,7 +10,7 @@
 
 -- Create a new stored procedure called 'sClaimClock' in schema 'spi'
 CREATE PROCEDURE spi.sClaimClock
-    @Guid UNIQUEIDENTIFIER,
+    @ClockId INT ,
     @UserId INT
 
 AS
@@ -20,9 +20,11 @@ BEGIN
     BEGIN TRAN;
 
     IF NOT EXISTS (
-
-    select * from spi.tDevice where [GUID] = @Guid
-    )
+        SELECT
+        *
+    FROM
+        spi.tClock
+    WHERE [ClockId] = @ClockId)
 
     BEGIN
         ROLLBACK
@@ -30,11 +32,10 @@ BEGIN
     END
 
     -- Update rows in table 'spi.tClock'
-
     UPDATE spi.tClock
         SET
             [UserId] = @UserId
-        WHERE [ClockId] = (select DeviceId from spi.tDevice where [GUID] = @Guid)
+        WHERE [ClockId] = @ClockId
 
     UPDATE spi.tDevice
         SET

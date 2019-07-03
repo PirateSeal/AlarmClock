@@ -61,7 +61,7 @@
         <br>
         <br>
 
-        <label type="text">Clock Id : {{globalInfo.clocks[$route.params.id].clockId}}</label>
+        <label type="text">Clock Id : {{getUserInfo.clocks[$route.params.id].clockId}}</label>
       </div>
     </div>
 
@@ -87,10 +87,6 @@ import { formatActivationFlag, reformActivationFlag } from "@/api/formatActivati
 export default {
 
   props: {
-    presetData: {
-      type: Object,
-      required: true
-    },
   },
   computed: {
     ...mapGetters({
@@ -100,34 +96,28 @@ export default {
   data() {
     return {
       preset: {
-        // PresetId: this.$route.params.presetId,
-        // PresetName: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName,
-        // WakingTime: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime,
-        // Song: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].song,
-        // ActivationFlag: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag,
-        // Challenge: this.info.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge
+        AlarmPresetId: null, 
+        Name : null,
+        wakingTime: null,
+        Song: null,
+        ActivationFlag: null,
+        Challenge: null
       },
       days: [],
       errors: [],
-      info: {},
-      globalInfo: {}
+      info: {}
     };
   },
   async created() {
-    
-    this.globalInfo = await getGlobalUserInfo();
-    console.log("globalInfo : " + this.globalInfo);
-    this.$store.dispatch("setUserInfo", this.globalInfo);
     if(this.$route.params.presetId != null) {
-      this.preset.clockId                = this.globalInfo.clocks[this.$route.params.id].clockId;
-      this.preset.AlarmPresetId   = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
-      this.preset.Name            = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
-      this.preset.WakingTime      = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
-      this.preset.Song            = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
-      this.preset.ActivationFlag  = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
-      this.preset.Challenge       = this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
+      this.preset.AlarmPresetId   = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetId;
+      this.preset.Name            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].presetName;
+      this.preset.WakingTime      = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].wakingTime;
+      this.preset.Song            = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].song;
+      this.preset.ActivationFlag  = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].activationFlag;
+      this.preset.Challenge       = this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId].challenge;
       
-      this.challenges = this.globalInfo.challenges;
+      this.challenges = this.getUserInfo.challenges;
     }
     this.days = formatActivationFlag(this.preset.ActivationFlag);
     if(this.preset.ActivationFlag & 1 != 0) {
@@ -138,10 +128,8 @@ export default {
     }
   },
   async mounted() {
-    //this.id = this.$route.params.id;
-    
-    this.preset.clockId = this.globalInfo.clocks[this.$route.params.id].clockId 
-    console.log(this.globalInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
+    this.preset.clockId = this.getUserInfo.clocks[this.$route.params.id].clockId 
+    console.log(this.getUserInfo.clocks[this.$route.params.id].presets[this.$route.params.presetId])
   },
 
   methods: {

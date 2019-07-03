@@ -37,12 +37,26 @@ namespace AlarmClock.Device.WebApp.Services
             }
         }
 
+        private string RandomName()
+        {
+            var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[10];
+            var random = new Random();
+
+            for( int i = 0; i < stringChars.Length; i++ )
+            {
+                stringChars[i] = chars[random.Next( chars.Length )];
+            }
+
+            return  new String( stringChars );
+        }
+
         private async Task CreateData()
         {
             try
             {
-                var clockdata = await _clockGateway.CreateOrUpdateClockData( "SmartClock" );
-                var url =  await CreateAclAsync( clockdata.Content.Acl );
+                var clockdata = await _clockGateway.CreateOrUpdateClockData(RandomName());
+                var url = await CreateAclAsync( clockdata.Content.Acl );
                 Console.WriteLine( $"Created at {url}" );
             }
             catch( Exception e )

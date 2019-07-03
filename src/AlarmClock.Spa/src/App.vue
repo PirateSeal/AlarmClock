@@ -27,11 +27,14 @@ export default {
   },
 
   async mounted() {
-  const globalInfo = await getGlobalUserInfo();
-  console.log(globalInfo);
-  this.$store.dispatch("setUserInfo", globalInfo);
-  this.loaded = true;
-  
+    if(AuthService.isConnected){
+    const globalInfo = await getGlobalUserInfo();
+    console.log(globalInfo);
+    this.$store.dispatch("setUserInfo", globalInfo);
+    }
+    this.loaded = true;
+
+    
   },
 
   computed: {
