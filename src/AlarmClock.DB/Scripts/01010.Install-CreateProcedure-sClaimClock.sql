@@ -4,7 +4,7 @@
  * File Created: Friday,5th June 2019 03:30:31 pm                              *
  * Author: Le Phoque Pirate                                                    *
  * --------------------                                                        *
- * Last Modified: Wednesday, 3rd July 2019 2:59:20 pm                          *
+ * Last Modified: Wednesday, 3rd July 2019 3:03:43 pm                          *
  * Modified By: Le Phoque Pirate (tcousin@intechinfo.fr)                       *
  */
 
@@ -40,6 +40,10 @@ BEGIN
     FROM
         spi.tDevice
     WHERE [GUID] = @Guid)
+
+    UPDATE spi.tDevice
+SET [LastSeenDate] = GETDATE()
+    WHERE [GUID] = @Guid
 
     COMMIT
     RETURN 0
