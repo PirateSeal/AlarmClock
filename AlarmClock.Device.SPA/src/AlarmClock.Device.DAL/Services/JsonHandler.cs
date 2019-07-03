@@ -16,37 +16,37 @@ namespace AlarmClock.Device.DAL.Services
 
         private string JsonPath { get; }
 
-        public async Task<Result<ClockData>> OpenJsonAsync()
+        public async Task<Result<DeviceClockData>> OpenJsonAsync()
         {
             if( File.Exists( JsonPath ) )
                 try
                 {
                     string data = await ReadTextAsync( JsonPath );
-                    ClockData clockData = JsonConvert.DeserializeObject<ClockData>( data );
-                    return Result.Success( Status.Ok, clockData );
+                    DeviceClockData deviceClockData = JsonConvert.DeserializeObject<DeviceClockData>( data );
+                    return Result.Success( Status.Ok, deviceClockData );
                 }
                 catch( Exception exception )
                 {
                     Console.WriteLine( exception );
                 }
 
-            return Result.Failure<ClockData>( Status.NotFound, "File not found" );
+            return Result.Failure<DeviceClockData>( Status.NotFound, "File not found" );
         }
 
-        public async Task UpdateJson( ClockData clockData )
+        public async Task UpdateJson( DeviceClockData deviceClockData )
         {
             if( !File.Exists( JsonPath ) ) await WriteTextAsync( JsonPath, "" );
 
             string json;
-            ClockData dataJson = OpenJsonAsync().Result.Content;
+            DeviceClockData dataJson = OpenJsonAsync().Result.Content;
             switch( dataJson )
             {
                 case null:
-                    json = JsonConvert.SerializeObject( clockData );
+                    json = JsonConvert.SerializeObject( deviceClockData );
                     break;
                 default:
-                    dataJson.Acl.Name = clockData.Acl.Name;
-                    dataJson.Presets = clockData.Presets;
+                    dataJson.Acl.Name = deviceClockData.Acl.Name;
+                    dataJson.Presets = deviceClockData.Presets;
                     json = JsonConvert.SerializeObject( dataJson );
                     break;
             }

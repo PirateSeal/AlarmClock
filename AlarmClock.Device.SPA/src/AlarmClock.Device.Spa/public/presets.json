@@ -9,9 +9,16 @@
 
     {
       "Music": "Pharell Williams - Happy.mp3",
-      "Game": "Snake",
+      "Game": "Math",
       "ActivationFlag": 45,
       "AlarmTime": "10:30:00"
+    },
+
+    {
+      "Music": "Pharell Williams - Happy.mp3",
+      "Game": "Math",
+      "ActivationFlag": 255,
+      "AlarmTime": "14:16:00"
     }
   ]
 }

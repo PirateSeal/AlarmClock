@@ -17,7 +17,7 @@ namespace AlarmClock.Device.DAL.Tests
         private PresetGateway PresetGateway { get; }
         private ClockGateway ClockGateway { get; }
 
-        private void CheckPreset( Result<PresetData> preset, TimeSpan wakingTime, string song, byte activationFlag,
+        private void CheckPreset( Result<DevicePresetData> preset, TimeSpan wakingTime, string song, byte activationFlag,
             string challenge )
         {
             Assert.That( preset.Status, Is.EqualTo( Status.Ok ) );
@@ -36,7 +36,7 @@ namespace AlarmClock.Device.DAL.Tests
 
             Assert.That( presetStatus.Status, Is.EqualTo( Status.Created ) );
 
-            Result<PresetData> preset;
+            Result<DevicePresetData> preset;
             int presetId = presetStatus.Content.AlarmPresetId;
 
             {

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AlarmClock.DAL.Data;
 using Dapper;
 
 namespace AlarmClock.DAL

@@ -15,27 +15,27 @@ namespace AlarmClock.Device.DAL.Gateways
     {
         public PresetGateway()
         {
-            JsonHandler = new JsonHandler( "ClockData.json" );
+            JsonHandler = new JsonHandler( "DeviceClockData.json" );
         }
 
         private JsonHandler JsonHandler { get; }
 
-        public async Task UpdateClockInfo( ClockData data )
+        public async Task UpdateClockInfo( DeviceClockData data )
         {
             await JsonHandler.UpdateJson( data );
         }
 
-        public async Task<Result<List<PresetData>>> GetAllPresetsAsync()
+        public async Task<Result<List<DevicePresetData>>> GetAllPresetsAsync()
         {
             var result = await JsonHandler.OpenJsonAsync();
-            ClockData data = result.Content;
+            DeviceClockData data = result.Content;
             return Result.Success( data.Presets );
         }
 
-        public async Task<Result<PresetData>> GetPresetByIdAsync( int id )
+        public async Task<Result<DevicePresetData>> GetPresetByIdAsync( int id )
         {
             var result = await JsonHandler.OpenJsonAsync();
-            ClockData data = result.Content;
+            DeviceClockData data = result.Content;
 
             try
             {
@@ -44,14 +44,14 @@ namespace AlarmClock.Device.DAL.Gateways
             }
             catch( Exception )
             {
-                return Result.Failure<PresetData>( Status.NotFound, "Preset not found" );
+                return Result.Failure<DevicePresetData>( Status.NotFound, "Preset not found" );
             }
         }
 
-        public async Task<Result<PresetData>> CreatePreset( byte activationFlag, string name, int presetId,
+        public async Task<Result<DevicePresetData>> CreatePreset( byte activationFlag, string name, int presetId,
             string challenge, string challengePath, string song, string songPath, TimeSpan wakingTime )
         {
-            PresetData preset = new PresetData
+            DevicePresetData devicePreset = new DevicePresetData
             {
                 ActivationFlag = activationFlag,
                 Name = name,
@@ -62,37 +62,37 @@ namespace AlarmClock.Device.DAL.Gateways
             };
 
             var result = await JsonHandler.OpenJsonAsync();
-            ClockData data = result.Content;
+            DeviceClockData data = result.Content;
 
-            if( data.Presets.Any( dataPreset => dataPreset.AlarmPresetId == preset.AlarmPresetId ) )
-                return Result.Failure<PresetData>( Status.BadRequest, "Preset already exists" );
+            if( data.Presets.Any( dataPreset => dataPreset.AlarmPresetId == devicePreset.AlarmPresetId ) )
+                return Result.Failure<DevicePresetData>( Status.BadRequest, "Preset already exists" );
 
-            data.Presets.Add( preset );
+            data.Presets.Add( devicePreset );
             await JsonHandler.UpdateJson( data );
 
-            return Result.Success( Status.Created, preset );
+            return Result.Success( Status.Created, devicePreset );
         }
 
-        public async Task<Result<PresetData>> UpdatePreset( int id, TimeSpan wakingTime, string name, string song,
+        public async Task<Result<DevicePresetData>> UpdatePreset( int id, TimeSpan wakingTime, string name, string song,
             byte activationFlag, string challenge )
         {
             var result = await JsonHandler.OpenJsonAsync();
-            ClockData clockData = result.Content;
+            DeviceClockData deviceClockData = result.Content;
 
-            if( clockData.Presets.All( dataPreset => dataPreset.AlarmPresetId != id ) )
-                return Result.Failure<PresetData>( Status.NotFound, "Preset not found" );
+            if( deviceClockData.Presets.All( dataPreset => dataPreset.AlarmPresetId != id ) )
+                return Result.Failure<DevicePresetData>( Status.NotFound, "Preset not found" );
 
-            PresetData targetPreset = clockData.Presets.First( dataPreset => dataPreset.AlarmPresetId == id );
+            DevicePresetData targetDevicePreset = deviceClockData.Presets.First( dataPreset => dataPreset.AlarmPresetId == id );
 
-            targetPreset.Name = name;
-            targetPreset.ActivationFlag = activationFlag;
-            targetPreset.Challenge = challenge;
-            targetPreset.Song = song;
-            targetPreset.WakingTime = wakingTime;
+            targetDevicePreset.Name = name;
+            targetDevicePreset.ActivationFlag = activationFlag;
+            targetDevicePreset.Challenge = challenge;
+            targetDevicePreset.Song = song;
+            targetDevicePreset.WakingTime = wakingTime;
 
-            await JsonHandler.UpdateJson( clockData );
+            await JsonHandler.UpdateJson( deviceClockData );
 
-            return Result.Success( Status.Ok, targetPreset );
+            return Result.Success( Status.Ok, targetDevicePreset );
         }
 
         public async Task<Result> DeletePresetById( int id )

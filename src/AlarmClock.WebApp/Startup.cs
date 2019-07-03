@@ -32,6 +32,7 @@ namespace AlarmClock.WebApp
             services.AddSingleton( _ => new UserGateway( Configuration["ConnectionStrings:AlarmClockDB"] ) );
             services.AddSingleton( _ => new PresetGateway( Configuration["ConnectionStrings:AlarmClockDB"] ) );
             services.AddSingleton( _ => new ClockGateway( Configuration["ConnectionStrings:AlarmClockDB"] ) );
+            services.AddSingleton( _ => new UpdateGateway( Configuration["ConnectionStrings:AlarmClockDB"] ) );
             services.AddSingleton( _ => new VernemqGateway( Configuration["ConnectionStrings:vernemq_db"] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
