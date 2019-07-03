@@ -11,8 +11,8 @@
         />
       </div>
     </div>
-    <div v-else>
-Register a new clock </div>
+    <div class="info" v-else>
+Please register a new clock </div>
   </div>
 </template>
 
@@ -29,6 +29,11 @@ export default {
     clock
   },
 
+    async mounted() {
+    const globalInfo = await getGlobalUserInfo();
+    console.log(globalInfo);
+    this.$store.dispatch("setUserInfo", globalInfo);   
+  },
   computed: {
     ...mapGetters({
       getUserInfo: "getUserInfo"
@@ -57,6 +62,10 @@ export default {
 
   .title {
     font-size: 30px;
+  }
+  .info{
+    font-size: 50px;
+
   }
   overflow-y: scroll;
    overflow: hidden;
