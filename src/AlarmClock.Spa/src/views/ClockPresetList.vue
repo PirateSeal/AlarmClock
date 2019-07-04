@@ -11,6 +11,8 @@
 <script>
 import ClockPreset from "@/components/Home/home_connected/clock/clock_preset";
 import { mapGetters } from "vuex";
+import { getGlobalUserInfo } from "@/api/UserApi";
+
 
 export default {
   components: {
@@ -30,6 +32,9 @@ export default {
  async mounted() {
     this.Presets = this.getUserInfo.clocks[this.$route.params.id].presets;
     this.NewPresetId = this.getUserInfo.clocks[this.$route.params.id].clockId;
+      const globalInfo = await getGlobalUserInfo();
+  console.log(globalInfo);
+  this.$store.dispatch("setUserInfo", globalInfo);
   }
 };
 </script>
