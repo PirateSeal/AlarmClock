@@ -20,8 +20,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .Logo{
-    background: url("~/assets/logo.png");
-  //  background-repeat: no-repeat;
+    background: url("~/assets/logo.svg");
+    background-repeat: no-repeat;
     background-size: 100%;
     height: 500px;
     width: 500px;

@@ -11,7 +11,7 @@
         />
       </div>
     </div>
-    <div v-else>
+    <div class="Noclock" v-else>
 Register a new clock </div>
   </div>
 </template>
@@ -71,6 +71,9 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
     flex-direction: row;
+  }
+  .Noclock{
+    font-size: 50px;
   }
 }
 </style>
