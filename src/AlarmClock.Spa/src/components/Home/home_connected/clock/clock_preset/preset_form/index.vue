@@ -159,6 +159,8 @@ export default {
         }
       }
       this.$router.push('/clock/' + this.$route.params.id + '/Presets')
+      vm.$forceUpdate();
+
     }
   }
 };

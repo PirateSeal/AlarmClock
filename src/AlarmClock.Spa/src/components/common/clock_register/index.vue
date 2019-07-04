@@ -1,10 +1,9 @@
 <template>
   <div class="clock_register_form">
     
-     Enter Guid diplay on clock
-    <input type="text" v-model="item.Name" class="clockName">
-
-    <div class="sub" @click="submit()">register</div>
+      <div class="title">Enter Guid displayed on clock</div>
+    <input type="text" v-model="item.StrGuid" class="clockName">
+    <button class="sub" @click="submit()">register</button>
   </div>
 </template>
 
@@ -19,7 +18,8 @@ export default {
   name: "clock_register",
   data() {
     return {
-      item: {}
+      item: {
+      }
 
     }
   },
@@ -40,8 +40,12 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  .title{
+    font-size: 50px;
+  }
 
   .sub{
+    border: solid 1px ;
     &:hover{
       color: white;
       

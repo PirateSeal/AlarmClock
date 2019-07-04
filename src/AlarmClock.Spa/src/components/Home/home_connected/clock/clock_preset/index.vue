@@ -9,7 +9,7 @@
  */
 
 <template>
-  <div class="clock_preset" @click="$router.push('/EditPreset/'+ $route.params.id +'/'+ idx)">
+  <div class="clock_preset" @click="$router.push('/EditPreset/'+ $route.params.id +'/'+ idx)" :class="{ active: isActivePreset()}" >
     <div class="title">{{preset.presetName}}</div>
     <div class="time-container">
       <div
@@ -19,12 +19,12 @@
       >{{wakingTime}}</div>
     </div>
     <div class="days-container">
-      <!-- <div
+       <div
         class="day"
         v-for="(day, index) in days()"
         :key="day.key"
         :class="{ active: isDayActive(clock, index)}"
-      >{{formatDay(day)[0]}}</div>-->
+      >{{formatDay(day)[0]}}</div>
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@ import days from "@/components/enums/days";
 import { deleteClockAsync } from "@/api/clockApi";
 import { mapGetters } from "vuex";
 import { formatActivationFlag } from "@/api/formatActivationFlag";
+import { format } from 'path';
 
 export default {
   name: "clock_preset",
@@ -51,7 +52,9 @@ export default {
     this.$store.dispatch("setUserInfo", this.globalInfo);
   },
   data() {
-    return {};
+    return {
+      clock: ''
+    };
   },
 
   methods: {
@@ -64,8 +67,11 @@ export default {
     formatDay(day) {
       return Object.keys(day)[0];
     },
+    isActivePreset(){
+        return formatActivationFlag(this.preset.activationFlag)[0];
+    },
     isDayActive(clock, index) {
-      return clock.days.find(e => e === index + 1);
+      return formatActivationFlag(this.preset.activationFlag)[index];
     }
   }
 };

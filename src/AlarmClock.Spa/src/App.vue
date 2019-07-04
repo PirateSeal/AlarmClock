@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Nav/>
-    <router-view class="content"></router-view>
+    <router-view v-if="loaded" class="content"></router-view>
     <!-- <Footer /> -->
   </div>
 </template>
@@ -11,6 +11,8 @@ import AuthService from "./services/AuthService";
 import "./directives/requiredProviders";
 import { state } from "./state";
 import NavBar from "./components/NavBar";
+import { getGlobalUserInfo } from "@/api/UserApi";
+
 
 export default {
   name: "App",
@@ -19,8 +21,17 @@ export default {
   },
   data() {
     return {
-      state
+      state,
+      loaded :  false 
     };
+  },
+
+  async mounted() {
+  const globalInfo = await getGlobalUserInfo();
+  console.log(globalInfo);
+  this.$store.dispatch("setUserInfo", globalInfo);
+  this.loaded = true;
+  
   },
 
   computed: {
@@ -48,7 +59,7 @@ export default {
     overflow: hidden;
     overflow-y: scroll;
     text-align: center;
-    height: 94vh;
+    height: 98vh;
     width: 100%;
     z-index: 0;
     background: #2E85BF;
