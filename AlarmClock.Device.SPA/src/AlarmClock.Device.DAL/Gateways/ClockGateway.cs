@@ -13,7 +13,7 @@ namespace AlarmClock.Device.DAL.Gateways
             JsonHandler = new JsonHandler( "DeviceClockData.json" );
         }
 
-        private JsonHandler JsonHandler { get; }
+        public JsonHandler JsonHandler { get; }
 
         public async Task<Result<DeviceClockData>> CreateOrUpdateClockData( string name )
         {

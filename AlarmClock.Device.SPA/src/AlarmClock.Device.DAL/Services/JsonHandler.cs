@@ -56,7 +56,7 @@ namespace AlarmClock.Device.DAL.Services
             Result.Success();
         }
 
-        private async Task<string> ReadTextAsync( string filePath )
+        public async Task<string> ReadTextAsync( string filePath )
         {
             using( FileStream source = File.OpenRead( filePath ) )
             using( TextReader tr = new StreamReader( source, Encoding.UTF8, true ) )

@@ -20,6 +20,6 @@ namespace Alarmclock.WebApp.Controllers
         public async Task<IActionResult> UpdateClock( [FromBody] DeviceDataViewModel model )
         {
             return Ok( await Gateway.UpdateClock( model.Acl.Guid ) );
-        }
+         }
     }
 }

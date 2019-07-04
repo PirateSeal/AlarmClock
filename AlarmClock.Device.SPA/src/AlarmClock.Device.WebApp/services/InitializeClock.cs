@@ -42,7 +42,7 @@ namespace AlarmClock.Device.WebApp.Services
             try
             {
                 var clockdata = await _clockGateway.CreateOrUpdateClockData( "SmartClock" );
-                var url =  await CreateAclAsync( clockdata.Content.Acl );
+                Uri url =  await CreateAclAsync( clockdata.Content.Acl );
                 Console.WriteLine( $"Created at {url}" );
             }
             catch( Exception e )

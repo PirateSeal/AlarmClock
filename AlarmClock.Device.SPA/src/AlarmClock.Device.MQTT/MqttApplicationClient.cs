@@ -15,8 +15,9 @@ namespace AlarmClock.Device.MQTT
         /// <summary>
         ///     Mqtt client configuration
         /// </summary>
-        public MqttApplicationClient()
+        public MqttApplicationClient( Acl acl )
         {
+            Acl = acl;
             Factory = new MqttFactory();
             Client = Factory.CreateMqttClient();
             Options = new MqttClientOptionsBuilder()
@@ -28,7 +29,6 @@ namespace AlarmClock.Device.MQTT
         private IMqttClient Client { get; }
         private IMqttClientOptions Options { get; }
         private Acl Acl { get; }
-        private string ClientTopic { get; set; }
 
         private async Task EnsureIsConnected()
         {

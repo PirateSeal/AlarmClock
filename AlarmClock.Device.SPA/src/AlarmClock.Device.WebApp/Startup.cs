@@ -1,4 +1,5 @@
 using AlarmClock.Device.DAL.Gateways;
+using AlarmClock.Device.WebApp.services;
 using AlarmClock.Device.WebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +49,9 @@ namespace AlarmClock.Device.WebApp
 
             InitializeClock initialize = new InitializeClock();
             await initialize.CreateIfNotExist();
+
+            PresetPoller poller  = new PresetPoller();
+            poller.Poll();
         }
 
 
